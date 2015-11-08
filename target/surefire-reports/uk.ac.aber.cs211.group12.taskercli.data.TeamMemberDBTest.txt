@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: uk.ac.aber.cs211.group12.taskercli.data.TeamMemberDBTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.358 sec
