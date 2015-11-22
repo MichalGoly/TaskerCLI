@@ -3,6 +3,7 @@ package uk.ac.aber.cs211.group12.taskercli.data;
 import java.io.IOException;
 import java.sql.SQLException;
 import junit.framework.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
@@ -12,11 +13,16 @@ import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
  * @author Michal Goly
  */
 public class TeamMemberDBTest {
-
+   
+   @Before
+   public void repopulateTheDatabase() {
+      
+   }
+   
    @Test
    public void assertTeamMemberHasProperName() throws IOException {
       try {
-         String email = "josh@aber.ac.uk";
+         String email = "josh@abber.ac.uk";
          TeamMember bob = TeamMemberDB.selectTeamMemberByEmail(email);        
          Assert.assertEquals("Joshua", bob.getFirstName());
       } catch (SQLException e) {
