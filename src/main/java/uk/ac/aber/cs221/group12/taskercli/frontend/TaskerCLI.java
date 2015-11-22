@@ -1,7 +1,6 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.EventQueue;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class TaskerCLI {
@@ -22,7 +21,7 @@ public class TaskerCLI {
 
          @Override
          public void run() {
-            System.out.println("Hello");
+            
          }
       });
    }
