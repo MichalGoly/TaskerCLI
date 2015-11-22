@@ -1,14 +1,30 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
+import java.awt.EventQueue;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
 public class TaskerCLI {
 
-	public TaskerCLI() {
-		// TODO Auto-generated constructor stub
-	}
+   public static void main(String[] args) {
+      try {
+         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      } catch (Exception e) {
+         try {
+            UIManager.setLookAndFeel(UIManager
+                    .getCrossPlatformLookAndFeelClassName());
+         } catch (Exception ex) {
+            System.exit(-1);
+         }
+      }
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+      EventQueue.invokeLater(new Runnable() {
 
-	}
+         @Override
+         public void run() {
+            System.out.println("Hello");
+         }
+      });
+   }
 
 }

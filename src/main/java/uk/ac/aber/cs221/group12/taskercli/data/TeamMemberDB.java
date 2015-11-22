@@ -16,15 +16,15 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
  */
 public class TeamMemberDB {
 
-   public static final String SELECT_MEMBERS
+   public static final String SELECT_MEMBER
            = "SELECT * FROM TeamMember "
            + "WHERE email = ?";
-   
-   public static final String UPDATE_MEMBER 
+
+   public static final String UPDATE_MEMBER
            = "UPDATE TeamMember "
            + "SET firstName = ?, lastName = ?, password = ? "
            + "WHERE email = ?";
-   
+
    public static TeamMember selectTeamMemberByEmail(String email)
            throws SQLException, IOException {
       TeamMember teamMember = null;
@@ -32,7 +32,7 @@ public class TeamMemberDB {
               = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
-         try (PreparedStatement ps = conn.prepareStatement(SELECT_MEMBERS)) {
+         try (PreparedStatement ps = conn.prepareStatement(SELECT_MEMBER)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
                while (rs.next()) {
@@ -48,12 +48,12 @@ public class TeamMemberDB {
       }
       return teamMember;
    }
-   
-   public static void updateTeamMember(TeamMember teamMember) throws 
+
+   public static void updateTeamMember(TeamMember teamMember) throws
            SQLException, IOException {
-      Properties props 
+      Properties props
               = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
-      
+
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_MEMBER)) {
             ps.setString(1, teamMember.getFirstName());
