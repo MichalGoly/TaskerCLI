@@ -5,10 +5,12 @@
  */
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
+import javax.swing.JDialog;
+
 /**
  *
  * @author Michal Goly
  */
-public class TaskFrame {
+public class TaskFrame extends JDialog {
    
 }

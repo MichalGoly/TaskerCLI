@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
+import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 
 /**
@@ -12,12 +8,21 @@ import javax.swing.JFrame;
  * @author Michal Goly
  */
 public class MainFrame extends JFrame {
-   
-   public static final int DEFAULT_WIDTH = 800;
-   public static final int DEFAULT_HEIGHT = 600;
-   
+      
    public MainFrame() {
+      initComponents();
+      initFrame();
+   }
+
+   private void initComponents() {
+      setLayout(new GridBagLayout());
+      
       
    }
+
+   private void initFrame() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   }
+   
    
 }

@@ -1,6 +1,7 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.EventQueue;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 public class TaskerCLI {
@@ -21,7 +22,8 @@ public class TaskerCLI {
 
          @Override
          public void run() {
-            
+            JFrame frame = new MainFrame();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          }
       });
    }
