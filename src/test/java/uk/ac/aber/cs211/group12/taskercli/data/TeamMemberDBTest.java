@@ -16,9 +16,9 @@ public class TeamMemberDBTest {
    @Test
    public void assertTeamMemberHasProperName() throws IOException {
       try {
-         String email = "bob@smith.com";
-         TeamMember bob = TeamMemberDB.selectTeamMemberByEmail(email);
-         Assert.assertEquals("Bob", bob.getFirstName());
+         String email = "josh@aber.ac.uk";
+         TeamMember bob = TeamMemberDB.selectTeamMemberByEmail(email);        
+         Assert.assertEquals("Joshua", bob.getFirstName());
       } catch (SQLException e) {
          for (Throwable t : e) {
             System.err.println(t);
@@ -29,9 +29,9 @@ public class TeamMemberDBTest {
    @Test
    public void assertTeamMemberHasProperTask() throws IOException {
       try {
-         String email = "m.goly@goly2.com";
+         String email = "michal@goly.com";
          TeamMember mike = TeamMemberDB.selectTeamMemberByEmail(email);
-         Assert.assertEquals(2, mike.getTaskList().size());
+         Assert.assertEquals(1, mike.getTaskList().size());
       } catch (SQLException e) {
          for (Throwable t : e) {
             System.err.println(t);
