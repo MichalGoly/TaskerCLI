@@ -48,8 +48,21 @@ public class TaskElementDB {
       return taskElementList;
    }
 
-   public static void updateTaskElements(List<TaskElement> taskElementList) {
-
+   public static void updateTaskElements(List<TaskElement> taskElementList)
+           throws SQLException, IOException {
+      Properties props
+              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+      
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASKELEMENT)) {
+            for (TaskElement element : taskElementList) {
+               ps.setString(1, element.getDescription());
+               ps.setString(2, element.getComments());
+               ps.setLong(3, element.getTaskElementId());
+               ps.executeUpdate();
+            }
+         }
+      }
    }
 
 }
