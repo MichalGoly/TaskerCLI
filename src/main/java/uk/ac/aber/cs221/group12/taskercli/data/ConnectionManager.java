@@ -17,20 +17,18 @@ public class ConnectionManager {
    
    public static final int MYSQL = 1;
    public static final int SQLITE = 2;
-   private static int current = MYSQL;
-
+   
+   private static final int MYSQL_PROPERTIES_SIZE = 4;
    
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
          return null;
       }
-
+      
       String propertiesURI = "";
       if (database == MYSQL) {
-         current = MYSQL;
          propertiesURI = "src/main/resources/META-INF/mysql.properties";
       } else {
-         current = SQLITE;
          propertiesURI = "src/main/resources/META-INF/sqlite.properties";
       }
       
@@ -51,7 +49,7 @@ public class ConnectionManager {
          System.setProperty("jdbc.drivers", drivers);
       }
 
-      if (current == MYSQL) {
+      if (props.size() == MYSQL_PROPERTIES_SIZE) {
          String username = props.getProperty("jdbc.username");
          String password = props.getProperty("jdbc.password");
          String url = props.getProperty("jdbc.url");
