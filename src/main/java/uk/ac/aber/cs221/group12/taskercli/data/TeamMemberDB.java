@@ -25,11 +25,11 @@ public class TeamMemberDB {
            + "SET firstName = ?, lastName = ?, password = ? "
            + "WHERE email = ?";
 
-   public static TeamMember selectTeamMemberByEmail(String email)
+   public static TeamMember selectTeamMemberByEmail(String email, int database)
            throws SQLException, IOException {
       TeamMember teamMember = null;
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(SELECT_MEMBER)) {

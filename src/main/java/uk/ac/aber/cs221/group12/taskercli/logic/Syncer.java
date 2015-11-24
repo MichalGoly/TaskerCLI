@@ -6,12 +6,16 @@
 package uk.ac.aber.cs221.group12.taskercli.logic;
 
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
+import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
+import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 
 /**
  *
@@ -51,9 +55,36 @@ public class Syncer {
             /*
               1. Try to select a team member from the remote Database
               2. If succeed:
-                     - Retrieve local 
+                     - Retrieve local copy
+                     - Check if they are equal
+                           + log in 
+                           - sync and log in using merged Bob :)
+              3. If unsuccessful:
+                     - Log in using the local Bob
             */
-
+            TeamMember remote;
+            TeamMember local;
+            
+            try {
+               remote = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(), 
+                       ConnectionManager.MYSQL);
+               
+            } catch (SQLException | IOException e) {
+               // Was not able to connect to the remote database
+               // TODO let user know!
+               try {
+                  local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
+                          ConnectionManager.SQLITE);
+                  if (local != null) {
+                     // log in using local bob
+                     teamMember = local;
+                     loggedIn = true;
+                  }
+               } catch (SQLException | IOException ex) {
+                  JOptionPane.showMessageDialog(null, 
+                          "Not able to connect to either remote or local DB!");
+               }
+            }
          } else {
             System.exit(0);
          }
