@@ -36,7 +36,7 @@ public class Syncer {
       
       while (!loggedIn) {
          JPanel inputPanel = new JPanel();
-         JLabel emailLabel = new JLabel("Username");
+         JLabel emailLabel = new JLabel("Email");
          JTextField email = new JTextField(10);
          JLabel passwordLabel = new JLabel("Password");
          JPasswordField password = new JPasswordField(10);
