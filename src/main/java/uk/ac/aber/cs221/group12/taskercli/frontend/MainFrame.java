@@ -21,6 +21,8 @@ public class MainFrame extends JFrame {
    private SidebarPanel sidebarPanel;
    private JTable table;
    
+   private TeamMember teamMember;
+   
    public MainFrame() {
       initComponents();
       initFrame();
@@ -33,7 +35,6 @@ public class MainFrame extends JFrame {
               .setFill(GBC.BOTH));
       
       // Syncer code should take care of logging in
-      TeamMember teamMember = null;
       try {
          teamMember = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com");
       } catch (Exception e) {
@@ -41,13 +42,14 @@ public class MainFrame extends JFrame {
       }
       
       JScrollPane scrollPane = new JScrollPane(new JTable(createModel(teamMember)));
-      add(scrollPane, new GBC(4, 0, 12, 8).setFill(GBC.BOTH).setWeight(100, 100));
+      add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
+      
    }
 
    private void initFrame() {
       pack();
       setLocationRelativeTo(null);
-      setTitle("TaskerCLI");
+      setTitle("Tasker - Welcome, " + teamMember.getFirstName());
       setVisible(true);
    }
 
@@ -56,6 +58,7 @@ public class MainFrame extends JFrame {
       columnNames.add("Task");
       columnNames.add("Start Date");
       columnNames.add("End Date");
+      columnNames.add("Sub-tasks");
       columnNames.add("Status");
       
       Vector<Vector<Object>> data = new Vector<>();
@@ -64,6 +67,7 @@ public class MainFrame extends JFrame {
           row.add(t.getTitle());
           row.add(t.getStartDate());
           row.add(t.getEndDate());
+          row.add(t.getTaskElementList().size());
           row.add(t.getStatus().toString());
           data.add(row);
       }

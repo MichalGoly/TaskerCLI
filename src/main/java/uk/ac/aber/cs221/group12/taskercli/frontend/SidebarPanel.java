@@ -15,8 +15,8 @@ import javax.swing.JTextField;
  */
 public class SidebarPanel extends JPanel {
    
-   public static final int DEFAULT_WIDTH = 200;
-   public static final int DEFAULT_HEIGHT = 600;
+//   public static final int DEFAULT_WIDTH = 200;
+//   public static final int DEFAULT_HEIGHT = 600;
    
    private JTextField searchField;
    private JButton searchButton;
@@ -31,10 +31,9 @@ public class SidebarPanel extends JPanel {
    }
    
    private void initComponents() {
-      setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
       
-      searchField = new JTextField("Search...", DEFAULT_WIDTH);
+      searchField = new JTextField("Search...", 200);
       add(searchField);
       
       searchButton = new JButton(new AbstractAction("Submit") {
@@ -75,6 +74,7 @@ public class SidebarPanel extends JPanel {
          }
       });
       add(logoutButton);
+      
    }
    
 }
