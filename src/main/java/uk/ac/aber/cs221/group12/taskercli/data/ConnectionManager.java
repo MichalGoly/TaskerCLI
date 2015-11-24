@@ -17,6 +17,16 @@ public class ConnectionManager {
    
    public static final int MYSQL = 1;
    public static final int SQLITE = 2;
+   private static int current = MYSQL;
+
+   public static void modeSQLite(){
+      current = SQLITE;
+   }
+
+   public static void modeMYSQL(){
+      current = MYSQL;
+   }
+
    
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
@@ -36,7 +46,8 @@ public class ConnectionManager {
       }
       return prop;
    }
-   
+
+   // we might need to keep two connections open for syncer
    public static Connection getConnection(Properties props) throws SQLException {
 
       // register the JDBC driver
@@ -46,11 +57,16 @@ public class ConnectionManager {
          System.setProperty("jdbc.drivers", drivers);
       }
 
-      String username = props.getProperty("jdbc.username");
-      String password = props.getProperty("jdbc.password");
-      String url = props.getProperty("jdbc.url");
+      if (current == MYSQL) {
+         String username = props.getProperty("jdbc.username");
+         String password = props.getProperty("jdbc.password");
+         String url = props.getProperty("jdbc.url");
 
-      return DriverManager.getConnection(url, username, password);
+         return DriverManager.getConnection(url, username, password);
+      } else {
+         String filename = props.getProperty("jdbc.filename");
+         return DriverManager.getConnection(filename);
+      }
    }
 
 
