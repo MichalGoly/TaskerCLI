@@ -15,11 +15,6 @@ import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
  */
 public class TeamMemberDBTest {
    
-   @Before
-   public void repopulateTheDatabase() {
-      
-   }
-   
    @Test
    public void assertTeamMemberHasProperName() throws IOException {
       try {
