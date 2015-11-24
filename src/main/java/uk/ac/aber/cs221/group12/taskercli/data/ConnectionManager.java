@@ -25,9 +25,9 @@ public class ConnectionManager {
       
       String propertiesURI = "";
       if (database == MYSQL) {
-         propertiesURI = "src/main/resources/META-INF/database.properties";
+         propertiesURI = "src/main/resources/META-INF/mysql.properties";
       } else {
-         // TODO SQLITE
+         propertiesURI = "src/main/resources/META-INF/sqlite.properties";
       }
       
       Properties prop = new Properties();
@@ -52,5 +52,7 @@ public class ConnectionManager {
 
       return DriverManager.getConnection(url, username, password);
    }
+
+
 
 }
