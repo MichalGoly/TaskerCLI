@@ -24,7 +24,12 @@
   		databases and can be accessed and modified using the getters and setters provided. Each task has an associated list of task elements. The status of a task is stored as an integer in the database and is then transformed to an appropriate \textbf{TaskStatus} Enum inside the program.
   		\item \textbf{TaskElement} class abstracts the TaskElement table in both databases. Its instance variables correspond to collumns inside 
   		databases and can be accessed and modified using the getters and setters provided. 
-  		\item \textbf{TeamMemberDB} class is one of the data access classes in the DAO pattern. It provides useful methods which can be used to retrieve and update the \textbf{TeamMember} objects in both databases. For example the \texttt{selectTeamMemberByEmail} method will as expected construct a suitable SQL query,  
+  		\item \textbf{TeamMemberDB} class is one of the data access classes in the DAO pattern. It provides useful methods which can be used to retrieve and update the \textbf{TeamMember} objects in both databases. For example the \texttt{selectTeamMemberByEmail} method will as expected acquire the connection to either the MySQL or SQLite database, prepare a suitable query statement, construct the \textbf{TeamMember}
+  		object and return it back to the caller. This is a really powerful concept which abstracts the raw SQL from the graphical user interface. After we make some changes to the object, we can use a single method \texttt{updateTeamMember} to put it back to the database. 
+  		\item \textbf{TaskDB} class is very similiar to the previously described \textbf{TeamMemberDB} class. It also is a part of the DAO pattern and provides direct access to the information stored in the task table in both databases. It will be typically only used by the previosuly mentioned \textbf{TeamMemberDB} to construct the complete \textbf{TeamMember} object.
+  		\item \textbf{TaskElementDB} class is basically the same as the previous one, but it enables the access to the TaskElement table in both databases.
+  		\item \textbf{ConnectionManager} class can be used to actually connect to both databases. It enables the caller to acquire a \texttt{Connection} object to either the remote MySQL (TaskerSRV), or locally run SQLite. \textbf{ConnectionManager} is capable of registering appropriate JDBC drivers depending on the connection required. 
+
 
   \end{itemize}
   
