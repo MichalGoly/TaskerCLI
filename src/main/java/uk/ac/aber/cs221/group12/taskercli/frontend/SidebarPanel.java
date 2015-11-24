@@ -23,7 +23,7 @@ public class SidebarPanel extends JPanel {
    private JButton returnButton;
    //private JComboBox sortComboBox;
    private JLabel taskNumberLabel;
-   private JButton openButton;
+   //private JButton openButton;
    private JButton logoutButton;
    
    public SidebarPanel() {
@@ -54,22 +54,23 @@ public class SidebarPanel extends JPanel {
       });
       add(returnButton);
       
-      taskNumberLabel = new JLabel("Number of tasks: " + "3");
+      taskNumberLabel = new JLabel("Number of tasks: " + "2");
       add(taskNumberLabel);
       
-      openButton = new JButton(new AbstractAction("Open") {
-
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            //TODO
-         }
-      });
-      add(openButton);
+//      openButton = new JButton(new AbstractAction("Open") {
+//
+//         @Override
+//         public void actionPerformed(ActionEvent e) {
+//            //TODO
+//         }
+//      });
+//      add(openButton);
       
       logoutButton = new JButton(new AbstractAction("Logout") {
 
          @Override
          public void actionPerformed(ActionEvent e) {
+            //sync on log out
             System.exit(0);
          }
       });

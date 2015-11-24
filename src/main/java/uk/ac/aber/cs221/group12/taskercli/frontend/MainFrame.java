@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
-import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
 /**
@@ -23,7 +22,8 @@ public class MainFrame extends JFrame {
    
    private TeamMember teamMember;
    
-   public MainFrame() {
+   public MainFrame(TeamMember teamMember) {
+      this.teamMember = teamMember;
       initComponents();
       initFrame();
    }
@@ -33,14 +33,7 @@ public class MainFrame extends JFrame {
       sidebarPanel = new SidebarPanel();
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
-      
-      // Syncer code should take care of logging in
-      try {
-         teamMember = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com");
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      
+            
       JScrollPane scrollPane = new JScrollPane(new JTable(createModel(teamMember)));
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
       
