@@ -25,11 +25,11 @@ public class TaskElementDB {
            + "SET description = ?, comments = ? "
            + "WHERE taskElementId = ?";
 
-   public static List<TaskElement> selectTaskElementsByTaskId(Long taskId)
+   public static List<TaskElement> selectTaskElementsByTaskId(Long taskId, int database)
            throws SQLException, IOException {
       List<TaskElement> taskElementList = new ArrayList<>();
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(SELECT_TASK_ELEMENTS)) {
@@ -48,10 +48,10 @@ public class TaskElementDB {
       return taskElementList;
    }
 
-   public static void updateTaskElements(List<TaskElement> taskElementList)
+   public static void updateTaskElements(List<TaskElement> taskElementList, int database)
            throws SQLException, IOException {
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
       
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASKELEMENT)) {

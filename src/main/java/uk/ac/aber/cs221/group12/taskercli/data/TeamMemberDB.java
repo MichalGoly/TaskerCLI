@@ -39,7 +39,7 @@ public class TeamMemberDB {
                   String firstName = rs.getString("firstName");
                   String lastName = rs.getString("lastName");
                   String password = rs.getString("password");
-                  List<Task> taskList = TaskDB.selectTasks(email);
+                  List<Task> taskList = TaskDB.selectTasks(email, database);
                   teamMember = new TeamMember(firstName, lastName, email,
                           password, taskList);
                }
@@ -49,7 +49,9 @@ public class TeamMemberDB {
       return teamMember;
    }
 
-   public static void updateTeamMember(TeamMember teamMember) throws
+
+   //if we are updating the database, with the teammember object, assume it is the merged version after syncing
+   public static void updateTeamMember(TeamMember teamMember, int database) throws
            SQLException, IOException {
       Properties props
               = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
@@ -61,20 +63,7 @@ public class TeamMemberDB {
             ps.setString(3, teamMember.getPassword());
             ps.setString(4, teamMember.getEmail());
             ps.executeUpdate();
-            TaskDB.updateTasks(teamMember.getTaskList());
-         }
-      }
-      props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.SQLITE);
-
-      try (Connection conn = ConnectionManager.getConnection(props)) {
-         try (PreparedStatement ps = conn.prepareStatement(UPDATE_MEMBER)) {
-            ps.setString(1, teamMember.getFirstName());
-            ps.setString(2, teamMember.getLastName());
-            ps.setString(3, teamMember.getPassword());
-            ps.setString(4, teamMember.getEmail());
-            ps.executeUpdate();
-            TaskDB.updateTasks(teamMember.getTaskList());
+            TaskDB.updateTasks(teamMember.getTaskList(), database);
          }
       }
    }

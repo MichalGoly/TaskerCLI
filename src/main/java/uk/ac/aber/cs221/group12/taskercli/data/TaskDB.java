@@ -27,11 +27,11 @@ public class TaskDB {
            + "SET title = ?, startDate = ?, endDate = ?, taskStatus = ? "
            + "WHERE taskId = ?";
 
-   public static List<Task> selectTasks(String email) throws SQLException,
+   public static List<Task> selectTasks(String email, int database) throws SQLException,
            IOException {
       List<Task> taskList = new ArrayList<>();
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(SELECT_TASKS)) {
@@ -44,7 +44,7 @@ public class TaskDB {
                   Date endDate = rs.getDate("endDate");
                   TaskStatus status = TaskStatus.fromInt(rs.getInt("taskStatus"));
                   List<TaskElement> taskElementList
-                          = TaskElementDB.selectTaskElementsByTaskId(taskId);
+                          = TaskElementDB.selectTaskElementsByTaskId(taskId, database);
                   taskList.add(new Task(taskId, title, startDate, endDate, status,
                           taskElementList));
                }
@@ -54,10 +54,10 @@ public class TaskDB {
       return taskList;
    }
 
-   public static void updateTasks(List<Task> taskList) throws SQLException, 
+   public static void updateTasks(List<Task> taskList, int database) throws SQLException,
            IOException {
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
       
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASK)) {
@@ -68,7 +68,7 @@ public class TaskDB {
                ps.setInt(4, t.getStatus().toInt());
                ps.setLong(5, t.getTaskId());
                ps.executeUpdate();
-               TaskElementDB.updateTaskElements(t.getTaskElementList());
+               TaskElementDB.updateTaskElements(t.getTaskElementList(), database);
             }
          }
       }
