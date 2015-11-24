@@ -96,10 +96,10 @@ public class Syncer {
    public static TeamMember sync(TeamMember remote, TeamMember local) {
       TeamMember merged = null;
       
-      // marge remote and local copy of Bob by considering the precedense imposed
+      // marge remote and local copy of Bob by considering the precedence imposed
       // in the QA Requirements Specification of the assignment
       
-      // try to put merged bob into both local and rmeote database
+      // try to put merged bob into both local and remote database
       // alert the user in case of problems which can occur !
       
       return merged;
