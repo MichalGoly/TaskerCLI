@@ -12,7 +12,21 @@
   
   In order to access the abstracted data from the database we use a selection of data access classes:
   These classes apply the DAO pattern, and call methods in order to send properly formatted SQL queries to the appropriate database, and present the result of the queries in the form of the previously described entities. 
-  This object is then 
+  This object is then used by the UI classes in order to generate the view.
+
+  \subsubsection{Description of each significant Class}
+
+  \begin{itemize}
+  		\item \textbf{TeamMember} class abstracts the TeamMember table in both databases. Its instance variables correspond to collumns inside 
+  		databases and can be accessed and modified using the getters and setters provided. Instance of this class will be used to populate
+  		the user interface with data in the program.
+  		\item \textbf{Task} class abstracts the Task table in both databases. Its instance variables correspond to collumns inside 
+  		databases and can be accessed and modified using the getters and setters provided. Each task has an associated list of task elements. The status of a task is stored as an integer in the database and is then transformed to an appropriate \textbf{TaskStatus} Enum inside the program.
+  		\item \textbf{TaskElement} class abstracts the TaskElement table in both databases. Its instance variables correspond to collumns inside 
+  		databases and can be accessed and modified using the getters and setters provided. 
+  		\item \textbf{TeamMemberDB} class is one of the data access classes in the DAO pattern. It provides useful methods which can be used to retrieve and update the \textbf{TeamMember} objects in both databases. For example the \texttt{selectTeamMemberByEmail} method will as expected construct a suitable SQL query,  
+
+  \end{itemize}
   
   
 
