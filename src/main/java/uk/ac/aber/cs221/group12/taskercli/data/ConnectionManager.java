@@ -19,24 +19,18 @@ public class ConnectionManager {
    public static final int SQLITE = 2;
    private static int current = MYSQL;
 
-   public static void modeSQLite(){
-      current = SQLITE;
-   }
-
-   public static void modeMYSQL(){
-      current = MYSQL;
-   }
-
    
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
          return null;
       }
-      
+
       String propertiesURI = "";
       if (database == MYSQL) {
+         current = MYSQL;
          propertiesURI = "src/main/resources/META-INF/mysql.properties";
       } else {
+         current = SQLITE;
          propertiesURI = "src/main/resources/META-INF/sqlite.properties";
       }
       

@@ -64,6 +64,18 @@ public class TeamMemberDB {
             TaskDB.updateTasks(teamMember.getTaskList());
          }
       }
+      props
+              = ConnectionManager.getDatabaseProperties(ConnectionManager.SQLITE);
+
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(UPDATE_MEMBER)) {
+            ps.setString(1, teamMember.getFirstName());
+            ps.setString(2, teamMember.getLastName());
+            ps.setString(3, teamMember.getPassword());
+            ps.setString(4, teamMember.getEmail());
+            ps.executeUpdate();
+            TaskDB.updateTasks(teamMember.getTaskList());
+         }
    }
 
 }
