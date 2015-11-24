@@ -76,6 +76,7 @@ public class TeamMemberDB {
             ps.executeUpdate();
             TaskDB.updateTasks(teamMember.getTaskList());
          }
+      }
    }
 
 }
