@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
       setLayout(new GridBagLayout());
       sidebarPanel = new SidebarPanel();
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
-              .setFill(GBC.HORIZONTAL));
+              .setFill(GBC.BOTH));
       
       // Syncer code should take care of logging in
       TeamMember teamMember = null;
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
       }
       
       JScrollPane scrollPane = new JScrollPane(new JTable(createModel(teamMember)));
-      add(scrollPane, new GBC(0, 4, 12, 8).setFill(GBC.BOTH).setWeight(100, 100));
+      add(scrollPane, new GBC(4, 0, 12, 8).setFill(GBC.BOTH).setWeight(100, 100));
    }
 
    private void initFrame() {
