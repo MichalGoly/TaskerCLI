@@ -50,7 +50,7 @@ public class TeamMemberDBTest {
          TeamMember member = TeamMemberDB.selectTeamMemberByEmail(email,
                  ConnectionManager.MYSQL);
          member.getTaskList().get(0).setStatus(TaskStatus.COMPLETED);
-         TeamMemberDB.updateTeamMember(member);
+         TeamMemberDB.updateTeamMember(member,1);
          
          TeamMember sameMember = TeamMemberDB.selectTeamMemberByEmail(email,
                  ConnectionManager.MYSQL);
