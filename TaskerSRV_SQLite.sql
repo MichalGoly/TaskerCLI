@@ -1,4 +1,4 @@
--- SQLite specific script to create the initial strucure for the 
+-- SQLite specific script to create the initial structure for the 
 -- locally run database for TaskerCLI.
 
 -- version 1.0, Michal Goly
