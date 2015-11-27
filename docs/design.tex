@@ -4,7 +4,7 @@
   \includegraphics{image1.gif}
 
   We are using the Data Access Object design pattern, to abstract our database contents and more easily access it from within the Java client.
-  We've abstracted our database tables into Java entities, as an example, in the image above TaskElement.java corresponds to the TaskElement table in the databases.
+  We've abstracted our database tables into Java entities, as an example, in the image above TaskElement.java corresponds to the TaskElement table in both databases.
   
   
   
@@ -17,7 +17,7 @@
   \subsubsection{Description of each significant Class}
 
   \begin{itemize}
-  		\item \textbf{TeamMember} class abstracts the TeamMember table in both databases. Its instance variables correspond to collumns inside 
+  		\item \textbf{TeamMember} class abstracts the TeamMember table in both databases. Its instance variables correspond to columns inside 
   		databases and can be accessed and modified using the getters and setters provided. Instance of this class will be used to populate
   		the user interface with data in the program.
   		\item \textbf{Task} class abstracts the Task table in both databases. Its instance variables correspond to collumns inside 
@@ -29,12 +29,12 @@
   		\item \textbf{TaskDB} class is very similiar to the previously described \textbf{TeamMemberDB} class. It also is a part of the DAO pattern and provides direct access to the information stored in the task table in both databases. It will be typically only used by the previosuly mentioned \textbf{TeamMemberDB} to construct the complete \textbf{TeamMember} object.
   		\item \textbf{TaskElementDB} class is basically the same as the previous one, but it enables the access to the TaskElement table in both databases.
   		\item \textbf{ConnectionManager} class can be used to actually connect to both databases. It enables the caller to acquire a \texttt{Connection} object to either the remote MySQL (TaskerSRV), or locally run SQLite. \textbf{ConnectionManager} is capable of registering appropriate JDBC drivers depending on the connection required. 
-        \item \textbf{Syncer} class contains the logic for conflict resolution between the contents of the two databases within its \texttt{sync} method. The sync method takes two \textbf{TaskMember} objects, generates a canonical TeamMember object, which is supplied to the databases and ui. The Syncer class also contains the \texttt{login} method, displaying a dialog for user login and returning an appropriate \textbf{TeamMember} object.
-        class also contains a \textbf{Timer} object used to invoke syncing at regular intervals.
+        \item \textbf{Syncer} class contains the logic for conflict resolution between the contents of the two databases within its \texttt{sync} method. The sync method takes two \textbf{TaskMember} objects, generates a canonical TeamMember object, which is supplied to the databases and UI. The Syncer class also contains the \texttt{login} method, displaying a dialog for user login and returning an appropriate \textbf{TeamMember} object.
+        The Class also contains a \textbf{Timer} object used to invoke syncing at regular intervals.
         \item \textbf{TaskerCLI} class is the main class that is run when the application begins. It calls the \textbf{Syncer} classes \texttt{login} method and passes the returned \textbf{TeamMember} onto the UI Classes.
-        \item \textbf{MainFrame} extends \textbf{JFrame} class is the primary view after the login menu, and displays a \textbf{TeamMember} object's Tasks in a sortable JTable, clicking on this invokes \textbf{TaskFrame}. Also displays \textbf{SidebarPanel}.
-        \item \textbf{SidebarPanel} extends \textbf{JFrame} class is used for controls within \textbf{SidebarPanel}, such as logging out and searching tasks.
-        \item \textbf{TaskFrame} extends \textbf{JDialog} class is used to display details of a task when invoked by \textbf{MainFrame}. Allows editing of \textbf{TaskElement} and also marking of a Task as complete.
+        \item \textbf{MainFrame} extends the \textbf{JFrame} class is the primary view after the login menu, and displays a \textbf{TeamMember} object's tasks in a sortable JTable, clicking on this invokes \textbf{TaskFrame}. Also displays the \textbf{SidebarPanel}.
+        \item \textbf{SidebarPanel} extends the \textbf{JFrame} class is used for controls within the \textbf{SidebarPanel}, such as logging out and searching tasks.
+        \item \textbf{TaskFrame} extends the \textbf{JDialog} class and is used to display details of a task when invoked by \textbf{MainFrame}. Allows editing of a \textbf{TaskElement} and also marking of a task as complete.
   \end{itemize}
   
   

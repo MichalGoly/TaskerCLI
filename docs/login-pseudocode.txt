@@ -1,0 +1,17 @@
+Syncer tries to select a TeamMember from the remote DB.
+  -IF IT FAILS
+     Try to retrieve the TeamMember from the local database
+        - IF IT SUCCEEDS
+           * Log in using the local TeamMember *
+        - IF IT FAILS
+           report the fail to the user and close the app
+  -IF IT SUCCEEDS
+     Select the same TeamMember from the local database
+     Assert the remote and local TeamMember instance is identical
+      - IF IT IS
+         * Log in using the remote TeamMember *
+      - IF IT IS NOT
+         Call the sync() method to merge both the local and remote objects together using predefined precedence rules
+         Update old TeamMember objects in both local and remote DB using newly merged TeamMember object
+         * Log in using the newly merged TeamMember *
+
