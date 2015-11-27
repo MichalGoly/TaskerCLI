@@ -19,7 +19,7 @@ public class TaskerCLI {
             System.exit(-1);
          }
       }
-      
+
       // log in
       TeamMember teamMember = Syncer.logIn();
       

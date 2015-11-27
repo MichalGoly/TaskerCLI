@@ -77,6 +77,8 @@ public class Syncer {
                           ConnectionManager.SQLITE);
                   if (local != null) {
                      // log in using local bob
+                     
+                     System.out.println("HERE");
                      teamMember = local;
                      loggedIn = true;
                   }
