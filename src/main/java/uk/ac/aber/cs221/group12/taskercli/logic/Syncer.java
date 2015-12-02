@@ -55,12 +55,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-             - Retrieve local copy
-             - Check if they are equal
-             + log in 
-             - sync and log in using merged Bob :)
+               - Retrieve local copy
+               - Check if they are equal
+                  + log in 
+                  - sync and log in using merged Bob :)
              3. If unsuccessful:
-             - Log in using the local Bob
+               - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
