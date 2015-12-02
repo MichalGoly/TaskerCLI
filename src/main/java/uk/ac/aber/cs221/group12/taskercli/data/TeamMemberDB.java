@@ -24,7 +24,8 @@ public class TeamMemberDB {
            = "UPDATE TeamMember "
            + "SET firstName = ?, lastName = ?, password = ? "
            + "WHERE email = ?";
-
+   
+   // TODO ConnectionManager should take care of getting Properties not each method
    public static TeamMember selectTeamMemberByEmail(String email, int database)
            throws SQLException, IOException {
       TeamMember teamMember = null;

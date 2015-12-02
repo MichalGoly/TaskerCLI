@@ -3,6 +3,10 @@
 
 -- version 1.0, Michal Goly
 
+DROP TABLE IF EXISTS TeamMember;
+DROP TABLE IF EXISTS Task;
+DROP TABLE IF EXISTS TaskElement;
+
 -- Table TeamMember
 CREATE TABLE TeamMember (
     email CHAR(80) PRIMARY KEY NOT NULL,
@@ -15,8 +19,8 @@ CREATE TABLE TeamMember (
 CREATE TABLE Task (
     taskId INTEGER PRIMARY KEY NOT NULL,
     title CHAR(40) NOT NULL,
-    startDate TEXT NOT NULL,
-    endDate TEXT NOT NULL,
+    startDate INTEGER NOT NULL,
+    endDate INTEGER NOT NULL,
     taskStatus INTEGER NOT NULL,
     TeamMember_email CHAR(80) NOT NULL,
     FOREIGN KEY (TeamMember_email) REFERENCES TeamMember (email) ON DELETE CASCADE ON UPDATE CASCADE
@@ -38,9 +42,9 @@ INSERT INTO TeamMember VALUES
 	('m.goly@goly2.com','Michal','Goly','password');
 
 INSERT INTO Task VALUES 
-	(1,'Do shopping','2015-09-29','2015-10-30',1,'m.goly@goly2.com'),
-	(2,'Apply to Uni','2010-09-29','2025-01-03',1,'m.goly@goly2.com'),
-	(3,'Buy a new car','2000-09-29','2016-11-03',1,'bob@smith.com');
+	(1,'Do shopping',1494288000000,1497052800000,1,'m.goly@goly2.com'),
+	(2,'Apply to Uni',1336521600000,1740787200000,1,'m.goly@goly2.com'),
+	(3,'Buy a new car',1020902400000,1457654400000,1,'bob@smith.com');
 
 INSERT INTO TaskElement VALUES 
 	(1,'get out of the house','',1),

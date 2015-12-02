@@ -33,7 +33,7 @@ public class Syncer {
    public static TeamMember logIn() {
       TeamMember teamMember = null;
       boolean loggedIn = false;
-      
+
       while (!loggedIn) {
          JPanel inputPanel = new JPanel();
          JLabel emailLabel = new JLabel("Email");
@@ -53,22 +53,21 @@ public class Syncer {
 
          if (result == JOptionPane.OK_OPTION) {
             /*
-              1. Try to select a team member from the remote Database
-              2. If succeed:
-                     - Retrieve local copy
-                     - Check if they are equal
-                           + log in 
-                           - sync and log in using merged Bob :)
-              3. If unsuccessful:
-                     - Log in using the local Bob
-            */
+             1. Try to select a team member from the remote Database
+             2. If succeed:
+             - Retrieve local copy
+             - Check if they are equal
+             + log in 
+             - sync and log in using merged Bob :)
+             3. If unsuccessful:
+             - Log in using the local Bob
+             */
             TeamMember remote;
             TeamMember local;
-            
+
             try {
-               remote = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(), 
+               remote = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                        ConnectionManager.MYSQL);
-               
             } catch (SQLException | IOException e) {
                // Was not able to connect to the remote database
                // TODO let user know!
@@ -77,13 +76,15 @@ public class Syncer {
                           ConnectionManager.SQLITE);
                   if (local != null) {
                      // log in using local bob
-                     
+
                      System.out.println("HERE");
                      teamMember = local;
                      loggedIn = true;
+                  } else {
+                     System.out.println("NOT HERE");
                   }
                } catch (SQLException | IOException ex) {
-                  JOptionPane.showMessageDialog(null, 
+                  JOptionPane.showMessageDialog(null,
                           "Not able to connect to either remote or local DB!");
                }
             }
@@ -94,17 +95,15 @@ public class Syncer {
 
       return teamMember;
    }
-   
+
    public static TeamMember sync(TeamMember remote, TeamMember local) {
       TeamMember merged = null;
-      
+
       // marge remote and local copy of Bob by considering the precedence imposed
       // in the QA Requirements Specification of the assignment
-      
       // try to put merged bob into both local and remote database
       // alert the user in case of problems which can occur !
-      
       return merged;
    }
-   
+
 }

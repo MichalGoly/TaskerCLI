@@ -41,14 +41,6 @@ public class ConnectionManager {
 
    // we might need to keep two connections open for syncer
    public static Connection getConnection(Properties props) throws SQLException {
-
-      // register the JDBC driver
-      String drivers = props.getProperty("jdbc.drivers");
-      // TODO driver should be register only once
-      if (drivers != null) {
-         System.setProperty("jdbc.drivers", drivers);
-      }
-
       if (props.size() == MYSQL_PROPERTIES_SIZE) {
          String username = props.getProperty("jdbc.username");
          String password = props.getProperty("jdbc.password");
