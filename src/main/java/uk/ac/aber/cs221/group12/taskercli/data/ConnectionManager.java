@@ -18,7 +18,7 @@ public class ConnectionManager {
    public static final int MYSQL = 1;
    public static final int SQLITE = 2;
    
-   private static final int MYSQL_PROPERTIES_SIZE = 4;
+   private static final int MYSQL_PROPERTIES_SIZE = 3;
    
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
