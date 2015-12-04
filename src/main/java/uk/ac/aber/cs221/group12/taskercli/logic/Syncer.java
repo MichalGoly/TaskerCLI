@@ -55,12 +55,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-               - Retrieve local copy
-               - Check if they are equal
-                  + log in 
-                  - sync and log in using merged Bob :)
+             - Retrieve local copy
+             - Check if they are equal
+             + log in 
+             - sync and log in using merged Bob :)
              3. If unsuccessful:
-               - Log in using the local Bob
+             - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
@@ -68,20 +68,49 @@ public class Syncer {
             try {
                remote = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                        ConnectionManager.MYSQL);
+               if (remote != null) {
+                  // retireve local copy
+                  local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
+                          ConnectionManager.SQLITE);
+
+                  if (local != null) {
+                     // check if they're equal
+                     if (remote.equals(local)) {
+                        // log in using remote or local, does not matter
+                        teamMember = remote;
+                        loggedIn = true;
+                     } else {
+                        // sync and log in using merged Bob
+                        teamMember = sync(remote, local);
+                        loggedIn = true;
+                     }
+                  } else {
+                     // local copy with this email does not exist, sync to put it 
+                     // in the local db
+                     teamMember = sync(remote, null);
+                     loggedIn = true;
+                  }
+               } else {
+                  // TeamMember with this email address does not exist
+
+                  // dodgy way to get into the second branch, ignore the spaghetti
+                  // code for now
+                  throw new IOException();
+               }
+
             } catch (SQLException | IOException e) {
-               // Was not able to connect to the remote database
+               // Was not able to connect to the remote database, or remote = null
                // TODO let user know!
                try {
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
                   if (local != null) {
                      // log in using local bob
-
-                     System.out.println("HERE");
                      teamMember = local;
                      loggedIn = true;
                   } else {
-                     System.out.println("NOT HERE");
+                     // Team Member with given email address does not exist
+                     // ignore and wait for new credentials
                   }
                } catch (SQLException | IOException ex) {
                   JOptionPane.showMessageDialog(null,
@@ -96,14 +125,35 @@ public class Syncer {
       return teamMember;
    }
 
+   /**
+    * Marge remote and local copy of Bob by considering the precedence imposed in the
+    * QA Requirements Specification of the assignment try to put merged bob into both
+    * local and remote database alert the user in case of problems which can occur !
+    *
+    * NOTE: if either of the arguments passed to the method is null, the not null
+    * object will be put to both db and treated as the merged one.
+    *
+    * @param remote The TeamMember object retrieved from remote DB, or null
+    * @param local The TeamMember object retrieved from the local DB, or null
+    * @return The merged TeamMember object
+    */
    public static TeamMember sync(TeamMember remote, TeamMember local) {
       TeamMember merged = null;
-
-      // marge remote and local copy of Bob by considering the precedence imposed
-      // in the QA Requirements Specification of the assignment
-      // try to put merged bob into both local and remote database
-      // alert the user in case of problems which can occur !
+      
+      if (remote == null && local == null) {
+         return null;
+      } else if (remote == null) {
+         merged = local;
+         
+      } else if (local == null) {
+         merged = remote;
+         
+      } else {
+         
+      }
+      
       return merged;
+
    }
 
 }

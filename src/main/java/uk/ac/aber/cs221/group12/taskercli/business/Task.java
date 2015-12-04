@@ -8,6 +8,7 @@ package uk.ac.aber.cs221.group12.taskercli.business;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -81,6 +82,48 @@ public class Task implements Serializable {
 
    public void setTaskElementList(List<TaskElement> taskElementList) {
       this.taskElementList = taskElementList;
+   }
+
+   @Override
+   public int hashCode() {
+      int hash = 7;
+      hash = 59 * hash + Objects.hashCode(this.taskId);
+      hash = 59 * hash + Objects.hashCode(this.title);
+      hash = 59 * hash + Objects.hashCode(this.startDate);
+      hash = 59 * hash + Objects.hashCode(this.endDate);
+      hash = 59 * hash + Objects.hashCode(this.status);
+      hash = 59 * hash + Objects.hashCode(this.taskElementList);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (obj == null) {
+         return false;
+      }
+      if (getClass() != obj.getClass()) {
+         return false;
+      }
+      final Task other = (Task) obj;
+      if (!Objects.equals(this.taskId, other.taskId)) {
+         return false;
+      }
+      if (!Objects.equals(this.title, other.title)) {
+         return false;
+      }
+      if (!Objects.equals(this.startDate, other.startDate)) {
+         return false;
+      }
+      if (!Objects.equals(this.endDate, other.endDate)) {
+         return false;
+      }
+      if (this.status != other.status) {
+         return false;
+      }
+      if (!Objects.equals(this.taskElementList, other.taskElementList)) {
+         return false;
+      }
+      return true;
    }
 
    @Override

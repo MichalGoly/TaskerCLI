@@ -24,7 +24,11 @@ public class TeamMemberDB {
            = "UPDATE TeamMember "
            + "SET firstName = ?, lastName = ?, password = ? "
            + "WHERE email = ?";
-   
+
+   public static final String INSERT_MEMBER
+           = "INSERT INTO TeamMember (email, firstName, lastName, password) "
+           + "VALUES (?, ?, ?, ?)";
+
    // TODO ConnectionManager should take care of getting Properties not each method
    public static TeamMember selectTeamMemberByEmail(String email, int database)
            throws SQLException, IOException {
@@ -50,7 +54,6 @@ public class TeamMemberDB {
       return teamMember;
    }
 
-
    //if we are updating the database, with the teammember object, assume it is the merged version after syncing
    public static void updateTeamMember(TeamMember teamMember, int database) throws
            SQLException, IOException {
@@ -65,6 +68,23 @@ public class TeamMemberDB {
             ps.setString(4, teamMember.getEmail());
             ps.executeUpdate();
             TaskDB.updateTasks(teamMember.getTaskList(), database);
+         }
+      }
+   }
+
+   public static void insertTeamMember(TeamMember teamMember, int database) throws
+           SQLException, IOException {
+      Properties props = ConnectionManager.getDatabaseProperties(database);
+
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(INSERT_MEMBER)) {
+            ps.setString(1, teamMember.getEmail());
+            ps.setString(2, teamMember.getFirstName());
+            ps.setString(3, teamMember.getLastName());
+            ps.setString(4, teamMember.getPassword());
+            ps.executeUpdate();
+            
+            TaskDB.insertTasks(teamMember.getTaskList(), database, teamMember.getEmail());
          }
       }
    }

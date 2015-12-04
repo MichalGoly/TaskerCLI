@@ -2,6 +2,7 @@ package uk.ac.aber.cs221.group12.taskercli.business;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -65,6 +66,44 @@ public class TeamMember implements Serializable {
 
    public void setTaskList(List<Task> taskList) {
       this.taskList = taskList;
+   }
+
+   @Override
+   public int hashCode() {
+      int hash = 3;
+      hash = 29 * hash + Objects.hashCode(this.firstName);
+      hash = 29 * hash + Objects.hashCode(this.lastName);
+      hash = 29 * hash + Objects.hashCode(this.email);
+      hash = 29 * hash + Objects.hashCode(this.password);
+      hash = 29 * hash + Objects.hashCode(this.taskList);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (obj == null) {
+         return false;
+      }
+      if (getClass() != obj.getClass()) {
+         return false;
+      }
+      final TeamMember other = (TeamMember) obj;
+      if (!Objects.equals(this.firstName, other.firstName)) {
+         return false;
+      }
+      if (!Objects.equals(this.lastName, other.lastName)) {
+         return false;
+      }
+      if (!Objects.equals(this.email, other.email)) {
+         return false;
+      }
+      if (!Objects.equals(this.password, other.password)) {
+         return false;
+      }
+      if (!Objects.equals(this.taskList, other.taskList)) {
+         return false;
+      }
+      return true;
    }
 
    @Override

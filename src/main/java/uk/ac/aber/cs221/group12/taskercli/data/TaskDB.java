@@ -27,6 +27,10 @@ public class TaskDB {
            + "SET title = ?, startDate = ?, endDate = ?, taskStatus = ? "
            + "WHERE taskId = ?";
 
+   public static final String INSERT_TASK
+           = "INSERT INTO Task (taskId, title, startDate, endDate, taskStatus, TeamMember_email) "
+           + "VALUES (?, ?, ?, ?, ?, ?)";
+
    public static List<Task> selectTasks(String email, int database) throws SQLException,
            IOException {
       List<Task> taskList = new ArrayList<>();
@@ -58,7 +62,7 @@ public class TaskDB {
            IOException {
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
-      
+
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASK)) {
             for (Task t : taskList) {
@@ -69,6 +73,30 @@ public class TaskDB {
                ps.setLong(5, t.getTaskId());
                ps.executeUpdate();
                TaskElementDB.updateTaskElements(t.getTaskElementList(), database);
+            }
+         }
+      }
+   }
+
+   public static void insertTasks(List<Task> taskList, int database, String email)
+           throws SQLException, IOException {
+      Properties props = ConnectionManager.getDatabaseProperties(database);
+      System.out.println("BEFO");
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(INSERT_TASK)) {
+            for (Task t : taskList) {
+                     System.out.println("IN");
+
+               ps.setLong(1, t.getTaskId());
+               ps.setString(2, t.getTitle());
+               ps.setDate(3, t.getStartDate());
+               ps.setDate(4, t.getEndDate());
+               ps.setInt(5, t.getStatus().toInt());
+               ps.setString(6, email);
+               ps.executeUpdate();
+               
+               TaskElementDB.insertTaskElements(t.getTaskElementList(), database, 
+                       t.getTaskId());
             }
          }
       }

@@ -25,6 +25,10 @@ public class TaskElementDB {
            + "SET description = ?, comments = ? "
            + "WHERE taskElementId = ?";
 
+   public static String INSERT_TASK_ELEMENT
+           = "INSERT INTO TaskElement (taskElementId, description, comments, Task_taskId) "
+           + "VALUES (?, ?, ?, ?)";
+
    public static List<TaskElement> selectTaskElementsByTaskId(Long taskId, int database)
            throws SQLException, IOException {
       List<TaskElement> taskElementList = new ArrayList<>();
@@ -52,13 +56,30 @@ public class TaskElementDB {
            throws SQLException, IOException {
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
-      
+
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASKELEMENT)) {
             for (TaskElement element : taskElementList) {
                ps.setString(1, element.getDescription());
                ps.setString(2, element.getComments());
                ps.setLong(3, element.getTaskElementId());
+               ps.executeUpdate();
+            }
+         }
+      }
+   }
+
+   public static void insertTaskElements(List<TaskElement> taskElementList, 
+           int database, long taskId) throws SQLException, IOException {
+      Properties props = ConnectionManager.getDatabaseProperties(database);
+
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(INSERT_TASK_ELEMENT)) {
+            for (TaskElement element : taskElementList) {
+               ps.setLong(1, element.getTaskElementId());
+               ps.setString(2, element.getDescription());
+               ps.setString(3, element.getComments());
+               ps.setLong(4, taskId);
                ps.executeUpdate();
             }
          }
