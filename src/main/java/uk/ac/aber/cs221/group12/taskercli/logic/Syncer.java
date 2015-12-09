@@ -8,11 +8,14 @@ package uk.ac.aber.cs221.group12.taskercli.logic;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import uk.ac.aber.cs221.group12.taskercli.business.Task;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
@@ -55,12 +58,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-             - Retrieve local copy
-             - Check if they are equal
-             + log in 
-             - sync and log in using merged Bob :)
+               - Retrieve local copy
+               - Check if they are equal
+                  + log in 
+                  - sync and log in using merged Bob :)
              3. If unsuccessful:
-             - Log in using the local Bob
+               - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
@@ -135,25 +138,55 @@ public class Syncer {
     *
     * @param remote The TeamMember object retrieved from remote DB, or null
     * @param local The TeamMember object retrieved from the local DB, or null
-    * @return The merged TeamMember object
+    * @return The merged TeamMember object, null if two arguments are null
     */
    public static TeamMember sync(TeamMember remote, TeamMember local) {
-      TeamMember merged = null;
+      TeamMember merged;
       
       if (remote == null && local == null) {
-         return null;
+         merged = null;
       } else if (remote == null) {
          merged = local;
          
+         try {
+            TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
+         } catch (SQLException | IOException e) {
+            // no connection to the remote
+         }
       } else if (local == null) {
          merged = remote;
          
+         try {
+            TeamMemberDB.insertTeamMember(merged, ConnectionManager.SQLITE);
+         } catch (SQLException | IOException e) {
+            // should never happen
+         }
       } else {
-         
+         if (remote.equals(local)) {
+            merged = remote;
+         } else {
+            merged = merge(remote, local);
+         }
       }
       
       return merged;
+   }
 
+   private static TeamMember merge(TeamMember remote, TeamMember local) {
+      TeamMember merged = new TeamMember();
+      merged.setFirstName(remote.getFirstName());
+      merged.setLastName(remote.getLastName());
+      merged.setEmail(remote.getEmail());
+      merged.setPassword(remote.getPassword());
+      
+      List<Task> tasks = remote.getTaskList();
+      List<TaskElement> taskElements;
+      for (Task t : tasks) {
+         // TODO
+      }
+      
+      
+      return merged;
    }
 
 }
