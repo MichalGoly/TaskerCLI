@@ -25,10 +25,14 @@ public class TaskFrame extends JDialog {
 
 
 
-    public TaskFrame(Task task) {
-        this.task = task;
+    public TaskFrame() {
+        this.task = new Task();
         initComponents();
         initFrame();
+    }
+
+    public void setTask(Task newtask){
+        this.task = newtask;
     }
 
     private void initComponents() {

@@ -1,8 +1,8 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
+import javax.swing.*;
+
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
@@ -28,6 +28,8 @@ public class TaskerCLI {
          @Override
          public void run() {
             JFrame frame = new MainFrame(teamMember);
+            JDialog taskframe = new TaskFrame();
+            taskframe.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          }
       });
