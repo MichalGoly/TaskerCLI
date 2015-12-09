@@ -1,6 +1,8 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import java.awt.GridBagLayout;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +19,7 @@ public class MainFrame extends JFrame {
    
    private SidebarPanel sidebarPanel;
    private JTable table;
+   private TaskFrame taskFrame;
    
    private TeamMember teamMember;
    
@@ -24,6 +27,8 @@ public class MainFrame extends JFrame {
       this.teamMember = teamMember;
       initComponents();
       initFrame();
+      taskFrame = new TaskFrame();
+      taskFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
    }
 
    private void initComponents() {
@@ -35,6 +40,32 @@ public class MainFrame extends JFrame {
       table = new JTable(createModel(teamMember));
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
+      table.addMouseListener(new MouseListener() {
+         @Override
+         public void mouseClicked(MouseEvent e) {
+            taskFrame.openTask(teamMember.getTaskList().get(table.getSelectedRow()));
+         }
+
+         @Override
+         public void mousePressed(MouseEvent e) {
+
+         }
+
+         @Override
+         public void mouseReleased(MouseEvent e) {
+
+         }
+
+         @Override
+         public void mouseEntered(MouseEvent e) {
+
+         }
+
+         @Override
+         public void mouseExited(MouseEvent e) {
+
+         }
+      });
       JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
       

@@ -31,9 +31,10 @@ public class TaskFrame extends JDialog {
         initFrame();
     }
 
-    public void setTask(Task newtask){
+    public void openTask(Task newtask){
         this.task = newtask;
         this.revalidate();
+        this.setVisible(true);
     }
 
     private void initComponents() {

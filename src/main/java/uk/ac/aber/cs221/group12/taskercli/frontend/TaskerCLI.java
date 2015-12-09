@@ -28,8 +28,6 @@ public class TaskerCLI {
          @Override
          public void run() {
             JFrame frame = new MainFrame(teamMember);
-            JDialog taskframe = new TaskFrame();
-            taskframe.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          }
       });
