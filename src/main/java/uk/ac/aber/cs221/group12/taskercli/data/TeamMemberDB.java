@@ -16,16 +16,16 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
  */
 public class TeamMemberDB {
 
-   public static final String SELECT_MEMBER
+   private static final String SELECT_MEMBER
            = "SELECT * FROM TeamMember "
            + "WHERE email = ?";
 
-   public static final String UPDATE_MEMBER
+   private static final String UPDATE_MEMBER
            = "UPDATE TeamMember "
            + "SET firstName = ?, lastName = ?, password = ? "
            + "WHERE email = ?";
 
-   public static final String INSERT_MEMBER
+   private static final String INSERT_MEMBER
            = "INSERT INTO TeamMember (email, firstName, lastName, password) "
            + "VALUES (?, ?, ?, ?)";
 

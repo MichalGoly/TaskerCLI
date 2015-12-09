@@ -23,8 +23,6 @@ public class TaskFrame extends JDialog {
     private JTable table;
     private Task task;
 
-
-
     public TaskFrame() {
         this.task = new Task();
         initComponents();
@@ -33,6 +31,7 @@ public class TaskFrame extends JDialog {
 
     public void openTask(Task newtask){
         this.task = newtask;
+        initComponents();
         this.revalidate();
         this.setVisible(true);
     }

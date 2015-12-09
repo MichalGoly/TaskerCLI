@@ -19,15 +19,15 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  */
 public class TaskDB {
 
-   public static final String SELECT_TASKS
+   private static final String SELECT_TASKS
            = "SELECT * FROM Task WHERE TeamMember_email = ?";
 
-   public static final String UPDATE_TASK
+   private static final String UPDATE_TASK
            = "UPDATE Task "
            + "SET title = ?, startDate = ?, endDate = ?, taskStatus = ? "
            + "WHERE taskId = ?";
 
-   public static final String INSERT_TASK
+   private static final String INSERT_TASK
            = "INSERT INTO Task (taskId, title, startDate, endDate, taskStatus, TeamMember_email) "
            + "VALUES (?, ?, ?, ?, ?, ?)";
 

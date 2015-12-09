@@ -28,9 +28,9 @@ public class MainFrame extends JFrame {
    private SidebarPanel sidebarPanel;
    private JTable table;
    private TaskFrame taskFrame;
-
    private TeamMember teamMember;
-
+   private TaskTableModel taskTableModel;
+   
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
@@ -44,15 +44,18 @@ public class MainFrame extends JFrame {
       sidebarPanel = new SidebarPanel();
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
-
-      table = new JTable(new TaskTableModel(teamMember));
+      
+      taskTableModel = new TaskTableModel(teamMember);
+      table = new JTable(taskTableModel);
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
       table.addMouseListener(new MouseAdapter() {
+         
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
-            getComponentAt(e.getPoint());
+            Task task = taskTableModel.getTaskAt(table.getSelectedRow());
+            taskFrame.openTask(task);
          }
       });
       JScrollPane scrollPane = new JScrollPane(table);
@@ -67,6 +70,7 @@ public class MainFrame extends JFrame {
       setVisible(true);
    }
    
+   //TODO http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
    private class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
