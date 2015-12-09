@@ -19,7 +19,11 @@ public class TaskElementDB {
    public static String SELECT_TASK_ELEMENTS
            = "SELECT * FROM TaskElement "
            + "WHERE Task_taskId = ?";
-
+   
+   public static String SELECT_TASK_ELEMENT
+           = "SELECT * FROM TaskElement "
+           + "WHERE taskElementId = ?";
+   
    public static String UPDATE_TASKELEMENT
            = "UPDATE TaskElement "
            + "SET description = ?, comments = ? "
@@ -28,7 +32,7 @@ public class TaskElementDB {
    public static String INSERT_TASK_ELEMENT
            = "INSERT INTO TaskElement (taskElementId, description, comments, Task_taskId) "
            + "VALUES (?, ?, ?, ?)";
-
+   
    public static List<TaskElement> selectTaskElementsByTaskId(Long taskId, int database)
            throws SQLException, IOException {
       List<TaskElement> taskElementList = new ArrayList<>();
@@ -52,14 +56,31 @@ public class TaskElementDB {
       return taskElementList;
    }
    
-   public static TaskElement selectTaskElementById(Long taskElementId) {
-      return null;
+   public static TaskElement selectTaskElementById(Long taskElementId, int database) 
+           throws SQLException, IOException {
+      TaskElement result = null;
+      Properties props = ConnectionManager.getDatabaseProperties(database);
+      
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(SELECT_TASK_ELEMENT)) {
+            ps.setLong(1, taskElementId);
+            try (ResultSet rs = ps.executeQuery()) {
+               if (rs.next()) {
+                  Long id = rs.getLong("taskElementId");
+                  String description = rs.getString("description");
+                  String comments = rs.getString("comments");
+                  result = new TaskElement(id, description, comments);
+               }
+            }
+         }
+      }
+         
+      return result;
    }
 
    public static void updateTaskElements(List<TaskElement> taskElementList, int database)
            throws SQLException, IOException {
-      Properties props
-              = ConnectionManager.getDatabaseProperties(database);
+      Properties props = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_TASKELEMENT)) {

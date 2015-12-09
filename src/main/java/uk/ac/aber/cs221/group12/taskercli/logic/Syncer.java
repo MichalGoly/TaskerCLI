@@ -59,12 +59,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-               - Retrieve local copy
-               - Check if they are equal
-                  + log in 
-                  - sync and log in using merged Bob :)
+             - Retrieve local copy
+             - Check if they are equal
+             + log in 
+             - sync and log in using merged Bob :)
              3. If unsuccessful:
-               - Log in using the local Bob
+             - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
@@ -143,12 +143,12 @@ public class Syncer {
     */
    public static TeamMember sync(TeamMember remote, TeamMember local) {
       TeamMember merged;
-      
+
       if (remote == null && local == null) {
          merged = null;
       } else if (remote == null) {
          merged = local;
-         
+
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
          } catch (SQLException | IOException e) {
@@ -156,7 +156,7 @@ public class Syncer {
          }
       } else if (local == null) {
          merged = remote;
-         
+
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.SQLITE);
          } catch (SQLException | IOException e) {
@@ -169,7 +169,7 @@ public class Syncer {
             merged = merge(remote, local);
          }
       }
-      
+
       return merged;
    }
 
@@ -182,15 +182,21 @@ public class Syncer {
 
       merged.setTaskList(remote.getTaskList());
       for (Task t : merged.getTaskList()) {
-         for (TaskElement te : t.getTaskElementList()){
-            String c = TaskElementDB.selectTaskElementById(te.getTaskElementId()).getComments();
-            if(c != null){
-               te.setComments(TaskElementDB.selectTaskElementById(te.getTaskElementId()).getComments());
+         for (TaskElement te : t.getTaskElementList()) {
+            try {
+               String comment = TaskElementDB
+                       .selectTaskElementById(te.getTaskElementId(),
+                               ConnectionManager.SQLITE).getComments();
+               if (comment != null) {
+                  te.setComments(comment);
+               }
+            } catch (SQLException | IOException e) {
+               // fail silently <3
             }
+
          }
       }
-      
-      
+
       return merged;
    }
 
