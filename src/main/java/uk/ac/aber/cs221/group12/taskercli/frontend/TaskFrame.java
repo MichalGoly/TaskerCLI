@@ -33,6 +33,7 @@ public class TaskFrame extends JDialog {
 
     public void setTask(Task newtask){
         this.task = newtask;
+        this.revalidate();
     }
 
     private void initComponents() {

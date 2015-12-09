@@ -2,9 +2,7 @@ package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.GridBagLayout;
 import java.util.Vector;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
@@ -35,6 +33,7 @@ public class MainFrame extends JFrame {
               .setFill(GBC.BOTH));
 
       table = new JTable(createModel(teamMember));
+      table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
       JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
