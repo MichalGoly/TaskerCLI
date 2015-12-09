@@ -1,6 +1,7 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
@@ -40,30 +41,11 @@ public class MainFrame extends JFrame {
       table = new JTable(createModel(teamMember));
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
-      table.addMouseListener(new MouseListener() {
+      table.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseClicked(MouseEvent e) {
-            taskFrame.openTask(teamMember.getTaskList().get(table.getSelectedRow()));
-         }
-
-         @Override
-         public void mousePressed(MouseEvent e) {
-
-         }
-
-         @Override
-         public void mouseReleased(MouseEvent e) {
-
-         }
-
-         @Override
-         public void mouseEntered(MouseEvent e) {
-
-         }
-
-         @Override
-         public void mouseExited(MouseEvent e) {
-
+            super.mouseClicked(e);
+            getComponentAt(e.getPoint());
          }
       });
       JScrollPane scrollPane = new JScrollPane(table);
