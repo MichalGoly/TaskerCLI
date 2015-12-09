@@ -33,8 +33,10 @@ public class MainFrame extends JFrame {
       sidebarPanel = new SidebarPanel();
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
-            
-      JScrollPane scrollPane = new JScrollPane(new JTable(createModel(teamMember)));
+
+      table = new JTable(createModel(teamMember));
+      table.setAutoCreateRowSorter(true);
+      JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
       
    }
@@ -64,7 +66,7 @@ public class MainFrame extends JFrame {
           row.add(t.getStatus().toString());
           data.add(row);
       }
-      
+
       return new DefaultTableModel(data, columnNames);
    }
    
