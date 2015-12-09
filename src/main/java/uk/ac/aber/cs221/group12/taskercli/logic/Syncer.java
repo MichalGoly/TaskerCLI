@@ -184,11 +184,14 @@ public class Syncer {
       for (Task t : merged.getTaskList()) {
          for (TaskElement te : t.getTaskElementList()) {
             try {
-               String comment = TaskElementDB
+               TaskElement lte = TaskElementDB
                        .selectTaskElementById(te.getTaskElementId(),
-                               ConnectionManager.SQLITE).getComments();
-               if (comment != null) {
-                  te.setComments(comment);
+                               ConnectionManager.SQLITE);
+               if(lte != null){
+                  String comment = lte.getComments();
+                  if (comment != null) {
+                     te.setComments(comment);
+                  }
                }
             } catch (SQLException | IOException e) {
                // fail silently <3
