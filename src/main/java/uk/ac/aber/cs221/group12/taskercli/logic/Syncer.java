@@ -18,6 +18,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
+import uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 
 /**
@@ -178,10 +179,17 @@ public class Syncer {
       merged.setLastName(remote.getLastName());
       merged.setEmail(remote.getEmail());
       merged.setPassword(remote.getPassword());
-      
-      merged.setTaskList(remote.getTaskList());
-      
 
+      merged.setTaskList(remote.getTaskList());
+      for (Task t : merged.getTaskList()) {
+         for (TaskElement te : t.getTaskElementList()){
+            String c = TaskElementDB.selectTaskElementById(te.getTaskElementId()).getComments();
+            if(c != null){
+               te.setComments(TaskElementDB.selectTaskElementById(te.getTaskElementId()).getComments());
+            }
+         }
+      }
+      
       
       return merged;
    }
