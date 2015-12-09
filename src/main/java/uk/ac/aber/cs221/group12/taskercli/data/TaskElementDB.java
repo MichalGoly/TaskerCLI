@@ -51,6 +51,10 @@ public class TaskElementDB {
       }
       return taskElementList;
    }
+   
+   public static TaskElement selectTaskElementById(Long taskElementId) {
+      return null;
+   }
 
    public static void updateTaskElements(List<TaskElement> taskElementList, int database)
            throws SQLException, IOException {

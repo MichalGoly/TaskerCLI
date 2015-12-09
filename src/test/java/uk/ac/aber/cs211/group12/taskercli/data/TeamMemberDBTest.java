@@ -20,20 +20,20 @@ import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
  */
 public class TeamMemberDBTest {
 
-   @Test
-   public void assertTeamMembersFromLocalAndRemoteDBAreTheSame() {
-      try {
-         TeamMember remote = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com",
-                 ConnectionManager.MYSQL);
-         TeamMember local = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com",
-                 ConnectionManager.SQLITE);
-         
-         System.out.println(remote);
-         System.out.println(local);
-      } catch (SQLException | IOException e) {
-         e.printStackTrace();
-      }
-   }
+//   @Test
+//   public void assertTeamMembersFromLocalAndRemoteDBAreTheSame() {
+//      try {
+//         TeamMember remote = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com",
+//                 ConnectionManager.MYSQL);
+//         TeamMember local = TeamMemberDB.selectTeamMemberByEmail("m.goly@goly2.com",
+//                 ConnectionManager.SQLITE);
+//         
+//         System.out.println(remote);
+//         System.out.println(local);
+//      } catch (SQLException | IOException e) {
+//         e.printStackTrace();
+//      }
+//   }
 
 //   @Test
 //   public void assertCanInsertIntoRemoteDB() throws IOException {
@@ -56,19 +56,19 @@ public class TeamMemberDBTest {
 //      }
 //   }
 //
-//   @Test
-//   public void assertTeamMemberHasProperName() throws IOException {
-//      try {
-//         String email = "bob@smith.com";
-//         TeamMember bob = TeamMemberDB.selectTeamMemberByEmail(email,
-//                 ConnectionManager.MYSQL);
-//         Assert.assertEquals("Bob", bob.getFirstName());
-//      } catch (SQLException e) {
-//         for (Throwable t : e) {
-//            System.err.println(t);
-//         }
-//      }
-//   }
+   @Test
+   public void assertTeamMemberHasProperName() throws IOException {
+      try {
+         String email = "luj9@aber.ac.uk";
+         TeamMember bob = TeamMemberDB.selectTeamMemberByEmail(email,
+                 ConnectionManager.MYSQL);
+         Assert.assertEquals("Luke", bob.getFirstName());
+      } catch (SQLException e) {
+         for (Throwable t : e) {
+            System.err.println(t);
+         }
+      }
+   }
 //
 //   @Test
 //   public void assertTeamMemberHasProperTask() throws IOException {

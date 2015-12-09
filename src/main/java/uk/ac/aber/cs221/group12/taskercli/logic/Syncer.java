@@ -179,12 +179,9 @@ public class Syncer {
       merged.setEmail(remote.getEmail());
       merged.setPassword(remote.getPassword());
       
-      List<Task> tasks = remote.getTaskList();
-      List<TaskElement> taskElements;
-      for (Task t : tasks) {
-         // TODO
-      }
+      merged.setTaskList(remote.getTaskList());
       
+
       
       return merged;
    }
