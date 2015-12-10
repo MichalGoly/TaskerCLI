@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
-      taskFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+      
    }
 
    private void initComponents() {
@@ -55,7 +55,8 @@ public class MainFrame extends JFrame {
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             Task task = taskTableModel.getTaskAt(table.getSelectedRow());
-            taskFrame.openTask(task);
+            taskFrame.showDialog(MainFrame.this, task);
+            //taskFrame.openTask(task);
          }
       });
       JScrollPane scrollPane = new JScrollPane(table);

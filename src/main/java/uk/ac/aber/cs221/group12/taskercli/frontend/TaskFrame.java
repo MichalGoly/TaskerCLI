@@ -1,72 +1,102 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.aber.cs221.group12.taskercli.frontend;
-import uk.ac.aber.cs221.group12.taskercli.business.Task;
-import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
-import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.awt.*;
-import java.util.Vector;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import uk.ac.aber.cs221.group12.taskercli.business.Task;
 
 /**
  *
  * @author Michal Goly
  */
-public class TaskFrame extends JDialog {
+public class TaskFrame extends JPanel {
 
-    private JTable table;
-    private Task task;
+   private JDialog dialog;
+   private Task task;
+   
+   private TaskTopPanel taskTopPanel;
+   private JTable taskElementsTable;
+   
+   private JButton completeButton;
+   private JButton closeButton;
+   
+   public TaskFrame() {
+      initFrame();
+      initComponents();
+   }
 
-    public TaskFrame() {
-        this.task = new Task();
-        initComponents();
-        initFrame();
-    }
+   public void showDialog(Component parent, Task task) {
+      Frame owner = null;
 
-    public void openTask(Task newtask){
-        this.task = newtask;
-        initComponents();
-        this.revalidate();
-        this.setVisible(true);
-    }
+      if (parent instanceof Frame) {
+         owner = (Frame) parent;
+      } else {
+         owner = (Frame) SwingUtilities.getAncestorOfClass(Frame.class, parent);
+      }
 
-    private void initComponents() {
-        setLayout(new GridBagLayout());
+      // if dialog showed for the first time
+      if (dialog == null || dialog.getOwner() != owner) {
+         dialog = new JDialog(owner, true);
+         dialog.add(this);
+         dialog.getRootPane().setDefaultButton(closeButton);
+         dialog.pack();
+         dialog.setResizable(false);
+      }
+      
+      this.task = task;
+      
+      dialog.setLocationRelativeTo(parent);
+      dialog.setTitle("Tasker - " + task.getTitle());
+      dialog.setVisible(true);
+   }
+   
+   private void initFrame() {
+   }
+   
+   private void initComponents() {
+      taskTopPanel = new TaskTopPanel();
+      add(taskTopPanel, BorderLayout.NORTH);
+      
+      // initialize task elements table
+      taskElementsTable = new JTable();
+      add(new JScrollPane(taskElementsTable));
+      
+      JPanel buttonPanel = initButtonPanel();
+      add(buttonPanel, BorderLayout.SOUTH);
+   }
 
-        JScrollPane scrollPane = new JScrollPane(new JTable(createModel(task)));
-        add(scrollPane, new GBC(1, 5, 6, 7).setFill(GBC.BOTH).setWeight(100, 100));
+   private JPanel initButtonPanel() {
+      JPanel buttonPanel = new JPanel();
+      
+      buttonPanel.setLayout(new FlowLayout(SwingUtilities.HORIZONTAL));
+      
+      completeButton = new JButton(new AbstractAction("Complete") {
 
-    }
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         }
+      });
+      buttonPanel.add(completeButton);
+      
+      closeButton = new JButton(new AbstractAction("Close") {
 
-
-    private void initFrame() {
-        pack();
-        setLocationRelativeTo(null);
-        setTitle("Tasker - " + task.getTitle());
-        setVisible(true);
-    }
-
-    private TableModel createModel(Task task) {
-        Vector<String> columnNames = new Vector<>();
-        columnNames.add("#");
-        columnNames.add("Sub Task");
-        columnNames.add("Comment");
-
-        Vector<Vector<Object>> data = new Vector<>();
-        for (TaskElement t : task.getTaskElementList()) {
-            Vector<Object> row = new Vector<>();
-            row.add(t.getTaskElementId());
-            row.add(t.getDescription());
-            row.add(t.getComments());
-            data.add(row);
-        }
-
-        return new DefaultTableModel(data, columnNames);
-    }
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            dialog.setVisible(false);
+         }
+      });
+      buttonPanel.add(closeButton);
+      
+      return buttonPanel;
+   }
 }
