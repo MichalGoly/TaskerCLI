@@ -13,8 +13,6 @@ import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
-
-
 /**
  *
  * @author Michal Goly
@@ -26,13 +24,12 @@ public class MainFrame extends JFrame {
    private TaskFrame taskFrame;
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
-   
+
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
-      
    }
 
    private void initComponents() {
@@ -40,19 +37,19 @@ public class MainFrame extends JFrame {
       sidebarPanel = new SidebarPanel();
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
-      
+
       taskTableModel = new TaskTableModel(teamMember);
       table = new JTable(taskTableModel);
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
       table.addMouseListener(new MouseAdapter() {
-         
+
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             Task task = taskTableModel.getTaskAt(table.getSelectedRow());
             taskFrame.showDialog(MainFrame.this, task);
-            //taskFrame.openTask(task);
+            task = taskFrame.getTask();
          }
       });
       JScrollPane scrollPane = new JScrollPane(table);
@@ -66,7 +63,7 @@ public class MainFrame extends JFrame {
       setTitle("Tasker - Welcome, " + teamMember.getFirstName());
       setVisible(true);
    }
-   
+
    //TODO http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
    private class TaskTableModel extends AbstractTableModel {
 
@@ -89,9 +86,35 @@ public class MainFrame extends JFrame {
       }
 
       @Override
+      public String getColumnName(int columnIndex) {
+         String columnName;
+         switch (columnIndex) {
+            case 0:
+               columnName = "Title";
+               break;
+            case 1:
+               columnName = "Start Date";
+               break;
+            case 2:
+               columnName = "End Date";
+               break;
+            case 3:
+               columnName = "Sub-tasks";
+               break;
+            case 4:
+               columnName = "Status";
+               break;
+            default:
+               columnName = "#";
+               break;
+         }
+         return columnName;
+      }
+
+      @Override
       public Object getValueAt(int rowIndex, int columnIndex) {
 
-         Object value = "??";
+         Object value;
          Task task = tasks.get(rowIndex);
          switch (columnIndex) {
             case 0:
@@ -109,6 +132,9 @@ public class MainFrame extends JFrame {
             case 4:
                value = task.getStatus().toString();
                break;
+            default:
+               value = null;
+               break;
          }
 
          return value;
@@ -119,12 +145,6 @@ public class MainFrame extends JFrame {
          return String.class;
       }
 
-      /**
-       * This will return the user at the specified row...
-       *
-       * @param row
-       * @return
-       */
       public Task getTaskAt(int row) {
          return tasks.get(row);
       }
