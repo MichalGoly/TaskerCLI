@@ -60,6 +60,7 @@ public class TaskFrame extends JPanel {
    }
    
    private void initFrame() {
+      setLayout(new BorderLayout());
    }
    
    private void initComponents() {
