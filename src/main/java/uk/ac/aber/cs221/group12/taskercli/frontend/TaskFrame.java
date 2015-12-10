@@ -66,6 +66,11 @@ public class TaskFrame extends JPanel {
 
       this.task = task;
       taskElementsTable.setModel(new TaskElementTableModel(task));
+      
+      taskTopPanel.getStartDate().setText(task.getStartDate().toString());
+      taskTopPanel.getEndDate().setText(task.getEndDate().toString());
+      taskTopPanel.getStatus().setText(task.getStatus().toString());
+      
       dialog.setLocationRelativeTo(parent);
       dialog.setTitle("Tasker - " + task.getTitle());
       dialog.setVisible(true);
