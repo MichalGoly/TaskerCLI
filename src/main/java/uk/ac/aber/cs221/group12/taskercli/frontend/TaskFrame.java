@@ -1,13 +1,11 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import com.sun.jmx.snmp.tasks.TaskServer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,11 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
-import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 /**
  *
