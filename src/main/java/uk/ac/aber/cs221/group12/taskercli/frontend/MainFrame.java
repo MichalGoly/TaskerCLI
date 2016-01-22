@@ -58,11 +58,13 @@ public class MainFrame extends JFrame {
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
-            Task task = taskTableModel.getTaskAt(table.getSelectedRow());
+            int rowIndex = table.getSelectedRow();
+            Task task = taskTableModel.getTaskAt(rowIndex);
             taskFrame.showDialog(MainFrame.this, task);
             
             task = taskFrame.getTask();
-            System.out.println("TASK: " + task);
+            taskTableModel.tasks.set(rowIndex, task);
+            taskTableModel.fireTableDataChanged();
          }
       });
       
@@ -150,7 +152,7 @@ public class MainFrame extends JFrame {
 
          return value;
       }
-
+            
       @Override
       public Class<?> getColumnClass(int columnIndex) {
          return String.class;

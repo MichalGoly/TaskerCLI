@@ -97,6 +97,7 @@ public class TaskFrame extends JPanel {
          @Override
          public void actionPerformed(ActionEvent e) {
             task.setStatus(TaskStatus.COMPLETED);
+            setEnabled(false);
             dialog.setVisible(false);
          }
       });
@@ -159,7 +160,33 @@ public class TaskFrame extends JPanel {
 
          return value;
       }
-
+      
+      @Override
+      public void setValueAt(Object value, int rowIndex, int columnIndex) {
+         taskElements.get(rowIndex).setComments((String) value);
+         fireTableCellUpdated(rowIndex, columnIndex);
+      }
+      
+      /**
+       * Defines whether a cell with given row and column index is editable
+       * directly by the user. 
+       * 
+       * In TaskerCLI the whole 'comments' column should be editable, which 
+       * corresponds to the column with index 1.
+       * 
+       * @param rowIndex The row index of the selected cell in the JTable
+       * @param columnIndex The column index of the selected cell in the JTable
+       * @return true for every cell in column 'comments', false otherwise
+       */
+      @Override
+      public boolean isCellEditable(int rowIndex, int columnIndex) {
+         if (columnIndex == 1) {
+            return true;
+         } else {
+            return false;
+         }
+      }
+      
       @Override
       public Class<?> getColumnClass(int columnIndex) {
          return String.class;
