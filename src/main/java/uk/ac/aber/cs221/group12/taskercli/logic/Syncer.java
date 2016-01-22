@@ -3,7 +3,6 @@ package uk.ac.aber.cs221.group12.taskercli.logic;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -54,12 +53,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-             - Retrieve local copy
-             - Check if they are equal
-             + log in 
-             - sync and log in using merged Bob :)
+               - Retrieve local copy
+               - Check if they are equal
+                  + log in 
+                  - sync and log in using merged Bob :)
              3. If unsuccessful:
-             - Log in using the local Bob
+               - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
@@ -73,9 +72,6 @@ public class Syncer {
                           ConnectionManager.SQLITE);
 
                   if (local != null) {
-                     System.out.println("REMOTE: " + remote);
-                     System.out.println("LOCAL: " + local);
-
                      // check if they're equal
                      if (remote.equals(local)) {
                         // log in using remote or local, does not matter
@@ -168,8 +164,6 @@ public class Syncer {
             merged = remote;
          } else {
             merged = merge(remote, local);
-
-            System.out.println("MERGED: " + merged);
 
             // update merged Bob in both databases
             try {
