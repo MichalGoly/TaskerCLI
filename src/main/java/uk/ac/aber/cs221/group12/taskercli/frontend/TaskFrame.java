@@ -89,7 +89,6 @@ public class TaskFrame extends JPanel {
 
    private JPanel initButtonPanel() {
       JPanel buttonPanel = new JPanel();
-
       buttonPanel.setLayout(new FlowLayout(SwingUtilities.HORIZONTAL));
 
       completeButton = new JButton(new AbstractAction("Complete") {

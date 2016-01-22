@@ -58,7 +58,7 @@ public class TeamMemberDB {
    public static void updateTeamMember(TeamMember teamMember, int database) throws
            SQLException, IOException {
       Properties props
-              = ConnectionManager.getDatabaseProperties(ConnectionManager.MYSQL);
+              = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(UPDATE_MEMBER)) {

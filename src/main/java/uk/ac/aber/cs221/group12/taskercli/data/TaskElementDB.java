@@ -16,20 +16,20 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
  */
 public class TaskElementDB {
 
-   private static String SELECT_TASK_ELEMENTS
+   private static final String SELECT_TASK_ELEMENTS
            = "SELECT * FROM TaskElement "
            + "WHERE Task_taskId = ?";
    
-   private static String SELECT_TASK_ELEMENT
+   private static final String SELECT_TASK_ELEMENT
            = "SELECT * FROM TaskElement "
            + "WHERE taskElementId = ?";
    
-   private static String UPDATE_TASKELEMENT
+   private static final String UPDATE_TASKELEMENT
            = "UPDATE TaskElement "
            + "SET description = ?, comments = ? "
            + "WHERE taskElementId = ?";
 
-   private static String INSERT_TASK_ELEMENT
+   private static final String INSERT_TASK_ELEMENT
            = "INSERT INTO TaskElement (taskElementId, description, comments, Task_taskId) "
            + "VALUES (?, ?, ?, ?)";
    

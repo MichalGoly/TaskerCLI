@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.aber.cs221.group12.taskercli.logic;
 
 import java.awt.GridLayout;
@@ -78,6 +73,9 @@ public class Syncer {
                           ConnectionManager.SQLITE);
 
                   if (local != null) {
+                     System.out.println("REMOTE: " + remote);
+                     System.out.println("LOCAL: " + local);
+
                      // check if they're equal
                      if (remote.equals(local)) {
                         // log in using remote or local, does not matter
@@ -153,6 +151,8 @@ public class Syncer {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
          } catch (SQLException | IOException e) {
             // no connection to the remote
+            // TODO notify the user!
+            e.printStackTrace();
          }
       } else if (local == null) {
          merged = remote;
@@ -161,12 +161,24 @@ public class Syncer {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.SQLITE);
          } catch (SQLException | IOException e) {
             // should never happen
+            e.printStackTrace();
          }
       } else {
          if (remote.equals(local)) {
             merged = remote;
          } else {
             merged = merge(remote, local);
+
+            System.out.println("MERGED: " + merged);
+
+            // update merged Bob in both databases
+            try {
+               TeamMemberDB.updateTeamMember(merged, ConnectionManager.SQLITE);
+               TeamMemberDB.updateTeamMember(merged, ConnectionManager.MYSQL);
+            } catch (SQLException | IOException e) {
+               // TODO user fiendly notification of the error
+               e.printStackTrace();
+            }
          }
       }
 
@@ -187,7 +199,7 @@ public class Syncer {
                TaskElement lte = TaskElementDB
                        .selectTaskElementById(te.getTaskElementId(),
                                ConnectionManager.SQLITE);
-               if(lte != null){
+               if (lte != null) {
                   String comment = lte.getComments();
                   if (comment != null) {
                      te.setComments(comment);

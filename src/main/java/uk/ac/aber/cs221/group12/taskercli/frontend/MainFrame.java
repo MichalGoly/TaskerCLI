@@ -50,6 +50,7 @@ public class MainFrame extends JFrame {
             Task task = taskTableModel.getTaskAt(table.getSelectedRow());
             taskFrame.showDialog(MainFrame.this, task);
             task = taskFrame.getTask();
+            System.out.println("Task: " + task);
          }
       });
       JScrollPane scrollPane = new JScrollPane(table);
@@ -70,9 +71,7 @@ public class MainFrame extends JFrame {
       private List<Task> tasks;
 
       public TaskTableModel(TeamMember teamMember) {
-
-         this.tasks = teamMember.getTaskList();
-
+         tasks = teamMember.getTaskList();
       }
 
       @Override
