@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 
 /**
  *
@@ -95,7 +96,8 @@ public class TaskFrame extends JPanel {
 
          @Override
          public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            task.setStatus(TaskStatus.COMPLETED);
+            dialog.setVisible(false);
          }
       });
       buttonPanel.add(completeButton);

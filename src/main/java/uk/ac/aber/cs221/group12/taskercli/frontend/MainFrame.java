@@ -60,13 +60,14 @@ public class MainFrame extends JFrame {
             super.mouseClicked(e);
             Task task = taskTableModel.getTaskAt(table.getSelectedRow());
             taskFrame.showDialog(MainFrame.this, task);
+            
             task = taskFrame.getTask();
-            System.out.println("Task: " + task);
+            System.out.println("TASK: " + task);
          }
       });
+      
       JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
-
    }
 
    private void initFrame() {
