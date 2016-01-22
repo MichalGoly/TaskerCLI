@@ -1,5 +1,6 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,16 @@ import uk.ac.aber.cs221.group12.taskercli.util.GBC;
  * @author Michal Goly
  */
 public class MainFrame extends JFrame {
+
+   /**
+    * Default width of the MainFrame
+    */
+   public static final int DEFAULT_WIDTH = 800;
+
+   /**
+    * Default width of the MainFrame
+    */
+   public static final int DEFAULT_HEIGHT = 600;
 
    private SidebarPanel sidebarPanel;
    private JTable table;
@@ -59,7 +70,7 @@ public class MainFrame extends JFrame {
    }
 
    private void initFrame() {
-      pack();
+      setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
       setLocationRelativeTo(null);
       setTitle("Tasker - Welcome, " + teamMember.getFirstName());
       setVisible(true);
