@@ -12,6 +12,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
+import uk.ac.aber.cs221.group12.taskercli.data.TaskDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 
@@ -198,6 +199,15 @@ public class Syncer {
 
       merged.setTaskList(remote.getTaskList());
       for (Task t : merged.getTaskList()) {
+         
+         try {
+            t.setStatus(TaskDB.selectTaskById(t.getTaskId(), 
+                    ConnectionManager.SQLITE).getStatus());
+         } catch (SQLException |IOException ex) {
+            // task with the specified id does not exist, so we can rely on
+            // the default ALLOCATED
+         } 
+         
          for (TaskElement te : t.getTaskElementList()) {
             try {
                TaskElement lte = TaskElementDB
@@ -227,15 +237,15 @@ public class Syncer {
          e.printStackTrace();
       }
       
-      TeamMember remote;
       try {
-         remote = TeamMemberDB.selectTeamMemberByEmail(editedTeamMember.getEmail(), 
-                 ConnectionManager.MYSQL);
+         TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
+                 editedTeamMember.getEmail(), ConnectionManager.MYSQL);
          
          if (remote != null) {
-            
+            sync(remote, editedTeamMember);
          } else {
-            
+            // unable to connect to the database
+            //TODO Inform the user
          }
       } catch (SQLException |IOException e) {
          // TeamMember with this email address does not exit or there was a problem

@@ -12,6 +12,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
+import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
 /**
@@ -79,7 +80,7 @@ public class MainFrame extends JFrame {
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
             
-            System.out.println(teamMember);
+            Syncer.doUpdate(teamMember);
          }
       });
 

@@ -14,7 +14,6 @@ public class ProgressBar extends JPanel {
     private String status;
 
     public ProgressBar(){
-        super(new BorderLayout());
         progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
 

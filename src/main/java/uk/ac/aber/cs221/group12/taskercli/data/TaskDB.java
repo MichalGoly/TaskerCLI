@@ -22,6 +22,9 @@ public class TaskDB {
    private static final String SELECT_TASKS
            = "SELECT * FROM Task WHERE TeamMember_email = ?";
 
+   private static final String SELECT_TASK
+           = "SELECT * FROM Task WHERE taskId = ?";
+
    private static final String UPDATE_TASK
            = "UPDATE Task "
            + "SET title = ?, startDate = ?, endDate = ?, taskStatus = ? "
@@ -30,6 +33,33 @@ public class TaskDB {
    private static final String INSERT_TASK
            = "INSERT INTO Task (taskId, title, startDate, endDate, taskStatus, TeamMember_email) "
            + "VALUES (?, ?, ?, ?, ?, ?)";
+
+   public static Task selectTaskById(long taskId, int database) throws SQLException,
+           IOException {
+      Task task = null;
+      Properties props
+              = ConnectionManager.getDatabaseProperties(database);
+
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         try (PreparedStatement ps = conn.prepareStatement(SELECT_TASK)) {
+            ps.setLong(1, taskId);
+            try (ResultSet rs = ps.executeQuery()) {
+               while (rs.next()) {
+                  String title = rs.getString("title");
+                  Date startDate = rs.getDate("startDate");
+                  Date endDate = rs.getDate("endDate");
+                  TaskStatus status = TaskStatus.fromInt(rs.getInt("taskStatus"));
+                  List<TaskElement> taskElementList
+                          = TaskElementDB.selectTaskElementsByTaskId(taskId, database);
+                  task = new Task(taskId, title, startDate, endDate, status, 
+                          taskElementList);
+               }
+            }
+         }
+      }
+      
+      return task;
+   }
 
    public static List<Task> selectTasks(String email, int database) throws SQLException,
            IOException {
@@ -85,7 +115,7 @@ public class TaskDB {
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(INSERT_TASK)) {
             for (Task t : taskList) {
-                     System.out.println("IN");
+               System.out.println("IN");
 
                ps.setLong(1, t.getTaskId());
                ps.setString(2, t.getTitle());
@@ -94,8 +124,8 @@ public class TaskDB {
                ps.setInt(5, t.getStatus().toInt());
                ps.setString(6, email);
                ps.executeUpdate();
-               
-               TaskElementDB.insertTaskElements(t.getTaskElementList(), database, 
+
+               TaskElementDB.insertTaskElements(t.getTaskElementList(), database,
                        t.getTaskId());
             }
          }
