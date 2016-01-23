@@ -22,9 +22,8 @@ public class ProgressBar extends JPanel {
 
         textArea = new JLabel(status);
 
-        JPanel panel = new JPanel();
-        panel.add(progressBar, BorderLayout.CENTER);
-        panel.add(textArea, BorderLayout.SOUTH);
+        this.add(progressBar, BorderLayout.CENTER);
+        this.add(textArea, BorderLayout.SOUTH);
 
     }
 
