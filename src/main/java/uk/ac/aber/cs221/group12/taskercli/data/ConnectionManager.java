@@ -10,28 +10,49 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
+ * ConnectionManager class can be used to actually connect to both databases. It
+ * enables the caller to acquire a Connection object to either the remote MySQL
+ * (TaskerSRV), or locally run SQLite. ConnectionManager does not have to register
+ * the JDBC drivers anymore, as it is done automatically. 
+ * 
+ * // TODO maybe change this behaviour?
+ * Right now caller has to acquire the Properties object of the required database,
+ * before asking for the Connection object. 
  *
  * @author Michal Goly
  */
 public class ConnectionManager {
    
+   /**
+    * 
+    */
    public static final int MYSQL = 1;
-   public static final int SQLITE = 2;
    
+   /**
+    * 
+    */
+   public static final int SQLITE = 2;
+
    private static final int MYSQL_PROPERTIES_SIZE = 3;
    
+   /**
+    * 
+    * @param database
+    * @return
+    * @throws IOException 
+    */
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
          return null;
       }
-      
+
       String propertiesURI = "";
       if (database == MYSQL) {
          propertiesURI = "src/main/resources/META-INF/mysql.properties";
       } else {
          propertiesURI = "src/main/resources/META-INF/sqlite.properties";
       }
-      
+
       Properties prop = new Properties();
       try (InputStream in = Files.newInputStream(Paths.get(propertiesURI))) {
          prop.load(in);
@@ -39,7 +60,14 @@ public class ConnectionManager {
       return prop;
    }
 
-   // we might need to keep two connections open for syncer
+   /**
+    * This method can be used to acquire the Connection object to the required
+    * database by passing in the corresponding Properties object.
+    * 
+    * @param props The Properties object required to get the connection
+    * @return The Connection to the required database
+    * @throws SQLException Thrown if there was a problem with connecting to a db
+    */
    public static Connection getConnection(Properties props) throws SQLException {
       if (props.size() == MYSQL_PROPERTIES_SIZE) {
          String username = props.getProperty("jdbc.username");
@@ -52,7 +80,5 @@ public class ConnectionManager {
          return DriverManager.getConnection(filename);
       }
    }
-
-
 
 }

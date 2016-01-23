@@ -124,7 +124,7 @@ public class Syncer {
    }
 
    /**
-    * Marge remote and local copy of Bob by considering the precedence imposed in the
+    * Merge remote and local copy of Bob by considering the precedence imposed in the
     * QA Requirements Specification of the assignment try to put merged bob into both
     * local and remote database alert the user in case of problems which can occur !
     *
@@ -178,7 +178,17 @@ public class Syncer {
 
       return merged;
    }
-
+   
+   /**
+    * Actual merging of the remote and the local copy of Bob by considering the 
+    * precedence imposed in the QA Requirements Specification of the assignment.
+    * Data to merge from the local copy is acquired from the local database,
+    * rather than from the passed object. 
+    * 
+    * @param remote The TeamMember object from the remote database
+    * @param local The TeamMember object from the local database
+    * @return The merged TeamMember object
+    */
    private static TeamMember merge(TeamMember remote, TeamMember local) {
       TeamMember merged = new TeamMember();
       merged.setFirstName(remote.getFirstName());

@@ -15,6 +15,9 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
 /**
+ * MainFrame extends JFrame class is the primary view after the login menu, and
+ * displays a TeamMember object’s Tasks in a sortable JTable, clicking on this
+ * invokes TaskFrame. Also displays SidebarPanel.
  *
  * @author Michal Goly
  */
@@ -42,7 +45,11 @@ public class MainFrame extends JFrame {
       initFrame();
       taskFrame = new TaskFrame();
    }
-
+   
+   /**
+    * Initialises both the SidebarPanel and the JTable and positions them within the
+    * MainFrame using the GridBagLayout.
+    */
    private void initComponents() {
       setLayout(new GridBagLayout());
       sidebarPanel = new SidebarPanel();
@@ -54,20 +61,26 @@ public class MainFrame extends JFrame {
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
       table.addMouseListener(new MouseAdapter() {
-
+         
+         
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             int rowIndex = table.getSelectedRow();
             Task task = taskTableModel.getTaskAt(rowIndex);
+            
+            // display the TaskFrame populated with data about the selected Task
             taskFrame.showDialog(MainFrame.this, task);
             
+            // The following code is invoked after user closes the TaskFrame
             task = taskFrame.getTask();
+            
+            // Update the JTable in the MainFrame by accessing its TaskTableModel
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
          }
       });
-      
+
       JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
    }
@@ -83,11 +96,17 @@ public class MainFrame extends JFrame {
    private class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
-
+      
+      /**
+       * Create the table model for the JTable within the MainFrame and extract 
+       * a list of the tasks from the provided teamMember object.
+       * @param teamMember 
+       */
       public TaskTableModel(TeamMember teamMember) {
          tasks = teamMember.getTaskList();
       }
-
+      
+      
       @Override
       public int getRowCount() {
          return tasks.size();
@@ -152,7 +171,7 @@ public class MainFrame extends JFrame {
 
          return value;
       }
-            
+
       @Override
       public Class<?> getColumnClass(int columnIndex) {
          return String.class;

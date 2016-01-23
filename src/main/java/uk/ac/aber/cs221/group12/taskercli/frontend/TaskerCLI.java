@@ -7,8 +7,9 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 public class TaskerCLI {
-
+   
    public static void main(String[] args) {
+      // set look and feel of the GUI depending on the OS of the user
       try {
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       } catch (Exception e) {
