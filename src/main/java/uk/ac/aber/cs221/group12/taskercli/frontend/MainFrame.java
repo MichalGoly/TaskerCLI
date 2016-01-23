@@ -78,6 +78,8 @@ public class MainFrame extends JFrame {
             // Update the JTable in the MainFrame by accessing its TaskTableModel
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
+            
+            System.out.println(teamMember);
          }
       });
 

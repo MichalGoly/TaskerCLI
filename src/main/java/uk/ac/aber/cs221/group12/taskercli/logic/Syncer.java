@@ -218,5 +218,30 @@ public class Syncer {
 
       return merged;
    }
-
+   
+   public static void doUpdate(TeamMember editedTeamMember) {
+      
+      try {
+         TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
+      } catch (SQLException | IOException e) {
+         e.printStackTrace();
+      }
+      
+      TeamMember remote;
+      try {
+         remote = TeamMemberDB.selectTeamMemberByEmail(editedTeamMember.getEmail(), 
+                 ConnectionManager.MYSQL);
+         
+         if (remote != null) {
+            
+         } else {
+            
+         }
+      } catch (SQLException |IOException e) {
+         // TeamMember with this email address does not exit or there was a problem
+         // with getting the connection
+         e.printStackTrace();
+      }
+   }
+   
 }
