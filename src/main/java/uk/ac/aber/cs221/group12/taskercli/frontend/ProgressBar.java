@@ -28,7 +28,7 @@ public class ProgressBar extends JPanel {
 
     }
 
-    public static void ShowGui(String status) {
+    public static void showGui(String status) {
         //Create and set up the window.
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +41,7 @@ public class ProgressBar extends JPanel {
         frame.setVisible(true);
     }
 
-    public static void HideGui(){
+    public static void hideGui(){
         frame.setVisible(false);
     }
 
