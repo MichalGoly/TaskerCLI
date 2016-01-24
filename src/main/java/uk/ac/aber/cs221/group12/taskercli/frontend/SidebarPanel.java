@@ -1,81 +1,83 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
+import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 /**
  *
  * @author Michal Goly
  */
 public class SidebarPanel extends JPanel {
-   
-//   public static final int DEFAULT_WIDTH = 200;
-//   public static final int DEFAULT_HEIGHT = 600;
+
+   private JTable mainFrameTable;
+   private TeamMember teamMember;
    
    private JTextField searchField;
+   private JLabel taskNumberLabel;
+
    private JButton searchButton;
    private JButton returnButton;
-   //private JComboBox sortComboBox;
-   private JLabel taskNumberLabel;
-   //private JButton openButton;
    private JButton logoutButton;
-   
-   public SidebarPanel() {
+
+   public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
+      this.mainFrameTable = mainFrameTable;
+      this.teamMember = teamMember;
       initComponents();
    }
-   
+
    private void initComponents() {
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-      
+
       searchField = new JTextField("Search...", 200);
       add(searchField);
-      
-      searchButton = new JButton(new AbstractAction("Submit") {
 
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            //TODO
-         }
-      });
+      searchButton = new JButton("Submit");
+      searchButton.addActionListener(new SearchButtonListener());
       add(searchButton);
-      
-      returnButton = new JButton(new AbstractAction("Return") {
 
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            //TODO
-         }
-      });
+      returnButton = new JButton("Return");
+      returnButton.addActionListener(new ReturnButtonListener());
       add(returnButton);
-      
+
       taskNumberLabel = new JLabel("Number of tasks: " + "2");
       add(taskNumberLabel);
-      
-//      openButton = new JButton(new AbstractAction("Open") {
-//
-//         @Override
-//         public void actionPerformed(ActionEvent e) {
-//            //TODO
-//         }
-//      });
-//      add(openButton);
-      
-      logoutButton = new JButton(new AbstractAction("Logout") {
 
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            //sync on log out
-            System.exit(0);
-         }
-      });
+      logoutButton = new JButton("Logout");
+      logoutButton.addActionListener(new LogOutButtonListener());
       add(logoutButton);
-      
    }
-   
+
+   private class SearchButtonListener implements ActionListener {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      }
+   }
+
+   private class ReturnButtonListener implements ActionListener {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      }
+   }
+
+   private class LogOutButtonListener implements ActionListener {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         //sync on log out
+         Syncer.doUpdate(teamMember);
+         System.exit(0);
+      }
+   }
 }

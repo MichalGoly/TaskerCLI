@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
    private TimerManager timerManager;
-   
+
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
@@ -49,46 +49,48 @@ public class MainFrame extends JFrame {
       taskFrame = new TaskFrame();
       timerManager = new TimerManager(teamMember);
    }
-   
+
    /**
     * Initialises both the SidebarPanel and the JTable and positions them within the
     * MainFrame using the GridBagLayout.
     */
    private void initComponents() {
       setLayout(new GridBagLayout());
-      sidebarPanel = new SidebarPanel();
-      add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
-              .setFill(GBC.BOTH));
-
+      
+      // setup the JTable within the MainFrame
       taskTableModel = new TaskTableModel(teamMember);
       table = new JTable(taskTableModel);
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
       table.addMouseListener(new MouseAdapter() {
-         
-         
+
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             int rowIndex = table.getSelectedRow();
             Task task = taskTableModel.getTaskAt(rowIndex);
-            
+
             // display the TaskFrame populated with data about the selected Task
             taskFrame.showDialog(MainFrame.this, task);
-            
+
             // The following code is invoked after user closes the TaskFrame
             task = taskFrame.getTask();
-            
+
             // Update the JTable in the MainFrame by accessing its TaskTableModel
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
-            
+
             Syncer.doUpdate(teamMember);
          }
       });
 
       JScrollPane scrollPane = new JScrollPane(table);
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
+
+      // setup the sidebar within the MainFrame
+      sidebarPanel = new SidebarPanel(table, teamMember);
+      add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
+              .setFill(GBC.BOTH));
    }
 
    private void initFrame() {
@@ -102,16 +104,17 @@ public class MainFrame extends JFrame {
    private class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
-      
+
       /**
-       * Create the table model for the JTable within the MainFrame and extract 
-       * a list of the tasks from the provided teamMember object.
-       * @param teamMember 
+       * Create the table model for the JTable within the MainFrame and extract a
+       * list of the tasks from the provided teamMember object.
+       *
+       * @param teamMember
        */
       public TaskTableModel(TeamMember teamMember) {
          tasks = teamMember.getTaskList();
       }
-      
+
       @Override
       public int getRowCount() {
          return tasks.size();
