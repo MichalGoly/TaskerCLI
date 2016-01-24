@@ -6,42 +6,41 @@ import java.awt.*;
 /**
  * Created by jam on 1/23/16.
  */
-
-
 public class ProgressBar extends JPanel {
-    private JProgressBar progressBar;
-    private JLabel textArea;
-    private String status;
-    private static JFrame frame;
 
-    public ProgressBar(String newStatus){
-        progressBar = new JProgressBar();
-        progressBar.setIndeterminate(true);
+   private JProgressBar progressBar;
+   private JLabel textArea;
+   private String status;
+   private static JFrame frame;
 
-        status = newStatus;
+   public ProgressBar(String newStatus) {
+      progressBar = new JProgressBar();
+      progressBar.setIndeterminate(true);
 
-        textArea = new JLabel(status);
+      status = newStatus;
 
-        this.add(progressBar, BorderLayout.CENTER);
-        this.add(textArea, BorderLayout.SOUTH);
+      textArea = new JLabel(status);
 
-    }
+      this.add(progressBar, BorderLayout.CENTER);
+      this.add(textArea, BorderLayout.SOUTH);
 
-    public static void showGui(String status) {
-        //Create and set up the window.
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   }
 
-        //Create and set up the content pane.
-        JComponent newContentPane = new ProgressBar(status);
-        newContentPane.setOpaque(true);
-        frame.setContentPane(newContentPane);
-        frame.pack();
-        frame.setVisible(true);
-    }
+   public static void showGui(String status) {
+      //Create and set up the window.
+      frame = new JFrame();
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    public static void hideGui(){
-        frame.setVisible(false);
-    }
+      //Create and set up the content pane.
+      JComponent newContentPane = new ProgressBar(status);
+      newContentPane.setOpaque(true);
+      frame.setContentPane(newContentPane);
+      frame.pack();
+      frame.setVisible(true);
+   }
+
+   public static void hideGui() {
+      frame.setVisible(false);
+   }
 
 }
