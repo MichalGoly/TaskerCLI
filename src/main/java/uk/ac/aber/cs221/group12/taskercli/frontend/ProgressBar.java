@@ -1,7 +1,11 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 /**
  * Created by jam on 1/23/16.
