@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
+import uk.ac.aber.cs221.group12.taskercli.logic.TimerManager;
 import uk.ac.aber.cs221.group12.taskercli.util.GBC;
 
 /**
@@ -39,12 +40,14 @@ public class MainFrame extends JFrame {
    private TaskFrame taskFrame;
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
-
+   private TimerManager timerManager;
+   
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
+      timerManager = new TimerManager(teamMember);
    }
    
    /**
