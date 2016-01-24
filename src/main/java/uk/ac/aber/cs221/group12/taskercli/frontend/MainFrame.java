@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
       setVisible(true);
    }
 
-   //TODO http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
+   // http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
    private class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
@@ -108,7 +108,6 @@ public class MainFrame extends JFrame {
       public TaskTableModel(TeamMember teamMember) {
          tasks = teamMember.getTaskList();
       }
-      
       
       @Override
       public int getRowCount() {

@@ -27,7 +27,6 @@ public class ProgressBar extends JPanel {
 
       this.add(progressBar, BorderLayout.CENTER);
       this.add(textArea, BorderLayout.SOUTH);
-
    }
 
    public static void showGui(String status) {
@@ -40,10 +39,15 @@ public class ProgressBar extends JPanel {
       newContentPane.setOpaque(true);
       frame.setContentPane(newContentPane);
       frame.pack();
+      frame.setLocationRelativeTo(null);
       frame.setVisible(true);
    }
 
    public static void hideGui() {
+      if (frame == null) {
+         return;
+      }
+      
       frame.setVisible(false);
    }
 

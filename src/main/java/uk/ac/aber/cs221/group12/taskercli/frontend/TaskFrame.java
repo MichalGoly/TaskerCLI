@@ -67,6 +67,10 @@ public class TaskFrame extends JPanel {
       taskTopPanel.getEndDate().setText(task.getEndDate().toString());
       taskTopPanel.getStatus().setText(task.getStatus().toString());
       
+      if (task.getStatus() != TaskStatus.ALLOCATED) {
+         completeButton.setEnabled(false);
+      } 
+      
       dialog.setLocationRelativeTo(parent);
       dialog.setTitle("Tasker - " + task.getTitle());
       dialog.setVisible(true);
@@ -97,7 +101,6 @@ public class TaskFrame extends JPanel {
          @Override
          public void actionPerformed(ActionEvent e) {
             task.setStatus(TaskStatus.COMPLETED);
-            setEnabled(false);
             dialog.setVisible(false);
          }
       });
