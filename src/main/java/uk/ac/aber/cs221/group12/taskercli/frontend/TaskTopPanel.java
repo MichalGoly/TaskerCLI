@@ -6,7 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * TaskTopPanel is responsible for displaying the details (start date, end date and
+ * status) of a task within the TaskFrame. TaskTopPanel is situated on the top
+ * of the TaskFrame.
+ * 
  * @author Michal Goly
  */
 public class TaskTopPanel extends JPanel {

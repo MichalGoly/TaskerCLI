@@ -12,19 +12,24 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 /**
- *
+ * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
+ * filter through the tasks using the search box provided, and log out of the system.
+ * 
+ * // TODO
+ * It also indicates whether there's is an access to the remote database (whether
+ * the system works online/offline).
+ * 
  * @author Michal Goly
  */
 public class SidebarPanel extends JPanel {
 
    private JTable mainFrameTable;
    private TeamMember teamMember;
-   
+
    private JTextField searchField;
    private JLabel taskNumberLabel;
 
    private JButton searchButton;
-   private JButton returnButton;
    private JButton logoutButton;
 
    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
@@ -43,11 +48,8 @@ public class SidebarPanel extends JPanel {
       searchButton.addActionListener(new SearchButtonListener());
       add(searchButton);
 
-      returnButton = new JButton("Return");
-      returnButton.addActionListener(new ReturnButtonListener());
-      add(returnButton);
-
-      taskNumberLabel = new JLabel("Number of tasks: " + "2");
+      taskNumberLabel
+              = new JLabel("Number of tasks: " + teamMember.getTaskList().size());
       add(taskNumberLabel);
 
       logoutButton = new JButton("Logout");
@@ -56,14 +58,6 @@ public class SidebarPanel extends JPanel {
    }
 
    private class SearchButtonListener implements ActionListener {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      }
-   }
-
-   private class ReturnButtonListener implements ActionListener {
 
       @Override
       public void actionPerformed(ActionEvent e) {

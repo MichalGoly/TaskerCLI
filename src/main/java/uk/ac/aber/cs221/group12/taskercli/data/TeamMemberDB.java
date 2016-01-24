@@ -11,6 +11,19 @@ import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 /**
+ * TeamMemberDB class is one of the data access classes in the DAO pattern. It
+ * provides useful methods which can be used to retrieve and update the
+ * <code>TeamMember</code> objects in both databases.
+ *
+ * For example the
+ * {@link #selectTeamMemberByEmail(String email, int database) selectTeamMemberByEmail}
+ * method will as expected acquire the connection to either the MySQL or SQLite
+ * database, prepare a suitable query statement, construct the
+ * <code>TeamMember</code> object and return it back to the caller. This is a really
+ * powerful concept which abstracts the raw SQL from the graphical user interface.
+ * After we make some changes to the object, we can use a single method
+ * {@link #updateTeamMember(TeamMember teamMember, int database) updateTeamMember} to
+ * put it back to the database.
  *
  * @author Michal Goly
  */
@@ -83,7 +96,7 @@ public class TeamMemberDB {
             ps.setString(3, teamMember.getLastName());
             ps.setString(4, teamMember.getPassword());
             ps.executeUpdate();
-            
+
             TaskDB.insertTasks(teamMember.getTaskList(), database, teamMember.getEmail());
          }
       }

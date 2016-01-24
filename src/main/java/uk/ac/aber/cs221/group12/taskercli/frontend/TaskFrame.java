@@ -19,7 +19,10 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 
 /**
- *
+ * TaskFrame is responsible for displaying the list of task elements of a task that
+ * has been selected in the MainFrame. User can edit comments associated with 
+ * each of the task elements and mark the whole task as complete.
+ * 
  * @author Michal Goly
  */
 public class TaskFrame extends JPanel {
@@ -69,7 +72,9 @@ public class TaskFrame extends JPanel {
       
       if (task.getStatus() != TaskStatus.ALLOCATED) {
          completeButton.setEnabled(false);
-      } 
+      } else {
+         completeButton.setEnabled(true);
+      }
       
       dialog.setLocationRelativeTo(parent);
       dialog.setTitle("Tasker - " + task.getTitle());

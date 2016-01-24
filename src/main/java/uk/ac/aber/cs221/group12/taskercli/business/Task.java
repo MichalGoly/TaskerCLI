@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.aber.cs221.group12.taskercli.business;
 
 import java.io.Serializable;
@@ -11,6 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Task class abstracts the Task table in both databases. Its instance variables
+ * correspond to columns inside databases and can be accessed and modified using the
+ * getters and setters provided. Each task has an associated list of task elements.
+ * The status of a task is stored as an integer in the database and is then
+ * transformed to an appropriate TaskStatus Enum inside the program.
  *
  * @author Michal Goly
  */
@@ -26,7 +26,7 @@ public class Task implements Serializable {
    public Task() {
    }
 
-   public Task(Long taskId, String title, Date startDate, Date endDate, 
+   public Task(Long taskId, String title, Date startDate, Date endDate,
            TaskStatus status, List<TaskElement> taskElementList) {
       this.taskId = taskId;
       this.title = title;

@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 /**
- * The TimerManager class is responsible for syncing every 5 min.
+ * The TimerManager class is responsible for syncing every 5 min as required
+ * in the assignment specification of the system.
  *
  * @author Michal Goly
  */

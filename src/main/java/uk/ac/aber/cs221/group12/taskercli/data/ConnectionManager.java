@@ -24,12 +24,12 @@ import java.util.Properties;
 public class ConnectionManager {
    
    /**
-    * 
+    * MYSQL constant indicates that the MySQL database should be used
     */
    public static final int MYSQL = 1;
    
    /**
-    * 
+    * SQLITE constant indicates  that the SQLite database should be used
     */
    public static final int SQLITE = 2;
 

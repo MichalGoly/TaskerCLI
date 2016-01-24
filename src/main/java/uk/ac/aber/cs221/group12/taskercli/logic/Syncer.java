@@ -18,6 +18,11 @@ import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
+ * Syncer class contains the logic for conflict resolution between the contents of
+ * the two databases within its sync method. The sync method takes two TeamMember
+ * objects, generates a canonical TeamMember object, which is supplied to the
+ * databases and UI. The Syncer class also contains the login method, displaying a
+ * dialog for user login and returning an appropriate TeamMember object.
  *
  * @author Michal Goly
  */
@@ -123,7 +128,7 @@ public class Syncer {
          } else {
             System.exit(0);
          }
-         
+
          // hide the loading dialog
          ProgressBar.hideGui();
       }
@@ -235,10 +240,18 @@ public class Syncer {
 
       return merged;
    }
-
+   
+   /**
+    * This method can be used to invoke the synchronisation of the current TeamMember
+    * object between both the local (SQLite) and the remote (TaskerSRV) databases.
+    * 
+    * // TODO Perhaps a bit more detailed description
+    * 
+    * @param editedTeamMember 
+    */
    public static void doUpdate(TeamMember editedTeamMember) {
       ProgressBar.showGui("Syncing...");
-      
+
       try {
          TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
       } catch (SQLException | IOException e) {
@@ -260,7 +273,7 @@ public class Syncer {
          // with getting the connection
          e.printStackTrace();
       }
-      
+
       ProgressBar.hideGui();
    }
 
