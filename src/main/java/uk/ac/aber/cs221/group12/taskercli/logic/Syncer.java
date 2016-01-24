@@ -15,6 +15,7 @@ import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
+import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
  *
@@ -51,15 +52,18 @@ public class Syncer {
                  JOptionPane.PLAIN_MESSAGE);
 
          if (result == JOptionPane.OK_OPTION) {
+            // pop up the loading dialog
+            ProgressBar.showGui("Logging in...");
+
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-               - Retrieve local copy
-               - Check if they are equal
-                  + log in 
-                  - sync and log in using merged Bob :)
+             - Retrieve local copy
+             - Check if they are equal
+             + log in 
+             - sync and log in using merged Bob :)
              3. If unsuccessful:
-               - Log in using the local Bob
+             - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;
@@ -119,6 +123,9 @@ public class Syncer {
          } else {
             System.exit(0);
          }
+         
+         // hide the loading dialog
+         ProgressBar.hideGui();
       }
 
       return teamMember;
@@ -179,13 +186,13 @@ public class Syncer {
 
       return merged;
    }
-   
+
    /**
-    * Actual merging of the remote and the local copy of Bob by considering the 
-    * precedence imposed in the QA Requirements Specification of the assignment.
-    * Data to merge from the local copy is acquired from the local database,
-    * rather than from the passed object. 
-    * 
+    * Actual merging of the remote and the local copy of Bob by considering the
+    * precedence imposed in the QA Requirements Specification of the assignment. Data
+    * to merge from the local copy is acquired from the local database, rather than
+    * from the passed object.
+    *
     * @param remote The TeamMember object from the remote database
     * @param local The TeamMember object from the local database
     * @return The merged TeamMember object
@@ -199,15 +206,15 @@ public class Syncer {
 
       merged.setTaskList(remote.getTaskList());
       for (Task t : merged.getTaskList()) {
-         
+
          try {
-            t.setStatus(TaskDB.selectTaskById(t.getTaskId(), 
+            t.setStatus(TaskDB.selectTaskById(t.getTaskId(),
                     ConnectionManager.SQLITE).getStatus());
-         } catch (SQLException |IOException ex) {
+         } catch (SQLException | IOException ex) {
             // task with the specified id does not exist, so we can rely on
             // the default ALLOCATED
-         } 
-         
+         }
+
          for (TaskElement te : t.getTaskElementList()) {
             try {
                TaskElement lte = TaskElementDB
@@ -228,30 +235,33 @@ public class Syncer {
 
       return merged;
    }
-   
+
    public static void doUpdate(TeamMember editedTeamMember) {
+      ProgressBar.showGui("Syncing...");
       
       try {
          TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
       } catch (SQLException | IOException e) {
          e.printStackTrace();
       }
-      
+
       try {
          TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
                  editedTeamMember.getEmail(), ConnectionManager.MYSQL);
-         
+
          if (remote != null) {
             sync(remote, editedTeamMember);
          } else {
             // unable to connect to the database
             //TODO Inform the user
          }
-      } catch (SQLException |IOException e) {
+      } catch (SQLException | IOException e) {
          // TeamMember with this email address does not exit or there was a problem
          // with getting the connection
          e.printStackTrace();
       }
+      
+      ProgressBar.hideGui();
    }
-   
+
 }
