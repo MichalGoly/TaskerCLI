@@ -275,8 +275,8 @@ public class Syncer {
          TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
                  editedTeamMember.getEmail(), ConnectionManager.MYSQL);
          if (remote != null) {
-            sync(remote, editedTeamMember);
             OnlineIndicatorPanel.setOnline();
+            sync(remote, editedTeamMember);
          } else {
             // unable to connect to the database
             //TODO Inform the user
