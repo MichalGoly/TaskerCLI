@@ -1,6 +1,9 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.EventQueue;
+
 import javax.swing.*;
 
 /**
@@ -22,7 +25,7 @@ public class ProgressBar extends JPanel {
     * Constructs the ProgressBar dialog which can be used to visually notify the user
     * about some lengthy process taking place, e.g syncing. 
     *
-    * @param newStatus 
+    * @param newStatus the text to display in the dialog box
     */
    public ProgressBar(String newStatus) {
       progressBar = new JProgressBar();
@@ -35,29 +38,53 @@ public class ProgressBar extends JPanel {
       this.add(progressBar, BorderLayout.CENTER);
       this.add(textArea, BorderLayout.SOUTH);
    }
+   
+/**
+ * Displays the Progress bar dialog box, either creating a new one or changing info
+ * in the one already created
+ * @param status The text to display in the dialog box
+ */
+   public static void showGui(final String status) {
+	   //Create and set up the window.
+	   //eventQueue.invoke later allows the progress bar to load properly before being shown.
+	   EventQueue.invokeLater(new Runnable() {
 
-   public static void showGui(String status) {
-      //Create and set up the window.
-       if (frame == null) {
-           frame = new JDialog();
-           frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-       }
-
-      //Create and set up the content pane.
-      JComponent newContentPane = new ProgressBar(status);
-      newContentPane.setOpaque(true);
-      frame.setContentPane(newContentPane);
-      frame.pack();
-      frame.setLocationRelativeTo(null);
-      frame.setVisible(true);
+	         @Override
+	         public void run() {
+	        	 if(frame == null){
+	      		   System.out.println("CREATE NEW FRAME");
+	      		   frame = new JDialog();
+	      		   frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	      		   Container contents = new ProgressBar(status);
+	      		   frame.setContentPane(contents);
+	      		   frame.pack();
+	      		   frame.setLocationRelativeTo(null);
+	      	   }else{
+	      		   ((ProgressBar) frame.getContentPane()).setTextArea(status);
+	      	   }
+	      	   frame.setVisible(true);
+	         }
+	      });
+	   
    }
-
+   /**
+    * Hides the GUI from view by making it invisible
+    */
    public static void hideGui() {
-      if (frame == null) {
-         return;
-      }
-      
-      frame.setVisible(false);
-   }
+	   EventQueue.invokeLater(new Runnable() {
 
+	         @Override
+	         public void run() {
+	        	 	System.out.println("REMOVING DIALOG BOX");
+	        	 	if (frame == null) {
+	        	 			return;
+	        	 	}
+	        	 	frame.setVisible(false);
+	         }
+	   });
+   }
+   
+   public void setTextArea(String status){
+	   this.textArea.setText(status);
+   }
 }
