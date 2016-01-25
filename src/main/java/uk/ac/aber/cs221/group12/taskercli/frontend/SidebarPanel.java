@@ -88,7 +88,7 @@ public class SidebarPanel extends JPanel {
       public void actionPerformed(ActionEvent e) {
          //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     	  String searchText = searchField.getText();
-    	  sorter.setRowFilter(RowFilter.regexFilter(searchText, 0));
+    	  sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
       }
    }
 
