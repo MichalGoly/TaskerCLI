@@ -218,16 +218,18 @@ public class Syncer {
 
       merged.setTaskList(remote.getTaskList());
       for (Task t : merged.getTaskList()) {
-         
          try {
-            TaskStatus localStatus = TaskDB.selectTaskById(t.getTaskId(),
-                    ConnectionManager.SQLITE).getStatus();
-            
-            if (localStatus == TaskStatus.COMPLETED 
-                    && t.getStatus() == TaskStatus.ALLOCATED) {
-               t.setStatus(TaskStatus.COMPLETED);
-            }
+            Task localTask = TaskDB.selectTaskById(t.getTaskId(),
+                    ConnectionManager.SQLITE);
 
+            if (localTask != null) {
+               TaskStatus localStatus = localTask.getStatus();
+
+               if (localStatus == TaskStatus.COMPLETED
+                       && t.getStatus() == TaskStatus.ALLOCATED) {
+                  t.setStatus(TaskStatus.COMPLETED);
+               }
+            }
          } catch (SQLException | IOException ex) {
             // task with the specified id does not exist, so we can rely on
             // the default ALLOCATED
@@ -253,14 +255,14 @@ public class Syncer {
 
       return merged;
    }
-   
+
    /**
     * This method can be used to invoke the synchronisation of the current TeamMember
     * object between both the local (SQLite) and the remote (TaskerSRV) databases.
-    * 
+    *
     * // TODO Perhaps a bit more detailed description
-    * 
-    * @param editedTeamMember 
+    *
+    * @param editedTeamMember
     */
    public static void doUpdate(TeamMember editedTeamMember) {
       ProgressBar.showGui("Syncing...");
