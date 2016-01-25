@@ -41,18 +41,16 @@ public class ProgressBar extends JPanel {
    }
 
    public static void showGui(String status) {
-      if (frame == null) {
-         //Create and set up the window.
-         frame = new JFrame();
-         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      //Create and set up the window.
+      frame = new JFrame();
+      frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-         //Create and set up the content pane.
-         JComponent newContentPane = new ProgressBar(status);
-         newContentPane.setOpaque(true);
-         frame.setContentPane(newContentPane);
-         frame.pack();
-         frame.setLocationRelativeTo(null);
-      }
+      //Create and set up the content pane.
+      JComponent newContentPane = new ProgressBar(status);
+      newContentPane.setOpaque(true);
+      frame.setContentPane(newContentPane);
+      frame.pack();
+      frame.setLocationRelativeTo(null);
 
       frame.setVisible(true);
    }
