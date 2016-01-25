@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             int rowIndex = table.convertRowIndexToModel(table.getSelectedRow());
-                      
+                       
             Task task = taskTableModel.getTaskAt(rowIndex);
 
             // display the TaskFrame populated with data about the selected Task
