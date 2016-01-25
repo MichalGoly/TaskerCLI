@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -31,6 +32,7 @@ public class SidebarPanel extends JPanel {
 
    private JButton searchButton;
    private JButton logoutButton;
+   
    
    private OnlineIndicatorPanel onlinePanel;
 
@@ -61,6 +63,8 @@ public class SidebarPanel extends JPanel {
       onlinePanel = new OnlineIndicatorPanel();
       onlinePanel.setOnline();
       add(onlinePanel);
+      
+      
    }
 
    private class SearchButtonListener implements ActionListener {
