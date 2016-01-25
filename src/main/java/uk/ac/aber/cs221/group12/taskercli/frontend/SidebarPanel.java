@@ -31,6 +31,8 @@ public class SidebarPanel extends JPanel {
 
    private JButton searchButton;
    private JButton logoutButton;
+   
+   private OnlineIndicatorPanel onlinePanel;
 
    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
       this.mainFrameTable = mainFrameTable;
@@ -55,6 +57,10 @@ public class SidebarPanel extends JPanel {
       logoutButton = new JButton("Logout");
       logoutButton.addActionListener(new LogOutButtonListener());
       add(logoutButton);
+      
+      onlinePanel = new OnlineIndicatorPanel();
+      onlinePanel.setOnline();
+      add(onlinePanel);
    }
 
    private class SearchButtonListener implements ActionListener {
