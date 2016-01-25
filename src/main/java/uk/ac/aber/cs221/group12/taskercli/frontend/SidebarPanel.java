@@ -78,7 +78,6 @@ public class SidebarPanel extends JPanel {
       add(Box.createRigidArea(new Dimension(10, 20)));
       
       onlinePanel = new OnlineIndicatorPanel();
-      onlinePanel.setOnline();
       add(onlinePanel);   
    }
 

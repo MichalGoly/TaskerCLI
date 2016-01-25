@@ -23,6 +23,7 @@ public class OnlineIndicatorPanel extends JPanel {
 	}
 	
 	public static void setOnline(){
+		System.out.println("setting online");
 		label.setText("Online");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.green);
@@ -30,6 +31,7 @@ public class OnlineIndicatorPanel extends JPanel {
 	}
 	
 	public static void setOffline(){
+		System.out.println("setting offline");
 		label.setText("Offline");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.red);

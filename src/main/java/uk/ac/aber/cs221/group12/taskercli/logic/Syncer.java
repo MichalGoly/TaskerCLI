@@ -82,6 +82,7 @@ public class Syncer {
                   // retireve local copy
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
+                  OnlineIndicatorPanel.setOnline();
 
                   if (local != null) {
                      // check if they're equal
@@ -100,19 +101,17 @@ public class Syncer {
                      teamMember = sync(remote, null);
                      loggedIn = true;
                   }
-                  OnlineIndicatorPanel.setOnline();
                } else {
                   // TeamMember with this email address does not exist
 
                   // dodgy way to get into the second branch, ignore the spaghetti
-                  // code for now
+                  // code for
                   throw new IOException();
                }
 
             } catch (SQLException | IOException e) {
                // Was not able to connect to the remote database, or remote = null
-               // TODO let user know!
-               OnlineIndicatorPanel.setOffline(); //does this count as notification?
+               OnlineIndicatorPanel.setOffline();
                try {
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
@@ -162,7 +161,6 @@ public class Syncer {
 
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
-            OnlineIndicatorPanel.setOnline();
          } catch (SQLException | IOException e) {
             // no connection to the remote
             // TODO notify the user!
@@ -276,7 +274,6 @@ public class Syncer {
       try {
          TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
                  editedTeamMember.getEmail(), ConnectionManager.MYSQL);
-
          if (remote != null) {
             sync(remote, editedTeamMember);
             OnlineIndicatorPanel.setOnline();
@@ -288,6 +285,7 @@ public class Syncer {
       } catch (SQLException | IOException e) {
          // TeamMember with this email address does not exit or there was a problem
          // with getting the connection
+         OnlineIndicatorPanel.setOffline();
          e.printStackTrace();
       }
 
