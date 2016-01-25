@@ -67,7 +67,8 @@ public class MainFrame extends JFrame {
          @Override
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
-            int rowIndex = table.getSelectedRow();
+            int rowIndex = table.convertRowIndexToModel(table.getSelectedRow());
+                      
             Task task = taskTableModel.getTaskAt(rowIndex);
 
             // display the TaskFrame populated with data about the selected Task
