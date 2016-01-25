@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskDB;
@@ -211,10 +212,16 @@ public class Syncer {
 
       merged.setTaskList(remote.getTaskList());
       for (Task t : merged.getTaskList()) {
-
+         
          try {
-            t.setStatus(TaskDB.selectTaskById(t.getTaskId(),
-                    ConnectionManager.SQLITE).getStatus());
+            TaskStatus localStatus = TaskDB.selectTaskById(t.getTaskId(),
+                    ConnectionManager.SQLITE).getStatus();
+            
+            if (localStatus == TaskStatus.COMPLETED 
+                    && t.getStatus() == TaskStatus.ALLOCATED) {
+               t.setStatus(TaskStatus.COMPLETED);
+            }
+
          } catch (SQLException | IOException ex) {
             // task with the specified id does not exist, so we can rely on
             // the default ALLOCATED
