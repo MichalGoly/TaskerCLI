@@ -22,7 +22,7 @@ public class TaskerCLI {
       }
 
       // log in
-      TeamMember teamMember = Syncer.logIn();
+      final TeamMember teamMember = Syncer.logIn();
       
       EventQueue.invokeLater(new Runnable() {
 
