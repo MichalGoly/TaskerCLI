@@ -1,11 +1,7 @@
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import java.awt.BorderLayout;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.*;
 
 /**
  * ProgressBar class is responsible for creating a pop up dialog which notifies
@@ -20,7 +16,7 @@ public class ProgressBar extends JPanel {
    private JProgressBar progressBar;
    private JLabel textArea;
    private String status;
-   private static JFrame frame;
+   private static JDialog frame;
    
    /**
     * Constructs the ProgressBar dialog which can be used to visually notify the user
@@ -42,8 +38,10 @@ public class ProgressBar extends JPanel {
 
    public static void showGui(String status) {
       //Create and set up the window.
-      frame = new JFrame();
-      frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+       if (frame == null) {
+           frame = new JDialog();
+           frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+       }
 
       //Create and set up the content pane.
       JComponent newContentPane = new ProgressBar(status);
