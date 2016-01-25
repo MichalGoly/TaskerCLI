@@ -10,7 +10,7 @@ public class OnlineIndicatorPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private JLabel label;
+	private static JLabel label = new JLabel();
 	
 	public OnlineIndicatorPanel() {
 		initialise();
@@ -23,17 +23,16 @@ public class OnlineIndicatorPanel extends JPanel {
 		    add(label);
 	}
 	
-	public void setOnline(){
+	public static void setOnline(){
 		label.setText("Online");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.green);
 	    
 	}
 	
-	public void setOffline(){
+	public static void setOffline(){
 		label.setText("Offline");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.red);
 	}
-
 }

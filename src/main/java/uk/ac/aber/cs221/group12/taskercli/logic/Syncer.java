@@ -16,6 +16,7 @@ import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
+import uk.ac.aber.cs221.group12.taskercli.frontend.OnlineIndicatorPanel;
 import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
@@ -99,6 +100,7 @@ public class Syncer {
                      teamMember = sync(remote, null);
                      loggedIn = true;
                   }
+                  OnlineIndicatorPanel.setOnline();
                } else {
                   // TeamMember with this email address does not exist
 
@@ -110,6 +112,7 @@ public class Syncer {
             } catch (SQLException | IOException e) {
                // Was not able to connect to the remote database, or remote = null
                // TODO let user know!
+               OnlineIndicatorPanel.setOffline(); //does this count as notification?
                try {
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
@@ -159,9 +162,11 @@ public class Syncer {
 
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
+            OnlineIndicatorPanel.setOnline();
          } catch (SQLException | IOException e) {
             // no connection to the remote
             // TODO notify the user!
+            OnlineIndicatorPanel.setOffline(); //like this?
             e.printStackTrace();
          }
       } else if (local == null) {
@@ -185,6 +190,7 @@ public class Syncer {
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.MYSQL);
             } catch (SQLException | IOException e) {
                // TODO user fiendly notification of the error
+               OnlineIndicatorPanel.setOffline(); // not exactly suitable notification...
                e.printStackTrace();
             }
          }
@@ -271,9 +277,11 @@ public class Syncer {
 
          if (remote != null) {
             sync(remote, editedTeamMember);
+            OnlineIndicatorPanel.setOnline();
          } else {
             // unable to connect to the database
             //TODO Inform the user
+            OnlineIndicatorPanel.setOffline();
          }
       } catch (SQLException | IOException e) {
          // TeamMember with this email address does not exit or there was a problem
