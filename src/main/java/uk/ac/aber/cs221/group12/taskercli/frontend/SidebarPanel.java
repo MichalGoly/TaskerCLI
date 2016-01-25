@@ -39,7 +39,9 @@ public class SidebarPanel extends JPanel {
    private TableRowSorter<TableModel> sorter;
 
    private JButton searchButton;
+   private JButton viewAllTasks;
    private JButton logoutButton;
+   
    
    
    private OnlineIndicatorPanel onlinePanel;
@@ -70,6 +72,12 @@ public class SidebarPanel extends JPanel {
       add(taskNumberLabel);
       
       add(Box.createRigidArea(new Dimension(10, 15)));
+      
+      viewAllTasks = new JButton("View All Tasks");
+      viewAllTasks.addActionListener(new ViewAllTasksListener());
+      add(viewAllTasks);
+      
+      add(Box.createRigidArea(new Dimension(10,15)));
 
       logoutButton = new JButton("Logout");
       logoutButton.addActionListener(new LogOutButtonListener());
@@ -86,11 +94,18 @@ public class SidebarPanel extends JPanel {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     	  String searchText = searchField.getText();
     	  sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
       }
    }
+   
+   private class ViewAllTasksListener implements ActionListener {
+
+	      @Override
+	      public void actionPerformed(ActionEvent e) {
+	    	  sorter.setRowFilter(RowFilter.regexFilter(""));
+	      }
+	   }
 
    private class LogOutButtonListener implements ActionListener {
 
