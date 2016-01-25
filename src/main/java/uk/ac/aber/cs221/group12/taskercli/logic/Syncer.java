@@ -3,6 +3,8 @@ package uk.ac.aber.cs221.group12.taskercli.logic;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -259,31 +261,40 @@ public class Syncer {
     * @param editedTeamMember
     */
    public static void doUpdate(TeamMember editedTeamMember) {
-      ProgressBar.showGui("Syncing...");
 
-      try {
-         TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
-      } catch (SQLException | IOException e) {
-         e.printStackTrace();
-      }
+      Executor executor = Executors.newSingleThreadExecutor();
+      executor.execute(new Runnable() {
 
-      try {
-         TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
-                 editedTeamMember.getEmail(), ConnectionManager.MYSQL);
+         @Override
+         public void run() {
+            ProgressBar.showGui("Syncing");
+            
+            try {
+               TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
+            } catch (SQLException | IOException e) {
+               e.printStackTrace();
+            }
 
-         if (remote != null) {
-            sync(remote, editedTeamMember);
-         } else {
-            // unable to connect to the database
-            //TODO Inform the user
+            try {
+               TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
+                       editedTeamMember.getEmail(), ConnectionManager.MYSQL);
+
+               if (remote != null) {
+                  sync(remote, editedTeamMember);
+               } else {
+                  // unable to connect to the database
+                  //TODO Inform the user
+               }
+            } catch (SQLException | IOException e) {
+               // TeamMember with this email address does not exit or there was a problem
+               // with getting the connection
+               e.printStackTrace();
+            }
+            
+            ProgressBar.hideGui();
          }
-      } catch (SQLException | IOException e) {
-         // TeamMember with this email address does not exit or there was a problem
-         // with getting the connection
-         e.printStackTrace();
-      }
+      });
 
-      ProgressBar.hideGui();
    }
 
 }
