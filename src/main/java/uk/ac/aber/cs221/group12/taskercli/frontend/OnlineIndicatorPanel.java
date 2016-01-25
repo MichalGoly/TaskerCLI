@@ -19,7 +19,6 @@ public class OnlineIndicatorPanel extends JPanel {
 	
 	public void initialise(){
 		    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		    label = new JLabel();
 		    add(label);
 	}
 	
@@ -27,12 +26,13 @@ public class OnlineIndicatorPanel extends JPanel {
 		label.setText("Online");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.green);
-	    
+		label.repaint();
 	}
 	
 	public static void setOffline(){
 		label.setText("Offline");
 		label.setFont(label.getFont().deriveFont(15f));
 		label.setForeground(Color.red);
+		label.repaint();
 	}
 }

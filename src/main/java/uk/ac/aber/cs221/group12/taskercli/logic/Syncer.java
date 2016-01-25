@@ -82,7 +82,7 @@ public class Syncer {
                   // retireve local copy
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
-
+                  OnlineIndicatorPanel.setOnline();
                   if (local != null) {
                      // check if they're equal
                      if (remote.equals(local)) {
@@ -100,19 +100,19 @@ public class Syncer {
                      teamMember = sync(remote, null);
                      loggedIn = true;
                   }
-                  OnlineIndicatorPanel.setOnline();
                } else {
                   // TeamMember with this email address does not exist
 
                   // dodgy way to get into the second branch, ignore the spaghetti
                   // code for now
+
+                  OnlineIndicatorPanel.setOffline();
                   throw new IOException();
                }
 
             } catch (SQLException | IOException e) {
                // Was not able to connect to the remote database, or remote = null
-               // TODO let user know!
-               OnlineIndicatorPanel.setOffline(); //does this count as notification?
+               // TODO let user know!//does this count as notification?
                try {
                   local = TeamMemberDB.selectTeamMemberByEmail(email.getText().trim(),
                           ConnectionManager.SQLITE);
@@ -288,6 +288,7 @@ public class Syncer {
       } catch (SQLException | IOException e) {
          // TeamMember with this email address does not exit or there was a problem
          // with getting the connection
+         OnlineIndicatorPanel.setOffline();
          e.printStackTrace();
       }
 
