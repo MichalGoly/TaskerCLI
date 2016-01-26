@@ -48,7 +48,19 @@ public class SidebarPanel extends JPanel {
    
    
    private OnlineIndicatorPanel onlinePanel;
-
+   
+   public void updateTaskCount(){
+       int numberAllocatedTasks = teamMember.getTaskList().size();
+      
+      for(Task task: teamMember.getTaskList()){
+          if(task.getStatus() != TaskStatus.ALLOCATED){
+              numberAllocatedTasks -= 1;
+          }
+      }
+      
+      taskNumberLabel.setText("Number of Tasks: " + numberAllocatedTasks);
+   }
+   
    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
       this.teamMember = teamMember;
       sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
@@ -70,15 +82,9 @@ public class SidebarPanel extends JPanel {
       add(searchButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
-      int numberAllocatedTasks = teamMember.getTaskList().size();
       
-      for(Task task: teamMember.getTaskList()){
-          if(task.getStatus() != TaskStatus.ALLOCATED){
-              numberAllocatedTasks -= 1;
-          }
-      }
-      taskNumberLabel
-              = new JLabel("Number of tasks: " + numberAllocatedTasks);
+      taskNumberLabel = new JLabel();
+      updateTaskCount();
       add(taskNumberLabel);
       
       add(Box.createRigidArea(new Dimension(10, 15)));
