@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -14,13 +15,18 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import java.util.List;
+import java.util.ArrayList;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
+import uk.ac.aber.cs221.group12.taskercli.business.Task;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 /**
  * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
  * filter through the tasks using the search box provided, and log out of the system.
+ * 
+ * // TODO
  * It also indicates whether there's is an access to the remote database (whether
  * the system works online/offline).
  * 
@@ -32,14 +38,23 @@ public class SidebarPanel extends JPanel {
    private TeamMember teamMember;
 
    private JTextField searchField;
+   private JLabel taskNumberLabel;
    private TableRowSorter<TableModel> sorter;
 
+   private JButton searchButton;
+   private JButton viewAllTasks;
+   private JButton logoutButton;
+   
+   
+   
+   private OnlineIndicatorPanel onlinePanel;
 
    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
       this.teamMember = teamMember;
-      sorter = new TableRowSorter<>(mainFrameTable.getModel());
+      sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
       mainFrameTable.setRowSorter(sorter);
       initComponents();
+      sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
    }
 
    private void initComponents() {
@@ -50,30 +65,37 @@ public class SidebarPanel extends JPanel {
       searchField = new JTextField("Search...", 200);
       add(searchField);
 
-      JButton searchButton = new JButton("Submit");
+      searchButton = new JButton("Submit");
       searchButton.addActionListener(new SearchButtonListener());
       add(searchButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
-
-      JLabel taskNumberLabel = new JLabel("Number of tasks: " + teamMember.getTaskList().size());
+      int numberAllocatedTasks = teamMember.getTaskList().size();
+      
+      for(Task task: teamMember.getTaskList()){
+          if(task.getStatus() != TaskStatus.ALLOCATED){
+              numberAllocatedTasks -= 1;
+          }
+      }
+      taskNumberLabel
+              = new JLabel("Number of tasks: " + numberAllocatedTasks);
       add(taskNumberLabel);
       
       add(Box.createRigidArea(new Dimension(10, 15)));
-
-      JButton viewAllTasks = new JButton("View All Tasks");
+      
+      viewAllTasks = new JButton("View All Tasks");
       viewAllTasks.addActionListener(new ViewAllTasksListener());
       add(viewAllTasks);
       
       add(Box.createRigidArea(new Dimension(10,15)));
 
-      JButton logoutButton = new JButton("Logout");
+      logoutButton = new JButton("Logout");
       logoutButton.addActionListener(new LogOutButtonListener());
       add(logoutButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
-
-      OnlineIndicatorPanel onlinePanel = new OnlineIndicatorPanel();
+      
+      onlinePanel = new OnlineIndicatorPanel();
       add(onlinePanel);   
    }
 
@@ -82,7 +104,10 @@ public class SidebarPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
     	  String searchText = searchField.getText();
-    	  sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+          List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+          filters.add(RowFilter.regexFilter("ALLOCATED"));
+          filters.add(RowFilter.regexFilter("(?i)" + searchText));
+    	  sorter.setRowFilter(RowFilter.andFilter(filters));
       }
    }
    
@@ -90,7 +115,7 @@ public class SidebarPanel extends JPanel {
 
 	      @Override
 	      public void actionPerformed(ActionEvent e) {
-	    	  sorter.setRowFilter(RowFilter.regexFilter(""));
+	    	  sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
 	      }
 	   }
 
