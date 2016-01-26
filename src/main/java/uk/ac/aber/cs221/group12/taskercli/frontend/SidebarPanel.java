@@ -18,6 +18,8 @@ import javax.swing.table.TableRowSorter;
 import java.util.List;
 import java.util.ArrayList;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
+import uk.ac.aber.cs221.group12.taskercli.business.Task;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 /**
@@ -68,9 +70,15 @@ public class SidebarPanel extends JPanel {
       add(searchButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
-
+      int numberAllocatedTasks = teamMember.getTaskList().size();
+      
+      for(Task task: teamMember.getTaskList()){
+          if(task.getStatus() != TaskStatus.ALLOCATED){
+              numberAllocatedTasks -= 1;
+          }
+      }
       taskNumberLabel
-              = new JLabel("Number of tasks: " + teamMember.getTaskList().size());
+              = new JLabel("Number of tasks: " + numberAllocatedTasks);
       add(taskNumberLabel);
       
       add(Box.createRigidArea(new Dimension(10, 15)));
