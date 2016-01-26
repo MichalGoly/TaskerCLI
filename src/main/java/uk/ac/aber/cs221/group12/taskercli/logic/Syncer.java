@@ -124,9 +124,6 @@ public class Syncer {
                   } else {
                      // Team Member with given email address does not exist
                      // ignore and wait for new credentials
-
-                     JOptionPane.showMessageDialog(null,
-                             "Incorrect email/password.");
                   }
                } catch (SQLException | IOException ex) {
                   JOptionPane.showMessageDialog(null,
