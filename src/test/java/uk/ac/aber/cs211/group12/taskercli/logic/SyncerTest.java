@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @(#) SyncerTest.java 1.0 26/01/16
+ *
+ * Copyright (c) 2016 Aberystwyth University.
+ * All rights reserved.
+ *
  */
 package uk.ac.aber.cs211.group12.taskercli.logic;
 
