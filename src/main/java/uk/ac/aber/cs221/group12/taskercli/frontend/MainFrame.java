@@ -39,6 +39,7 @@ public class MainFrame extends JFrame {
    private TaskFrame taskFrame;
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
+   private SidebarPanel sidebarPanel;
 
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
@@ -78,7 +79,8 @@ public class MainFrame extends JFrame {
             // Update the JTable in the MainFrame by accessing its TaskTableModel
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
-
+               
+            sidebarPanel.updateTaskCount();
             Syncer.doUpdate(teamMember);
          }
       });
@@ -87,7 +89,7 @@ public class MainFrame extends JFrame {
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
 
       // setup the sidebar within the MainFrame
-      SidebarPanel sidebarPanel = new SidebarPanel(table, teamMember);
+      sidebarPanel = new SidebarPanel(table, teamMember);
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
    }
