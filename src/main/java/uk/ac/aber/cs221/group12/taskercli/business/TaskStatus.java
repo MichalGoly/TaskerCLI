@@ -12,7 +12,7 @@ public enum TaskStatus {
 
    private int status;
 
-   private TaskStatus(int status) {
+   TaskStatus(int status) {
       this.status = status;
    }
 

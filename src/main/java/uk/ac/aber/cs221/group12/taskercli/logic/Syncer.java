@@ -124,6 +124,9 @@ public class Syncer {
                   } else {
                      // Team Member with given email address does not exist
                      // ignore and wait for new credentials
+
+                     JOptionPane.showMessageDialog(null,
+                             "Incorrect email/password.");
                   }
                } catch (SQLException | IOException ex) {
                   JOptionPane.showMessageDialog(null,
@@ -267,39 +270,35 @@ public class Syncer {
    public static void doUpdate(TeamMember editedTeamMember) {
 
       Executor executor = Executors.newSingleThreadExecutor();
-      executor.execute(new Runnable() {
+      executor.execute(() -> {
+         ProgressBar.showGui("Syncing");
 
-         @Override
-         public void run() {
-            ProgressBar.showGui("Syncing");
-
-            try {
-               TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
-            } catch (SQLException | IOException e) {
-               e.printStackTrace();
-            }
-
-            try {
-               TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
-                       editedTeamMember.getEmail(), ConnectionManager.MYSQL);
-
-               if (remote != null) {
-                  sync(remote, editedTeamMember);
-                  OnlineIndicatorPanel.setOnline();
-               } else {
-                  // unable to connect to the database
-                  //TODO Inform the user
-                  OnlineIndicatorPanel.setOffline();
-               }
-            } catch (SQLException | IOException e) {
-               // TeamMember with this email address does not exit or there was a problem
-               // with getting the connection
-               OnlineIndicatorPanel.setOffline();
-               e.printStackTrace();
-            }
-
-            ProgressBar.hideGui();
+         try {
+            TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
+         } catch (SQLException | IOException e) {
+            e.printStackTrace();
          }
+
+         try {
+            TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
+                    editedTeamMember.getEmail(), ConnectionManager.MYSQL);
+
+            if (remote != null) {
+               sync(remote, editedTeamMember);
+               OnlineIndicatorPanel.setOnline();
+            } else {
+               // unable to connect to the database
+               //TODO Inform the user
+               OnlineIndicatorPanel.setOffline();
+            }
+         } catch (SQLException | IOException e) {
+            // TeamMember with this email address does not exit or there was a problem
+            // with getting the connection
+            OnlineIndicatorPanel.setOffline();
+            e.printStackTrace();
+         }
+
+         ProgressBar.hideGui();
       });
 
    }

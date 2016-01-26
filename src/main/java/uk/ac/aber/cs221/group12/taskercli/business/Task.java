@@ -120,10 +120,7 @@ public class Task implements Serializable {
       if (this.status != other.status) {
          return false;
       }
-      if (!Objects.equals(this.taskElementList, other.taskElementList)) {
-         return false;
-      }
-      return true;
+      return Objects.equals(this.taskElementList, other.taskElementList);
    }
 
    @Override

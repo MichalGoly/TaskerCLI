@@ -119,10 +119,7 @@ public class TeamMember implements Serializable {
       if (!Objects.equals(this.password, other.password)) {
          return false;
       }
-      if (!Objects.equals(this.taskList, other.taskList)) {
-         return false;
-      }
-      return true;
+      return Objects.equals(this.taskList, other.taskList);
    }
 
    @Override

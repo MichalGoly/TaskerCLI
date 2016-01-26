@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -22,8 +21,6 @@ import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 /**
  * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
  * filter through the tasks using the search box provided, and log out of the system.
- * 
- * // TODO
  * It also indicates whether there's is an access to the remote database (whether
  * the system works online/offline).
  * 
@@ -35,20 +32,12 @@ public class SidebarPanel extends JPanel {
    private TeamMember teamMember;
 
    private JTextField searchField;
-   private JLabel taskNumberLabel;
    private TableRowSorter<TableModel> sorter;
 
-   private JButton searchButton;
-   private JButton viewAllTasks;
-   private JButton logoutButton;
-   
-   
-   
-   private OnlineIndicatorPanel onlinePanel;
 
    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
       this.teamMember = teamMember;
-      sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
+      sorter = new TableRowSorter<>(mainFrameTable.getModel());
       mainFrameTable.setRowSorter(sorter);
       initComponents();
    }
@@ -61,31 +50,30 @@ public class SidebarPanel extends JPanel {
       searchField = new JTextField("Search...", 200);
       add(searchField);
 
-      searchButton = new JButton("Submit");
+      JButton searchButton = new JButton("Submit");
       searchButton.addActionListener(new SearchButtonListener());
       add(searchButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
 
-      taskNumberLabel
-              = new JLabel("Number of tasks: " + teamMember.getTaskList().size());
+      JLabel taskNumberLabel = new JLabel("Number of tasks: " + teamMember.getTaskList().size());
       add(taskNumberLabel);
       
       add(Box.createRigidArea(new Dimension(10, 15)));
-      
-      viewAllTasks = new JButton("View All Tasks");
+
+      JButton viewAllTasks = new JButton("View All Tasks");
       viewAllTasks.addActionListener(new ViewAllTasksListener());
       add(viewAllTasks);
       
       add(Box.createRigidArea(new Dimension(10,15)));
 
-      logoutButton = new JButton("Logout");
+      JButton logoutButton = new JButton("Logout");
       logoutButton.addActionListener(new LogOutButtonListener());
       add(logoutButton);
       
       add(Box.createRigidArea(new Dimension(10, 20)));
-      
-      onlinePanel = new OnlineIndicatorPanel();
+
+      OnlineIndicatorPanel onlinePanel = new OnlineIndicatorPanel();
       add(onlinePanel);   
    }
 

@@ -19,13 +19,11 @@ public class TimerManager {
    public static final long DELAY = TimeUnit.MINUTES.toMillis(5);
    
    private TeamMember teamMember;
-   private Timer timer;
-   private TimerTask syncTask;
-   
+
    public TimerManager(TeamMember teamMember) {
       this.teamMember = teamMember;
-      timer = new Timer();
-      syncTask = new SyncTask();
+      Timer timer = new Timer();
+      TimerTask syncTask = new SyncTask();
       
       timer.schedule(syncTask, DELAY, DELAY);
    }

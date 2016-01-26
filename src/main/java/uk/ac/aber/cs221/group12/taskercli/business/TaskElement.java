@@ -74,10 +74,7 @@ public class TaskElement {
       if (!Objects.equals(this.description, other.description)) {
          return false;
       }
-      if (!Objects.equals(this.comments, other.comments)) {
-         return false;
-      }
-      return true;
+      return Objects.equals(this.comments, other.comments);
    }
 
    @Override

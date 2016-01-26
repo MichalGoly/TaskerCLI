@@ -35,19 +35,17 @@ public class MainFrame extends JFrame {
     */
    public static final int DEFAULT_HEIGHT = 600;
 
-   private SidebarPanel sidebarPanel;
    private JTable table;
    private TaskFrame taskFrame;
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
-   private TimerManager timerManager;
 
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
-      timerManager = new TimerManager(teamMember);
+      TimerManager timerManager = new TimerManager(teamMember);
    }
 
    /**
@@ -89,7 +87,7 @@ public class MainFrame extends JFrame {
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
 
       // setup the sidebar within the MainFrame
-      sidebarPanel = new SidebarPanel(table, teamMember);
+      SidebarPanel sidebarPanel = new SidebarPanel(table, teamMember);
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
    }

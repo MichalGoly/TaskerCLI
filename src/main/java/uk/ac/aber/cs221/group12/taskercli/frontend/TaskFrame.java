@@ -188,11 +188,7 @@ public class TaskFrame extends JPanel {
        */
       @Override
       public boolean isCellEditable(int rowIndex, int columnIndex) {
-         if (columnIndex == 1) {
-            return true;
-         } else {
-            return false;
-         }
+         return columnIndex == 1;
       }
       
       @Override
