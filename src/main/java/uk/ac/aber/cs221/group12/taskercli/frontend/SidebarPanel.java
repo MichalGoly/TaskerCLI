@@ -15,7 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import java.util.List;
+import java.util.ArrayList;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
@@ -51,6 +52,7 @@ public class SidebarPanel extends JPanel {
       sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
       mainFrameTable.setRowSorter(sorter);
       initComponents();
+      sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
    }
 
    private void initComponents() {
@@ -94,7 +96,10 @@ public class SidebarPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
     	  String searchText = searchField.getText();
-    	  sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+          List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+          filters.add(RowFilter.regexFilter("ALLOCATED"));
+          filters.add(RowFilter.regexFilter("(?i)" + searchText));
+    	  sorter.setRowFilter(RowFilter.andFilter(filters));
       }
    }
    
@@ -102,7 +107,7 @@ public class SidebarPanel extends JPanel {
 
 	      @Override
 	      public void actionPerformed(ActionEvent e) {
-	    	  sorter.setRowFilter(RowFilter.regexFilter(""));
+	    	  sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
 	      }
 	   }
 
