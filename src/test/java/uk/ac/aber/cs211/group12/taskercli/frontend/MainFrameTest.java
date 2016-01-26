@@ -12,5 +12,4 @@ package uk.ac.aber.cs211.group12.taskercli.frontend;
  * @author adn2
  */
 public class MainFrameTest {
-    
 }
