@@ -7,27 +7,19 @@
  */
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-import java.util.List;
-import java.util.ArrayList;
-import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.business.Task;
 import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
+import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
+
+import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
@@ -53,6 +45,14 @@ public class SidebarPanel extends JPanel {
 
    private OnlineIndicatorPanel onlinePanel;
 
+    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
+        this.teamMember = teamMember;
+        sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
+        mainFrameTable.setRowSorter(sorter);
+        initComponents();
+        sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
+    }
+
    public void updateTaskCount() {
       int numberAllocatedTasks = teamMember.getTaskList().size();
 
@@ -63,14 +63,6 @@ public class SidebarPanel extends JPanel {
       }
 
       taskNumberLabel.setText("Number of Tasks: " + numberAllocatedTasks);
-   }
-
-   public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
-      this.teamMember = teamMember;
-      sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
-      mainFrameTable.setRowSorter(sorter);
-      initComponents();
-      sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
    }
 
    private void initComponents() {
