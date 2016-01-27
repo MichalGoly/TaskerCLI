@@ -18,18 +18,35 @@ import java.util.Objects;
  * populate the user interface with data in the program.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TeamMember implements Serializable {
 
    private String firstName;
    private String lastName;
+   
    private String email;
    private String password;
+   
    private List<Task> taskList;
-
+   
+   /**
+    * Empty constructor for maintenence reasons
+    */
    public TeamMember() {
+       //EMPTY CONSTRUCTOR
    }
-
+   
+   /**
+    * Constructor 
+    * 
+    * @param firstName First name of the TeamMember
+    * @param lastName Last name of the TeamMember
+    * @param email email for the TeamMember, also used as a username for login
+    * @param password password used for login. Stored in a hash, verified using
+    * BeCript.
+    * @param taskList the list of {@link Task}s assigned to this task member
+    */
    public TeamMember(String firstName, String lastName, String email,
            String password, List<Task> taskList) {
       this.firstName = firstName;
@@ -38,42 +55,28 @@ public class TeamMember implements Serializable {
       this.password = password;
       this.taskList = taskList;
    }
-
-   /**
-    * @return The first name of the team member
-    */
+   //Get Methods
    public String getFirstName() {
       return firstName;
    }
 
-   /**
-    * @return The last name of the team member
-    */
    public String getLastName() {
       return lastName;
    }
 
-   /**
-    * @return The email address of the team member
-    */
    public String getEmail() {
       return email;
    }
 
-   /**
-    * @return The password of the team member
-    */
    public String getPassword() {
       return password;
    }
 
-   /**
-    * @return The list of tasks of the team member
-    */
    public List<Task> getTaskList() {
       return taskList;
    }
-
+   
+   //Set Methods
    public void setFirstName(String firstName) {
       this.firstName = firstName;
    }

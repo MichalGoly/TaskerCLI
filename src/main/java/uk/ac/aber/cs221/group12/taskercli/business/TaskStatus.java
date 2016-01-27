@@ -10,16 +10,21 @@ package uk.ac.aber.cs221.group12.taskercli.business;
 /**
  * TaskStatus Enum represents one of the 3 possible states of tasks in the program.
  * Each task can be either allocated, abandoned or completed. Each Enum has its
- * integer representation accessible with the toInt() method.
+ * integer representation accessible with the {@link toInt()} method.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public enum TaskStatus {
 
    ALLOCATED(1), ABANDONED(2), COMPLETED(3);
 
    private int status;
-
+   /**
+    * CONSTRUCTOR
+    * 
+    * @param status the integer value of the desired status
+    */
    TaskStatus(int status) {
       this.status = status;
    }
@@ -42,7 +47,12 @@ public enum TaskStatus {
       }
       return result;
    }
-
+   
+   /**
+    * Converts the status to an integer
+    * 
+    * @return the integer value of the status
+    */
    public int toInt() {
       return status;
    }
