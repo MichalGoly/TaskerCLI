@@ -14,25 +14,39 @@ import java.util.Objects;
  * variables correspond to columns inside databases and can be accessed and modified
  * using the getters and setters provided. Each task element consist of both the
  * description written by the manager using TaskerMAN, and the comment which can be
- * edited by the team member to communicate progress to the manager.
+ * edited by the team member to communicate progress to the manager. Each task
+ * element is assigned to one task, in a 1 {@link Task} to many TaskElement relationship.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TaskElement {
 
    private Long taskElementId;
    private String description;
    private String comments;
-
-   public TaskElement() {
+   
+   /**
+    * empty constructor for maintenence reasons
+    */
+   public TaskElement(){
+       //EMPTY CONSTRUCTOR
    }
-
+   /**
+    * Constructor
+    * 
+    * @param taskElementId Unique ID number for each task element
+    * @param description Description of what the task element is about
+    * @param comments comments about the task element, written by the team member
+    * the {@link Task} is assigned to.
+    */
    public TaskElement(Long taskElementId, String description, String comments) {
       this.taskElementId = taskElementId;
       this.description = description;
       this.comments = comments;
    }
-
+   
+   //Set Methods
    public void setTaskElementId(Long taskElementId) {
       this.taskElementId = taskElementId;
    }
@@ -44,7 +58,8 @@ public class TaskElement {
    public void setComments(String comments) {
       this.comments = comments;
    }
-
+   
+   //Get Methods
    public Long getTaskElementId() {
       return taskElementId;
    }

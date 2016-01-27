@@ -20,19 +20,40 @@ import java.util.Objects;
  * transformed to an appropriate TaskStatus Enum inside the program.
  *
  * @author Michal Goly
+ * @version 1.0
+ * @see TeamMember
+ * @see TaskStatus
+ * @see TaskElement
  */
-public class Task implements Serializable {
+public class Task 
+        implements Serializable {
 
    private Long taskId;
    private String title;
+   
    private Date startDate;
    private Date endDate;
+   
    private TaskStatus status;
    private List<TaskElement> taskElementList;
-
-   public Task() {
+   
+   /**
+    * empty constructor for maintenence reasons
+    */
+   public Task(){
+       //EMPTY CONSTRUCTOR
    }
-
+   /**
+    * Constructor.
+    * 
+    * @param taskId Unique ID number for the task.
+    * @param title The task title
+    * @param startDate The date the task is assigned to start
+    * @param endDate The date the task is supposed to finish
+    * @param status The status of the task, see {@link TaskStatus} for the
+    * potential statuses
+    * @param taskElementList The list of {@link TaskElement}s
+    */
    public Task(Long taskId, String title, Date startDate, Date endDate,
            TaskStatus status, List<TaskElement> taskElementList) {
       this.taskId = taskId;
@@ -42,7 +63,8 @@ public class Task implements Serializable {
       this.status = status;
       this.taskElementList = taskElementList;
    }
-
+   
+   //Get Methods
    public Long getTaskId() {
       return taskId;
    }
@@ -66,7 +88,8 @@ public class Task implements Serializable {
    public List<TaskElement> getTaskElementList() {
       return taskElementList;
    }
-
+   
+   //Set Methods
    public void setTaskId(Long taskId) {
       this.taskId = taskId;
    }
@@ -90,7 +113,7 @@ public class Task implements Serializable {
    public void setTaskElementList(List<TaskElement> taskElementList) {
       this.taskElementList = taskElementList;
    }
-
+   
    @Override
    public int hashCode() {
       int hash = 7;
