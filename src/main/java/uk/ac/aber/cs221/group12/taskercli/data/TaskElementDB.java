@@ -20,6 +20,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
 /**
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TaskElementDB {
 
@@ -40,8 +41,16 @@ public class TaskElementDB {
            = "INSERT INTO TaskElement (taskElementId, description, comments, Task_taskId) "
            + "VALUES (?, ?, ?, ?)";
 
+   /**
+    * 
+    * @param taskId
+    * @param database
+    * @return
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static List<TaskElement> selectTaskElementsByTaskId(Long taskId, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       List<TaskElement> taskElementList = new ArrayList<>();
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
@@ -62,9 +71,17 @@ public class TaskElementDB {
       }
       return taskElementList;
    }
-
+   
+   /**
+    * 
+    * @param taskElementId
+    * @param database
+    * @return
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static TaskElement selectTaskElementById(Long taskElementId, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       TaskElement result = null;
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
@@ -85,8 +102,15 @@ public class TaskElementDB {
       return result;
    }
 
+   /**
+    * 
+    * @param taskElementList
+    * @param database
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static void updateTaskElements(List<TaskElement> taskElementList, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
@@ -101,8 +125,17 @@ public class TaskElementDB {
       }
    }
 
+   /**
+    * 
+    * @param taskElementList
+    * @param database
+    * @param taskId
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static void insertTaskElements(List<TaskElement> taskElementList,
-           int database, long taskId) throws SQLException, IOException {
+           int database, long taskId) 
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {

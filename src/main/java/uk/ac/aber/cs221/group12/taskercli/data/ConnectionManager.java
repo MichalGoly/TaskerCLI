@@ -27,6 +27,7 @@ import java.util.Properties;
  * object.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class ConnectionManager {
 
@@ -43,17 +44,23 @@ public class ConnectionManager {
    private static final int MYSQL_PROPERTIES_SIZE = 3;
 
    /**
-    *
-    * @param database
-    * @return
-    * @throws IOException
+    * gets the properties from the database we are connecting to, from the
+    * properties files we have stored in {@code src/main/resorces/META-INF}
+    * These properties include the location of the database, it's login username
+    * and password
+    * 
+    * @param database The value of the database that the .properties will be, 
+    * selected from the static values above.
+    * @return The location and login details of the database selected
+    * @throws IOException Throws if the .properties file was not located
     */
-   public static Properties getDatabaseProperties(int database) throws IOException {
+   public static Properties getDatabaseProperties(int database) 
+   throws IOException {
       if (database < 1 || database > 2) {
          return null;
       }
 
-      String propertiesURI = "";
+      String propertiesURI;
       if (database == MYSQL) {
          propertiesURI = "src/main/resources/META-INF/mysql.properties";
       } else {

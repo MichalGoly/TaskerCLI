@@ -23,6 +23,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 /**
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TaskDB {
 
@@ -41,8 +42,16 @@ public class TaskDB {
            = "INSERT INTO Task (taskId, title, startDate, endDate, taskStatus, TeamMember_email) "
            + "VALUES (?, ?, ?, ?, ?, ?)";
 
-   public static Task selectTaskById(long taskId, int database) throws SQLException,
-           IOException {
+   /**
+    * 
+    * @param taskId
+    * @param database
+    * @return
+    * @throws SQLException
+    * @throws IOException 
+    */
+   public static Task selectTaskById(long taskId, int database) 
+   throws SQLException, IOException {
       Task task = null;
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
@@ -68,8 +77,16 @@ public class TaskDB {
       return task;
    }
 
-   public static List<Task> selectTasks(String email, int database) throws SQLException,
-           IOException {
+   /**
+    * 
+    * @param email
+    * @param database
+    * @return
+    * @throws SQLException
+    * @throws IOException 
+    */
+   public static List<Task> selectTasks(String email, int database) 
+   throws SQLException, IOException {
       List<Task> taskList = new ArrayList<>();
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
@@ -95,8 +112,15 @@ public class TaskDB {
       return taskList;
    }
 
-   public static void updateTasks(List<Task> taskList, int database) throws SQLException,
-           IOException {
+   /**
+    * 
+    * @param taskList
+    * @param database
+    * @throws SQLException
+    * @throws IOException 
+    */
+   public static void updateTasks(List<Task> taskList, int database) 
+   throws SQLException, IOException {
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
 
@@ -114,9 +138,17 @@ public class TaskDB {
          }
       }
    }
-
+   
+   /**
+    * 
+    * @param taskList
+    * @param database
+    * @param email
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static void insertTasks(List<Task> taskList, int database, String email)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
       System.out.println("BEFO");
       try (Connection conn = ConnectionManager.getConnection(props)) {

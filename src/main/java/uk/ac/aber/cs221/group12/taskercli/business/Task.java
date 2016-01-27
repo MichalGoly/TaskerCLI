@@ -26,7 +26,7 @@ import java.util.Objects;
  * @see TaskElement
  */
 public class Task 
-        implements Serializable {
+implements Serializable {
 
    private Long taskId;
    private String title;

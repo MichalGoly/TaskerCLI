@@ -20,19 +20,20 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 /**
  * TeamMemberDB class is one of the data access classes in the DAO pattern. It
  * provides useful methods which can be used to retrieve and update the
- * <code>TeamMember</code> objects in both databases.
+ * {@link TeamMember} objects in both databases.
  *
  * For example the
  * {@link #selectTeamMemberByEmail(String email, int database) selectTeamMemberByEmail}
  * method will as expected acquire the connection to either the MySQL or SQLite
  * database, prepare a suitable query statement, construct the
- * <code>TeamMember</code> object and return it back to the caller. This is a really
+ * {@link TeamMember} object and return it back to the caller. This is a really
  * powerful concept which abstracts the raw SQL from the graphical user interface.
  * After we make some changes to the object, we can use a single method
  * {@link #updateTeamMember(TeamMember teamMember, int database) updateTeamMember} to
  * put it back to the database.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TeamMemberDB {
 
@@ -49,9 +50,17 @@ public class TeamMemberDB {
            = "INSERT INTO TeamMember (email, firstName, lastName, password) "
            + "VALUES (?, ?, ?, ?)";
 
-   // TODO ConnectionManager should take care of getting Properties not each method
+   //TODO ConnectionManager should take care of getting Properties not each method
+   /**
+    * 
+    * @param email
+    * @param database
+    * @return
+    * @throws SQLException
+    * @throws IOException 
+    */
    public static TeamMember selectTeamMemberByEmail(String email, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       TeamMember teamMember = null;
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
@@ -75,8 +84,15 @@ public class TeamMemberDB {
    }
 
    //if we are updating the database, with the teammember object, assume it is the merged version after syncing
-   public static void updateTeamMember(TeamMember teamMember, int database) throws
-           SQLException, IOException {
+   /**
+    * 
+    * @param teamMember
+    * @param database
+    * @throws SQLException
+    * @throws IOException 
+    */
+   public static void updateTeamMember(TeamMember teamMember, int database) 
+   throws SQLException, IOException {
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
 
@@ -92,8 +108,15 @@ public class TeamMemberDB {
       }
    }
 
-   public static void insertTeamMember(TeamMember teamMember, int database) throws
-           SQLException, IOException {
+   /**
+    * 
+    * @param teamMember
+    * @param database
+    * @throws SQLException
+    * @throws IOException 
+    */
+   public static void insertTeamMember(TeamMember teamMember, int database) 
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
