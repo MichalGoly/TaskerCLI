@@ -47,15 +47,33 @@ public class MainFrame extends JFrame {
    private TeamMember teamMember;
    private TaskTableModel taskTableModel;
    private SidebarPanel sidebarPanel;
-
+   
+   private static MainFrame mainFrame;
+   
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
-      TimerManager timerManager = new TimerManager(teamMember);
+      TimerManager timerManager = new TimerManager(teamMember, taskTableModel,
+              sidebarPanel);
+      mainFrame = this;
    }
+   
+   public static MainFrame getMainFrame() {
+      return mainFrame;
+   }
+   
+   public void updateMainFrame(TeamMember teamMember) {
+      this.teamMember = teamMember;
+      
+      // update the front end
+      taskTableModel.setTasksList(teamMember.getTaskList());
+      taskTableModel.fireTableDataChanged();
 
+      sidebarPanel.updateTaskCount();
+   }
+      
    /**
     * Initialises both the SidebarPanel and the JTable and positions them within the
     * MainFrame using the GridBagLayout.
@@ -109,7 +127,7 @@ public class MainFrame extends JFrame {
    }
 
    // http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
-   private class TaskTableModel extends AbstractTableModel {
+   public class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
 
@@ -121,6 +139,10 @@ public class MainFrame extends JFrame {
        */
       public TaskTableModel(TeamMember teamMember) {
          tasks = teamMember.getTaskList();
+      }
+
+      public void setTasksList(List<Task> tasks) {
+         this.tasks = tasks;
       }
 
       @Override

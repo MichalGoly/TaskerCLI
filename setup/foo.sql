@@ -42,6 +42,7 @@ CREATE TABLE `Admin` (
 
 LOCK TABLES `Admin` WRITE;
 /*!40000 ALTER TABLE `Admin` DISABLE KEYS */;
+INSERT INTO `Admin` VALUES (1, 'nwh', '$2y$10$g55FAaRskZ1GNUS6olMHA.KbXwjcu7wgpSJGD3szL4e52lp8JMpLC');
 /*!40000 ALTER TABLE `Admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +129,7 @@ CREATE TABLE `TeamMember` (
 
 LOCK TABLES `TeamMember` WRITE;
 /*!40000 ALTER TABLE `TeamMember` DISABLE KEYS */;
-INSERT INTO `TeamMember` VALUES ('bob@smith.com','Bob','Smith','12345'),('jane@gmail.com','Jane','Adams','kitty2'),('m.goly@goly2.com','Michal','Goly','password');
+INSERT INTO `TeamMember` VALUES ('bob@smith.com','Bob','Smith','$2y$10$pSWbF/IkvvXPghFgKoKq..w2y9NF9krJNMBUkcnAHrGYu2doQa5YK'),('jane@gmail.com','Jane','Adams','$2y$10$rNWP.zrrmUOefOeJoStu8u2QRkZSxZe1bxUZli5UtFqVZ1TwYrhFO'),('m.goly@goly2.com','Michal','Goly','$2y$10$QT3etHPuD9Azt2JGBsLra.4zPTobVf2S17unxeNIUzF6GlZHRad72');
 /*!40000 ALTER TABLE `TeamMember` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

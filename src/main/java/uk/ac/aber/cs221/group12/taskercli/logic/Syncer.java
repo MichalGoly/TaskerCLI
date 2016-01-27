@@ -25,6 +25,7 @@ import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB;
 import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
+import uk.ac.aber.cs221.group12.taskercli.frontend.MainFrame;
 import uk.ac.aber.cs221.group12.taskercli.frontend.OnlineIndicatorPanel;
 import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
@@ -198,6 +199,7 @@ public class Syncer {
 
             // update merged Bob in both databases
             try {
+               System.out.println("MERGED: " + merged);
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.SQLITE);
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.MYSQL);
             } catch (SQLException | IOException e) {
@@ -277,7 +279,7 @@ public class Syncer {
     * @param editedTeamMember
     */
    public static void doUpdate(TeamMember editedTeamMember) {
-
+      
       Executor executor = Executors.newSingleThreadExecutor();
       executor.execute(() -> {
          ProgressBar.showGui("Syncing");
@@ -291,9 +293,9 @@ public class Syncer {
          try {
             TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
                     editedTeamMember.getEmail(), ConnectionManager.MYSQL);
-
             if (remote != null) {
-               sync(remote, editedTeamMember);
+               TeamMember t = sync(remote, editedTeamMember);
+               MainFrame.getMainFrame().updateMainFrame(t);
                OnlineIndicatorPanel.setOnline();
             } else {
                // unable to connect to the database

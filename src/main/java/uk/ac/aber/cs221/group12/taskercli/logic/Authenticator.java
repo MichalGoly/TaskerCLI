@@ -8,6 +8,7 @@
 package uk.ac.aber.cs221.group12.taskercli.logic;
 
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 /**
@@ -24,9 +25,13 @@ public class Authenticator {
     * @return true if the password provided matches the password in the TeamMember
     */
    public static boolean authenticate(TeamMember teamMember, char[] password) {
-      String stringPassword = String.valueOf(password);
+      String plainTextPassword = String.valueOf(password);
 
-      if (stringPassword.equals(teamMember.getPassword())) {
+      // PHP uses the old version of BCrypt which has to be translated to Java one
+      String hashedPassword = teamMember.getPassword();
+      String properHashedPassword = hashedPassword.replaceFirst("y", "a");
+
+      if (BCrypt.checkpw(plainTextPassword, properHashedPassword)) {
          return true;
       } else {
          JOptionPane.showMessageDialog(null, "Invalid email or password", "",

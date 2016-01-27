@@ -37,9 +37,9 @@ CREATE TABLE TaskElement (
 
 -- insert mock data for development purposes
 INSERT INTO TeamMember VALUES 
-	('bob@smith.com','Bob','Smith','12345'),
-	('jane@gmail.com','Jane','Adams','kitty2'),
-	('m.goly@goly2.com','Michal','Goly','password');
+	('bob@smith.com','Bob','Smith','$2y$10$pSWbF/IkvvXPghFgKoKq..w2y9NF9krJNMBUkcnAHrGYu2doQa5YK'),
+	('jane@gmail.com','Jane','Adams','$2y$10$rNWP.zrrmUOefOeJoStu8u2QRkZSxZe1bxUZli5UtFqVZ1TwYrhFO'),
+	('m.goly@goly2.com','Michal','Goly','$2y$10$QT3etHPuD9Azt2JGBsLra.4zPTobVf2S17unxeNIUzF6GlZHRad72');
 
 INSERT INTO Task VALUES 
 	(1,'Do shopping',1494288000000,1497052800000,1,'m.goly@goly2.com'),
