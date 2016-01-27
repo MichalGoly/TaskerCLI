@@ -12,7 +12,7 @@ CREATE TABLE TeamMember (
     email CHAR(80) PRIMARY KEY NOT NULL,
     firstName CHAR(40) NOT NULL,
     lastName CHAR(40) NOT NULL,
-    password CHAR(20) NOT NULL
+    password CHAR(255) NOT NULL
 );
 
 -- Table Task
