@@ -29,30 +29,39 @@ public class TeamMemberTest {
 
     @Before
     public void createTeamMember() {
-        List<TaskElement> te = new ArrayList<>();
-        te.add(new TaskElement(20L, "Go to train station", ""));
-        te.add(new TaskElement(21L, "Get inside the train", ""));
+        List<TaskElement> taskElements = new ArrayList<>();
+        taskElements.add(new TaskElement(20L, "Go to train station", ""));
+        taskElements.add(new TaskElement(21L, "Get inside the train", ""));
         List<Task> tasks = new ArrayList<>();
-        Task task = new Task(7L, "Go back for Christmas", new Date(2011, 2, 7), new Date(2010, 2, 1),
-                TaskStatus.ALLOCATED, te);
+        Task task = new Task(7L, "Go back for Christmas",
+                new Date(2011, 2, 7),
+                new Date(2010, 2, 1),
+                TaskStatus.ALLOCATED, taskElements);
+
         tasks.add(task);
-        teamMember = new TeamMember("Mark", "Smith", "mark@smith.com", "fish", tasks);
+        teamMember =
+                new TeamMember("Mark", "Smith", "mark@smith.com", "fish", tasks);
     }
 
     @Test
     public void assertTeamMemberElementsCorrect() {
-        Assert.assertEquals("teamMember email must be mark@smith.com", teamMember.getEmail(), "mark@smith.com");
-        Assert.assertEquals("teamMember first name must be Mark", teamMember.getFirstName(), "Mark");
-        Assert.assertEquals("teamMember last name must be Smith", teamMember.getLastName(), "Smith");
-        Assert.assertEquals("teamMember password must be fish", teamMember.getPassword(), "fish");
+        Assert.assertEquals("teamMember email must be mark@smith.com",
+                teamMember.getEmail(), "mark@smith.com");
+        Assert.assertEquals("teamMember first name must be Mark",
+                teamMember.getFirstName(), "Mark");
+        Assert.assertEquals("teamMember last name must be Smith",
+                teamMember.getLastName(), "Smith");
+        Assert.assertEquals("teamMember password must be fish",
+                teamMember.getPassword(), "fish");
 
         List<Task> tasks = teamMember.getTaskList();
         List<TaskElement> taskElements = tasks.get(0).getTaskElementList();
-        Assert.assertEquals("teamMember first task description correct", tasks.get(0).getTitle(),
-                "Go back for Christmas");
-        Assert.assertEquals("first task has two taskElements", taskElements.size(), 2);
-        Assert.assertEquals("first task element description is correct", taskElements.get(0).getDescription(),
-                "Go to train station");
+        Assert.assertEquals("teamMember first task description correct",
+                tasks.get(0).getTitle(), "Go back for Christmas");
+        Assert.assertEquals("first task has two taskElements",
+                taskElements.size(), 2);
+        Assert.assertEquals("first task element description is correct",
+                taskElements.get(0).getDescription(), "Go to train station");
 
     }
 

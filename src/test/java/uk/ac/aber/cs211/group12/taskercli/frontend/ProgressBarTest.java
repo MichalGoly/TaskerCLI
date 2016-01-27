@@ -13,6 +13,7 @@ import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
  * Created by jam on 1/23/16.
+ * @author Joshua Mir
  */
 public class ProgressBarTest {
 
