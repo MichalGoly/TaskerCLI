@@ -7,10 +7,8 @@
  */
 package uk.ac.aber.cs221.group12.taskercli.frontend;
 
-import java.awt.Dialog;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * ProgressBar class is responsible for creating a pop up dialog which notifies the
@@ -18,7 +16,7 @@ import javax.swing.JProgressBar;
  * system. It provides 2 static methods which can be used to either show the dialog
  * with provided message, or hide it.
  *
- * Created by jam on 1/23/16.
+ * @author Joshua Mir
  */
 public class ProgressBar extends JPanel {
 
