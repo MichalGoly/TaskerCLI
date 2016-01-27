@@ -44,7 +44,7 @@ public class ConnectionManager {
    private static final int MYSQL_PROPERTIES_SIZE = 3;
 
    /**
-    * gets the properties from the database we are connecting to, from the
+    * Gets the properties from the database we are connecting to, from the
     * properties files we have stored in {@code src/main/resorces/META-INF}
     * These properties include the location of the database, it's login username
     * and password

@@ -12,6 +12,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * The panel that displays the indicator to inform the user if they are connected
+ * to the remote database. It is placed inside the {@link SidebarPanel}
+ * 
+ * @author Tom Mills
+ * @author Josh Mir
+ * @version 1.0 Initial Development
+ */
 public class OnlineIndicatorPanel extends JPanel {
 
    /**
@@ -19,15 +27,26 @@ public class OnlineIndicatorPanel extends JPanel {
     */
    private static JLabel label = new JLabel();
 
+   /**
+    * Constructor. Calls the {@link #initialise() initialise} method
+    */
    public OnlineIndicatorPanel() {
       initialise();
    }
 
+   /**
+    * Called by the constructor, initialises the layout of the {@link JPanel}
+    * and adds the label to it.
+    */
    public void initialise() {
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
       add(label);
    }
-
+   
+   /**
+    * Sets the label to show it is connected to the online database with green 
+    * coloured text.
+    */
    public static void setOnline() {
       label.setText("Online");
       label.setFont(label.getFont().deriveFont(15f));
@@ -35,6 +54,10 @@ public class OnlineIndicatorPanel extends JPanel {
       label.repaint();
    }
 
+   /**
+    * Sets the label to show it is not connected to the online database with 
+    *  red coloured text.
+    */
    public static void setOffline() {
       label.setText("Offline");
       label.setFont(label.getFont().deriveFont(15f));

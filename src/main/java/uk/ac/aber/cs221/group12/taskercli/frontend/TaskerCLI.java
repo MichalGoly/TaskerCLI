@@ -13,8 +13,21 @@ import javax.swing.*;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
+
+/**
+ * The main class of the software, contains the main method. 
+ * 
+ * @author Michal Goly
+ * @since 1.1 initial development
+ * @version 1.2 Fully functional
+ */
 public class TaskerCLI {
 
+    /**
+     * Main Method, the first to be called by loading the software
+     * @param args the arguments passed to it if loaded from the command line.
+     * These are not used.
+     */
    public static void main(String[] args) {
       // set look and feel of the GUI depending on the OS of the user
       try {
