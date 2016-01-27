@@ -5,24 +5,21 @@
  * All rights reserved.
  *
  */
-package uk.ac.aber.cs211.group12.taskercli.data;
+package uk.ac.aber.cs221.group12.taskercli.data;
+
+import org.junit.Test;
+import uk.ac.aber.cs221.group12.taskercli.business.Task;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
+import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
+import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import uk.ac.aber.cs221.group12.taskercli.business.Task;
-import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
-import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
-import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
-import uk.ac.aber.cs221.group12.taskercli.data.ConnectionManager;
-import uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB;
 
 /**
- *
  * @author Michal Goly
  */
 public class TeamMemberDBTest {
@@ -41,27 +38,27 @@ public class TeamMemberDBTest {
 //         e.printStackTrace();
 //      }
 //   }
-   
-   @Test
-   public void assertCanInsertIntoRemoteDB() throws IOException {
-      try {
-         List<TaskElement> te = new ArrayList<>();
-         te.add(new TaskElement(20L, "Go to train station", ""));
-         te.add(new TaskElement(21L, "Get inside the train", ""));
-         List<Task> tasks = new ArrayList<>();
-         Task task = new Task(7L, "Go back for Christmas", new Date(2011, 2, 7), new Date(2010, 2, 1), 
-           TaskStatus.ALLOCATED, te);
-         tasks.add(task);
-         TeamMember mark = new TeamMember("Mark", "Smith", "mark@smith.com", "fish", tasks);
-         
-         TeamMemberDB.insertTeamMember(mark, ConnectionManager.MYSQL);
-      } catch (SQLException e) {
-         for (Throwable t : e) {
-            System.err.println(t);
-         }
-      }
-   }
-   
+
+    @Test
+    public void assertCanInsertIntoRemoteDB() throws IOException {
+        try {
+            List<TaskElement> te = new ArrayList<>();
+            te.add(new TaskElement(20L, "Go to train station", ""));
+            te.add(new TaskElement(21L, "Get inside the train", ""));
+            List<Task> tasks = new ArrayList<>();
+            Task task = new Task(7L, "Go back for Christmas", new Date(2011, 2, 7), new Date(2010, 2, 1),
+                    TaskStatus.ALLOCATED, te);
+            tasks.add(task);
+            TeamMember mark = new TeamMember("Mark", "Smith", "mark@smith.com", "fish", tasks);
+
+            TeamMemberDB.insertTeamMember(mark, ConnectionManager.MYSQL);
+        } catch (SQLException e) {
+            for (Throwable t : e) {
+                System.err.println(t);
+            }
+        }
+    }
+
 //      @Test
 //   public void assertCanInsertIntoLocalDB() throws IOException {
 //      try {
@@ -82,7 +79,7 @@ public class TeamMemberDBTest {
 //         }
 //      }
 //   }
-   
+
 //   @Test
 //   public void assertTeamMemberHasProperName() throws IOException {
 //      try {

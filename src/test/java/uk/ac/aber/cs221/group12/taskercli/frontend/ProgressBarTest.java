@@ -5,14 +5,14 @@
  * All rights reserved.
  *
  */
-package uk.ac.aber.cs211.group12.taskercli.frontend;
+package uk.ac.aber.cs221.group12.taskercli.frontend;
 
 import org.junit.Assert;
 import org.junit.Test;
-import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
  * Created by jam on 1/23/16.
+ *
  * @author Joshua Mir
  */
 public class ProgressBarTest {
@@ -26,7 +26,7 @@ public class ProgressBarTest {
     }
 
     @Test
-    public void testProgressBar(){
+    public void testProgressBar() {
         ProgressBar.showGui("Testing");
         oneSec();
         ProgressBar.showGui("Changing");
