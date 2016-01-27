@@ -10,11 +10,11 @@ package uk.ac.aber.cs221.group12.taskercli.business;
 import java.util.Objects;
 
 /**
- * TaskElement class abstracts the TaskElement table in both databases. Its
- * instance variables correspond to columns inside databases and can be accessed and
- * modified using the getters and setters provided. Each task element consist of 
- * both the description written by the manager using TaskerMAN, and the comment
- * which can be edited by the team member to communicate progress to the manager. 
+ * TaskElement class abstracts the TaskElement table in both databases. Its instance
+ * variables correspond to columns inside databases and can be accessed and modified
+ * using the getters and setters provided. Each task element consist of both the
+ * description written by the manager using TaskerMAN, and the comment which can be
+ * edited by the team member to communicate progress to the manager.
  *
  * @author Michal Goly
  */

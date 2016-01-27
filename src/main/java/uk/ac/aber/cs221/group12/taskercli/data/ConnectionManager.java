@@ -20,33 +20,33 @@ import java.util.Properties;
  * ConnectionManager class can be used to actually connect to both databases. It
  * enables the caller to acquire a Connection object to either the remote MySQL
  * (TaskerSRV), or locally run SQLite. ConnectionManager does not have to register
- * the JDBC drivers anymore, as it is done automatically. 
- * 
- * // TODO maybe change this behaviour?
- * Right now caller has to acquire the Properties object of the required database,
- * before asking for the Connection object. 
+ * the JDBC drivers anymore, as it is done automatically.
+ *
+ * // TODO maybe change this behaviour? Right now caller has to acquire the
+ * Properties object of the required database, before asking for the Connection
+ * object.
  *
  * @author Michal Goly
  */
 public class ConnectionManager {
-   
+
    /**
     * MYSQL constant indicates that the MySQL database should be used
     */
    public static final int MYSQL = 1;
-   
+
    /**
-    * SQLITE constant indicates  that the SQLite database should be used
+    * SQLITE constant indicates that the SQLite database should be used
     */
    public static final int SQLITE = 2;
 
    private static final int MYSQL_PROPERTIES_SIZE = 3;
-   
+
    /**
-    * 
+    *
     * @param database
     * @return
-    * @throws IOException 
+    * @throws IOException
     */
    public static Properties getDatabaseProperties(int database) throws IOException {
       if (database < 1 || database > 2) {
@@ -70,7 +70,7 @@ public class ConnectionManager {
    /**
     * This method can be used to acquire the Connection object to the required
     * database by passing in the corresponding Properties object.
-    * 
+    *
     * @param props The Properties object required to get the connection
     * @return The Connection to the required database
     * @throws SQLException Thrown if there was a problem with connecting to a db

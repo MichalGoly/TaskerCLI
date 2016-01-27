@@ -58,13 +58,13 @@ public class TaskDB {
                   TaskStatus status = TaskStatus.fromInt(rs.getInt("taskStatus"));
                   List<TaskElement> taskElementList
                           = TaskElementDB.selectTaskElementsByTaskId(taskId, database);
-                  task = new Task(taskId, title, startDate, endDate, status, 
+                  task = new Task(taskId, title, startDate, endDate, status,
                           taskElementList);
                }
             }
          }
       }
-      
+
       return task;
    }
 

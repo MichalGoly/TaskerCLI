@@ -26,11 +26,11 @@ public class TaskElementDB {
    private static final String SELECT_TASK_ELEMENTS
            = "SELECT * FROM TaskElement "
            + "WHERE Task_taskId = ?";
-   
+
    private static final String SELECT_TASK_ELEMENT
            = "SELECT * FROM TaskElement "
            + "WHERE taskElementId = ?";
-   
+
    private static final String UPDATE_TASKELEMENT
            = "UPDATE TaskElement "
            + "SET description = ?, comments = ? "
@@ -39,7 +39,7 @@ public class TaskElementDB {
    private static final String INSERT_TASK_ELEMENT
            = "INSERT INTO TaskElement (taskElementId, description, comments, Task_taskId) "
            + "VALUES (?, ?, ?, ?)";
-   
+
    public static List<TaskElement> selectTaskElementsByTaskId(Long taskId, int database)
            throws SQLException, IOException {
       List<TaskElement> taskElementList = new ArrayList<>();
@@ -62,12 +62,12 @@ public class TaskElementDB {
       }
       return taskElementList;
    }
-   
-   public static TaskElement selectTaskElementById(Long taskElementId, int database) 
+
+   public static TaskElement selectTaskElementById(Long taskElementId, int database)
            throws SQLException, IOException {
       TaskElement result = null;
       Properties props = ConnectionManager.getDatabaseProperties(database);
-      
+
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement ps = conn.prepareStatement(SELECT_TASK_ELEMENT)) {
             ps.setLong(1, taskElementId);
@@ -81,7 +81,7 @@ public class TaskElementDB {
             }
          }
       }
-         
+
       return result;
    }
 
@@ -101,7 +101,7 @@ public class TaskElementDB {
       }
    }
 
-   public static void insertTaskElements(List<TaskElement> taskElementList, 
+   public static void insertTaskElements(List<TaskElement> taskElementList,
            int database, long taskId) throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 

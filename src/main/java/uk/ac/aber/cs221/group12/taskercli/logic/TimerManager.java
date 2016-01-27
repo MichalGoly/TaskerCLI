@@ -13,34 +13,34 @@ import java.util.concurrent.TimeUnit;
 import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 
 /**
- * The TimerManager class is responsible for syncing every 5 min as required
- * in the assignment specification of the system.
+ * The TimerManager class is responsible for syncing every 5 min as required in the
+ * assignment specification of the system.
  *
  * @author Michal Goly
  */
 public class TimerManager {
-   
+
    /**
     * 5 min delay expressed in milliseconds
     */
    public static final long DELAY = TimeUnit.MINUTES.toMillis(5);
-   
+
    private TeamMember teamMember;
 
    public TimerManager(TeamMember teamMember) {
       this.teamMember = teamMember;
       Timer timer = new Timer();
       TimerTask syncTask = new SyncTask();
-      
+
       timer.schedule(syncTask, DELAY, DELAY);
    }
-   
+
    private class SyncTask extends TimerTask {
-      
+
       @Override
       public void run() {
          Syncer.doUpdate(teamMember);
       }
    }
-   
+
 }

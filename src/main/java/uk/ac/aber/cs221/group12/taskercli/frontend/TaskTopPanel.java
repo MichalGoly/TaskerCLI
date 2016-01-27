@@ -14,9 +14,9 @@ import javax.swing.SwingUtilities;
 
 /**
  * TaskTopPanel is responsible for displaying the details (start date, end date and
- * status) of a task within the TaskFrame. TaskTopPanel is situated on the top
- * of the TaskFrame.
- * 
+ * status) of a task within the TaskFrame. TaskTopPanel is situated on the top of the
+ * TaskFrame.
+ *
  * @author Michal Goly
  */
 public class TaskTopPanel extends JPanel {
@@ -38,7 +38,7 @@ public class TaskTopPanel extends JPanel {
       endDate = new JLabel();
       JLabel statusLabel = new JLabel("Status: ");
       status = new JLabel();
-      
+
       add(startDateLabel);
       add(startDate);
       add(endDateLabel);
@@ -70,5 +70,5 @@ public class TaskTopPanel extends JPanel {
    public void setStatus(JLabel status) {
       this.status = status;
    }
-   
+
 }

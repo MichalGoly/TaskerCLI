@@ -14,7 +14,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
 import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 
 public class TaskerCLI {
-   
+
    public static void main(String[] args) {
       // set look and feel of the GUI depending on the OS of the user
       try {
@@ -30,7 +30,7 @@ public class TaskerCLI {
 
       // log in
       final TeamMember teamMember = Syncer.logIn();
-      
+
       EventQueue.invokeLater(() -> {
          JFrame frame = new MainFrame(teamMember);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

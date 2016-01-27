@@ -1,3 +1,10 @@
+/*
+ * @(#) Syncer.java 1.0 26/01/16
+ *
+ * Copyright (c) 2016 Aberystwyth University.
+ * All rights reserved.
+ *
+ */
 package uk.ac.aber.cs221.group12.taskercli.logic;
 
 import java.awt.GridLayout;
@@ -91,20 +98,20 @@ public class Syncer {
                      if (remote.equals(local)) {
                         // log in using remote or local, does not matter
                         teamMember = remote;
-                        loggedIn = Authenticator.authenticate(teamMember, 
+                        loggedIn = Authenticator.authenticate(teamMember,
                                 password.getPassword());
                      } else {
                         // sync and log in using merged Bob
                         teamMember = sync(remote, local);
-                        loggedIn = Authenticator.authenticate(teamMember, 
+                        loggedIn = Authenticator.authenticate(teamMember,
                                 password.getPassword());
                      }
                   } else {
                      // local copy with this email does not exist, sync to put it 
                      // in the local db
                      teamMember = sync(remote, null);
-                     loggedIn = Authenticator.authenticate(teamMember, 
-                                password.getPassword());
+                     loggedIn = Authenticator.authenticate(teamMember,
+                             password.getPassword());
                   }
                } else {
                   // TeamMember with this email address does not exist
@@ -123,8 +130,8 @@ public class Syncer {
                   if (local != null) {
                      // log in using local bob
                      teamMember = local;
-                     loggedIn = Authenticator.authenticate(teamMember, 
-                                password.getPassword());
+                     loggedIn = Authenticator.authenticate(teamMember,
+                             password.getPassword());
                   } else {
                      // Team Member with given email address does not exist
                      // ignore and wait for new credentials

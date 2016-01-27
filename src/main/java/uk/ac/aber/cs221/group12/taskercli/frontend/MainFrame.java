@@ -62,7 +62,7 @@ public class MainFrame extends JFrame {
     */
    private void initComponents() {
       setLayout(new GridBagLayout());
-      
+
       // setup the JTable within the MainFrame
       taskTableModel = new TaskTableModel(teamMember);
       table = new JTable(taskTableModel);
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame {
          public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             int rowIndex = table.convertRowIndexToModel(table.getSelectedRow());
-                       
+
             Task task = taskTableModel.getTaskAt(rowIndex);
 
             // display the TaskFrame populated with data about the selected Task
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
             // Update the JTable in the MainFrame by accessing its TaskTableModel
             taskTableModel.tasks.set(rowIndex, task);
             taskTableModel.fireTableDataChanged();
-               
+
             sidebarPanel.updateTaskCount();
             Syncer.doUpdate(teamMember);
          }

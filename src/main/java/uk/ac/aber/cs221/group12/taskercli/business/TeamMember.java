@@ -38,35 +38,35 @@ public class TeamMember implements Serializable {
       this.password = password;
       this.taskList = taskList;
    }
-   
+
    /**
     * @return The first name of the team member
     */
    public String getFirstName() {
       return firstName;
    }
-   
+
    /**
     * @return The last name of the team member
     */
    public String getLastName() {
       return lastName;
    }
-   
+
    /**
-    * @return The email address of the team member 
+    * @return The email address of the team member
     */
    public String getEmail() {
       return email;
    }
-   
+
    /**
     * @return The password of the team member
     */
    public String getPassword() {
       return password;
    }
-   
+
    /**
     * @return The list of tasks of the team member
     */

@@ -23,7 +23,7 @@ import javax.swing.JProgressBar;
 public class ProgressBar extends JPanel {
 
    private static JDialog dialog;
-   
+
    public static void showGui(String status) {
       if (dialog == null) {
          JProgressBar progressBar = new JProgressBar();

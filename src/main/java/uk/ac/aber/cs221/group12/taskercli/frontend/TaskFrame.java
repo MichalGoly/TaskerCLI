@@ -27,9 +27,9 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
 
 /**
  * TaskFrame is responsible for displaying the list of task elements of a task that
- * has been selected in the MainFrame. User can edit comments associated with 
- * each of the task elements and mark the whole task as complete.
- * 
+ * has been selected in the MainFrame. User can edit comments associated with each of
+ * the task elements and mark the whole task as complete.
+ *
  * @author Michal Goly
  */
 public class TaskFrame extends JPanel {
@@ -72,17 +72,17 @@ public class TaskFrame extends JPanel {
 
       this.task = task;
       taskElementsTable.setModel(new TaskElementTableModel(task));
-      
+
       taskTopPanel.getStartDate().setText(task.getStartDate().toString());
       taskTopPanel.getEndDate().setText(task.getEndDate().toString());
       taskTopPanel.getStatus().setText(task.getStatus().toString());
-      
+
       if (task.getStatus() != TaskStatus.ALLOCATED) {
          completeButton.setEnabled(false);
       } else {
          completeButton.setEnabled(true);
       }
-      
+
       dialog.setLocationRelativeTo(parent);
       dialog.setTitle("Tasker - " + task.getTitle());
       dialog.setVisible(true);
@@ -147,7 +147,7 @@ public class TaskFrame extends JPanel {
       public int getColumnCount() {
          return 2;
       }
-      
+
       @Override
       public String getColumnName(int columnIndex) {
          if (columnIndex == 0) {
@@ -158,7 +158,7 @@ public class TaskFrame extends JPanel {
             return "#";
          }
       }
-      
+
       @Override
       public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -175,20 +175,20 @@ public class TaskFrame extends JPanel {
 
          return value;
       }
-      
+
       @Override
       public void setValueAt(Object value, int rowIndex, int columnIndex) {
          taskElements.get(rowIndex).setComments((String) value);
          fireTableCellUpdated(rowIndex, columnIndex);
       }
-      
+
       /**
-       * Defines whether a cell with given row and column index is editable
-       * directly by the user. 
-       * 
-       * In TaskerCLI the whole 'comments' column should be editable, which 
+       * Defines whether a cell with given row and column index is editable directly
+       * by the user.
+       *
+       * In TaskerCLI the whole 'comments' column should be editable, which
        * corresponds to the column with index 1.
-       * 
+       *
        * @param rowIndex The row index of the selected cell in the JTable
        * @param columnIndex The column index of the selected cell in the JTable
        * @return true for every cell in column 'comments', false otherwise
@@ -197,7 +197,7 @@ public class TaskFrame extends JPanel {
       public boolean isCellEditable(int rowIndex, int columnIndex) {
          return columnIndex == 1;
       }
-      
+
       @Override
       public Class<?> getColumnClass(int columnIndex) {
          return String.class;
