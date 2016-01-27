@@ -30,8 +30,8 @@ public class TeamMemberTest {
     @Before
     public void createTeamMember() {
         List<TaskElement> taskElements = new ArrayList<>();
-        te.add(new TaskElement(20L, "Go to train station", ""));
-        te.add(new TaskElement(21L, "Get inside the train", ""));
+        taskElements.add(new TaskElement(20L, "Go to train station", ""));
+        taskElements.add(new TaskElement(21L, "Get inside the train", ""));
         List<Task> tasks = new ArrayList<>();
         Task task = new Task(7L, "Go back for Christmas",
                 new Date(2011, 2, 7),
