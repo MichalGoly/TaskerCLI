@@ -25,7 +25,7 @@ public class TimerManager {
    /**
     * 5 min delay expressed in milliseconds
     */
-   public static final long DELAY = TimeUnit.MINUTES.toMillis(1);
+   public static final long DELAY = TimeUnit.MINUTES.toMillis(5);
 
    private TeamMember teamMember;
    private MainFrame.TaskTableModel taskTableModel;
