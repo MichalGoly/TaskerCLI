@@ -7,6 +7,7 @@
  */
 package uk.ac.aber.cs211.group12.taskercli.frontend;
 
+import org.junit.Assert;
 import org.junit.Test;
 import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
@@ -14,33 +15,31 @@ import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
  * Created by jam on 1/23/16.
  */
 public class ProgressBarTest {
+
+    private void oneSec() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void testProgressBar(){
         ProgressBar.showGui("Testing");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        oneSec();
         ProgressBar.showGui("Changing");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ProgressBar.hideGui();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        oneSec();
         ProgressBar.showGui("Changed");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        oneSec();
+        ProgressBar.showGui("Hiding");
+        oneSec();
         ProgressBar.hideGui();
+        oneSec();
+        ProgressBar.showGui("Finished");
+        oneSec();
+        Assert.assertTrue("Test Completed", true);
+
     }
 
 }
