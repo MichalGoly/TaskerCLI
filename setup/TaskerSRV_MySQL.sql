@@ -9,7 +9,7 @@ USE TaskerSRV;
 CREATE TABLE Admin (
     adminId bigint  NOT NULL AUTO_INCREMENT,
     username varchar(20)  NOT NULL,
-    password varchar(20)  NOT NULL,
+    password varchar(255)  NOT NULL,
     CONSTRAINT Admin_pk PRIMARY KEY (adminId)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE TeamMember (
     email varchar(80)  NOT NULL,
     firstName varchar(40)  NOT NULL,
     lastName varchar(40)  NOT NULL,
-    password varchar(20)  NOT NULL,
+    password varchar(255)  NOT NULL,
     UNIQUE INDEX email (email),
     CONSTRAINT TeamMember_pk PRIMARY KEY (email)
 );

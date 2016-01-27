@@ -114,10 +114,9 @@ public class Syncer {
                              password.getPassword());
                   }
                } else {
-                  // TeamMember with this email address does not exist
+                  // TeamMember with this email address does not exist remotely
 
-                  // dodgy way to get into the second branch, ignore the spaghetti
-                  // code for now
+                  // dodgy way to get into the second branch
                   throw new IOException();
                }
 
@@ -135,6 +134,8 @@ public class Syncer {
                   } else {
                      // Team Member with given email address does not exist
                      // ignore and wait for new credentials
+                     JOptionPane.showMessageDialog(null, "Invalid email or password",
+                             null, JOptionPane.ERROR_MESSAGE);
                   }
                } catch (SQLException | IOException ex) {
                   JOptionPane.showMessageDialog(null,
