@@ -24,15 +24,16 @@ import java.util.List;
 /**
  * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
  * filter through the tasks using the search box provided, and log out of the system.
- *
- * // TODO It also indicates whether there's is an access to the remote database
- * (whether the system works online/offline).
+ * It also uses {@link OnlineIndicatorPanel} to tell the user the state of their
+ * connection to the remote database, and an indicator that displays the total
+ * number of tasks allocated to the teamMember.
  *
  * @author Michal Goly
+ * @author Tom Mills
+ * @version 1.0
  */
 public class SidebarPanel extends JPanel {
-
-   private JTable mainFrameTable;
+    
    private TeamMember teamMember;
 
    private JTextField searchField;
@@ -45,6 +46,15 @@ public class SidebarPanel extends JPanel {
 
    private OnlineIndicatorPanel onlinePanel;
 
+   /**
+    * Constructor
+    * <p>
+    * Creates the SidebarPanel, and also a {@link TableRowSorter} to filter the
+    * tasks, so that only tasks with the status ALLOCATED are shown to the user.
+    * 
+    * @param mainFrameTable The table that the tasks are shown in
+    * @param teamMember The team member whose tasks need to be shown.
+    */
     public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
         this.teamMember = teamMember;
         sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
@@ -53,6 +63,9 @@ public class SidebarPanel extends JPanel {
         sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
     }
 
+    /**
+     * This method is used to update the label which displays the number of tasks.
+     */
    public void updateTaskCount() {
       int numberAllocatedTasks = teamMember.getTaskList().size();
 
@@ -65,6 +78,10 @@ public class SidebarPanel extends JPanel {
       taskNumberLabel.setText("Number of Tasks: " + numberAllocatedTasks);
    }
 
+   /**
+    * Sets the layout of the GUI components, adding all buttons and initialising
+    * any objects required.
+    */
    private void initComponents() {
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -100,9 +117,13 @@ public class SidebarPanel extends JPanel {
       onlinePanel = new OnlineIndicatorPanel();
       add(onlinePanel);
    }
-
-   private class SearchButtonListener implements ActionListener {
-
+/**
+ * Inner class used to set listeners for the search button, to allow clicking it
+ * to activate methods.
+ */
+   private class SearchButtonListener 
+   implements ActionListener {
+       
       @Override
       public void actionPerformed(ActionEvent e) {
          String searchText = searchField.getText();
@@ -113,7 +134,8 @@ public class SidebarPanel extends JPanel {
       }
    }
 
-   private class ViewAllTasksListener implements ActionListener {
+   private class ViewAllTasksListener 
+   implements ActionListener {
 
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -121,7 +143,8 @@ public class SidebarPanel extends JPanel {
       }
    }
 
-   private class LogOutButtonListener implements ActionListener {
+   private class LogOutButtonListener 
+   implements ActionListener {
 
       @Override
       public void actionPerformed(ActionEvent e) {

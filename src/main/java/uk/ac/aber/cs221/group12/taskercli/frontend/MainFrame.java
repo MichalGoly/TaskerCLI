@@ -29,6 +29,7 @@ import uk.ac.aber.cs221.group12.taskercli.util.GBC;
  * invokes TaskFrame. Also displays SidebarPanel.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class MainFrame extends JFrame {
 
@@ -50,6 +51,12 @@ public class MainFrame extends JFrame {
    
    private static MainFrame mainFrame;
    
+   /**
+    * Constructor
+    * 
+    * @param teamMember The TeamMember that logged in, whose tasks should be 
+    * displayed
+    */
    public MainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       initComponents();
@@ -64,6 +71,10 @@ public class MainFrame extends JFrame {
       return mainFrame;
    }
    
+   /**
+    * Updates the main frame when syncing with the remote database. 
+    * @param teamMember The TeamMember whose tasks should be displayed
+    */
    public void updateMainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
       
@@ -75,8 +86,8 @@ public class MainFrame extends JFrame {
    }
       
    /**
-    * Initialises both the SidebarPanel and the JTable and positions them within the
-    * MainFrame using the GridBagLayout.
+    * Initialises both the {@link SidebarPanel} and the {@link JTable} and 
+    * positions them within the MainFrame using the GridBagLayout.
     */
    private void initComponents() {
       setLayout(new GridBagLayout());
@@ -119,6 +130,9 @@ public class MainFrame extends JFrame {
               .setFill(GBC.BOTH));
    }
 
+   /**
+    * Initialises the Frame, giving it a size and a title.
+    */
    private void initFrame() {
       setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
       setLocationRelativeTo(null);
@@ -127,15 +141,21 @@ public class MainFrame extends JFrame {
    }
 
    // http://stackoverflow.com/questions/12559287/how-to-set-a-custom-object-in-a-jtable-row
+   /**
+    * Nested class that creates the table used to display the tasks.
+    */
    public class TaskTableModel extends AbstractTableModel {
 
       private List<Task> tasks;
 
       /**
-       * Create the table model for the JTable within the MainFrame and extract a
-       * list of the tasks from the provided teamMember object.
+       * Constructor.
+       * <p>
+       * Create the table model for the {@link JTable} within the MainFrame and 
+       * extract a list of the tasks from the provided teamMember object.
        *
-       * @param teamMember
+       * @param teamMember the TeamMember who the tasks to display are assigned
+       * to.
        */
       public TaskTableModel(TeamMember teamMember) {
          tasks = teamMember.getTaskList();
