@@ -19,6 +19,7 @@ import javax.swing.JPanel;
  * @author Tom Mills
  * @author Josh Mir
  * @version 1.0 Initial Development
+ * @see JPanel
  */
 public class OnlineIndicatorPanel extends JPanel {
 

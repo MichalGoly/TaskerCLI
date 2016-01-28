@@ -19,6 +19,8 @@ import javax.swing.SwingUtilities;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see JPanel
+ * @see Task
  */
 public class TaskTopPanel extends JPanel {
 

@@ -18,6 +18,8 @@ import java.awt.*;
  *
  * @author Joshua Mir
  * @version 1.0
+ * @see JPanel
+ * @see JProgressBar
  */
 public class ProgressBar extends JPanel {
 

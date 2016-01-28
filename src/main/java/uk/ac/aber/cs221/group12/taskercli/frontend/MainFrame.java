@@ -30,6 +30,12 @@ import uk.ac.aber.cs221.group12.taskercli.util.GBC;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see JFrame
+ * @see Task
+ * @see TeamMember
+ * @see Syncer
+ * @see TimerManager
+ * @see GBC
  */
 public class MainFrame extends JFrame {
 

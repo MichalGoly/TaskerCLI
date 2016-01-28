@@ -32,6 +32,8 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see JPanel
+ * @see Task
  */
 public class TaskFrame extends JPanel {
 

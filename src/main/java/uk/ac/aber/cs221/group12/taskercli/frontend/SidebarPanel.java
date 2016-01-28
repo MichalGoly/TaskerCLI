@@ -31,6 +31,7 @@ import java.util.List;
  * @author Michal Goly
  * @author Tom Mills
  * @version 1.0
+ * @see JPanel
  */
 public class SidebarPanel extends JPanel {
     

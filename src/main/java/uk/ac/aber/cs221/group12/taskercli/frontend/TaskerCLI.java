@@ -26,7 +26,7 @@ public class TaskerCLI {
     /**
      * Main Method, the first to be called by loading the software
      * @param args the arguments passed to it if loaded from the command line.
-     * These are not used.
+     * These are not used in the current implementation.
      */
    public static void main(String[] args) {
       // set look and feel of the GUI depending on the OS of the user
