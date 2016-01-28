@@ -16,10 +16,10 @@ set /p confirm= Connect to %remdir% as %user%? [Y to continue]
 if "%confirm%" == "Y" (goto :build) else (goto :remdir)
 :build
 md "%installdir%\src\main\resources\META-INF"
-echo "jdbc.filename=jdbc:sqlite:%datadir%/SQLite.db" > "%installdir%\src\main\resources\META-INF\sqlite.properties"
+echo jdbc.filename=jdbc:sqlite:%datadir%/SQLite.db > "%installdir%\src\main\resources\META-INF\sqlite.properties"
 
-echo "jdbc.url=jdbc::mysql://%remdir%" > "%installdir%\src\main\resources\META-INF\mysql.properties"
-echo "jdbc.username=%user%" >> "%installdir%\src\main\resources\META-INF\mysql.properties"
-echo "jdbc.password=%password%" >> "%installdir%\src\main\resources\META-INF\mysql.properties"
+echo jdbc.url=jdbc::mysql://%remdir% > "%installdir%\src\main\resources\META-INF\mysql.properties"
+echo jdbc.username=%user% >> "%installdir%\src\main\resources\META-INF\mysql.properties"
+echo jdbc.password=%password% >> "%installdir%\src\main\resources\META-INF\mysql.properties"
 copy TaskerCLI.jar %installdir%
 set /p complete= Finished installation to %installdir%, press return to exit.
