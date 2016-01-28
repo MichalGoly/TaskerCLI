@@ -28,6 +28,9 @@ import java.util.Properties;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see TaskDB
+ * @see TaskElementDB
+ * @see TeammemberDB
  */
 public class ConnectionManager {
 

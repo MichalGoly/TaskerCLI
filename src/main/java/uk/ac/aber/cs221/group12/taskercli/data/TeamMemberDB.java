@@ -34,6 +34,9 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see Task
+ * @see TeamMember
+ * @see ConnectionManager
  */
 public class TeamMemberDB {
 
