@@ -19,6 +19,7 @@ import java.util.Objects;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB
  */
 public class TeamMember implements Serializable {
 

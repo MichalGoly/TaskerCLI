@@ -17,11 +17,23 @@ import java.awt.*;
  * with provided message, or hide it.
  *
  * @author Joshua Mir
+ * @version 1.0
+ * @see JPanel
+ * @see JProgressBar
  */
 public class ProgressBar extends JPanel {
 
    private static JDialog dialog;
 
+   /**
+    * Shows the {@link JDialog} that displays the {@link JProgressBar}. Also
+    * sets the progress bar to indeterminate mode so that it does not try to 
+    * show accurate progress, and gives the dialog a title depending on what 
+    * action is happening.
+    * 
+    * @param status The name of the current action taken by the software that 
+    * requires a progress bar, to inform the user what is happening.
+    */
    public static void showGui(String status) {
       if (dialog == null) {
          JProgressBar progressBar = new JProgressBar();
@@ -39,6 +51,9 @@ public class ProgressBar extends JPanel {
       dialog.setVisible(true);
    }
 
+   /**
+    * Hides the progress bar. Is usually called when whatever action has finished.
+    */
    public static void hideGui() {
       if (dialog == null) {
          return;

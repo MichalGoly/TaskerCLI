@@ -26,6 +26,8 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskElement;
  * 
  * @author Michal Goly
  * @version 1.0
+ * @see TaskElement
+ * @see ConnectionManager
  */
 public class TaskElementDB {
     

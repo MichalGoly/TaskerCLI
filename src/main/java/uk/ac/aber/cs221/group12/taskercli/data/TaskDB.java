@@ -28,6 +28,10 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  * 
  * @author Michal Goly
  * @version 1.0
+ * @see Task
+ * @see TaskElement
+ * @see TaskStatus
+ * @see ConnectionManager
  */
 public class TaskDB {
     

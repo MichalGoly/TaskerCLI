@@ -24,11 +24,14 @@ import java.util.List;
 /**
  * SidebarPanel is the panel on the left side of the MainFrame. It allows the user to
  * filter through the tasks using the search box provided, and log out of the system.
- *
- * // TODO It also indicates whether there's is an access to the remote database
- * (whether the system works online/offline).
+ * It also uses {@link OnlineIndicatorPanel} to tell the user the state of their
+ * connection to the remote database, and an indicator that displays the total
+ * number of tasks allocated to the teamMember.
  *
  * @author Michal Goly
+ * @author Tom Mills
+ * @version 1.0
+ * @see JPanel
  */
 public class SidebarPanel extends JPanel {
 
@@ -51,6 +54,9 @@ public class SidebarPanel extends JPanel {
         sorter.setRowFilter(RowFilter.regexFilter("ALLOCATED"));
     }
 
+    /**
+     * This method is used to update the label which displays the number of tasks.
+     */
    public void updateTaskCount() {
       TeamMember teamMember = MainFrame.getMainFrame().getTeamMember();
       int numberAllocatedTasks = teamMember.getTaskList().size();
@@ -64,6 +70,10 @@ public class SidebarPanel extends JPanel {
       taskNumberLabel.setText("Number of Tasks: " + numberAllocatedTasks);
    }
 
+   /**
+    * Sets the layout of the GUI components, adding all buttons and initialising
+    * any objects required.
+    */
    private void initComponents() {
       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -99,9 +109,14 @@ public class SidebarPanel extends JPanel {
       onlinePanel = new OnlineIndicatorPanel();
       add(onlinePanel);
    }
-
-   private class SearchButtonListener implements ActionListener {
-
+/**
+ * Inner class used to set listeners for the search button, so that clicking it
+ * filters the table displaying {@link Task Tasks} with the search term entered.
+ * 
+ */
+   private class SearchButtonListener 
+   implements ActionListener {
+       
       @Override
       public void actionPerformed(ActionEvent e) {
          String searchText = searchField.getText();
@@ -112,7 +127,12 @@ public class SidebarPanel extends JPanel {
       }
    }
 
-   private class ViewAllTasksListener implements ActionListener {
+   /**
+    * Inner class used to set listeners for the 'View All Tasks' button on the 
+    * SidebarPanel, so that clicking it displays all allocated tasks.
+    */
+   private class ViewAllTasksListener 
+   implements ActionListener {
 
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -120,7 +140,12 @@ public class SidebarPanel extends JPanel {
       }
    }
 
-   private class LogOutButtonListener implements ActionListener {
+   /**
+    * Inner class used to set listeners for the 'Log Out' button on the
+    * SidebarPanel. 
+    */
+   private class LogOutButtonListener 
+   implements ActionListener {
 
       @Override
       public void actionPerformed(ActionEvent e) {
