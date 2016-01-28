@@ -152,8 +152,6 @@ public class SidebarPanel extends JPanel {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-         //sync on log out
-         Syncer.doUpdate(MainFrame.getMainFrame().getTeamMember());
          System.exit(0);
       }
    }

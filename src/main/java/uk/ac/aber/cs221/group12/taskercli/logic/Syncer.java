@@ -1,4 +1,5 @@
-/*
+/**
+ * Authenticator provide/*
  * @(#) Syncer.java 1.0 26/01/16
  *
  * Copyright (c) 2016 Aberystwyth University.
@@ -127,9 +128,18 @@ public class Syncer {
                   }
                } else {
                   // TeamMember with this email address does not exist remotely
-
-                  // dodgy way to get into the second branch
-                  throw new IOException();
+                  // but there is a connection to the remote database. It is also
+                  // possible that the TeamMember with specified email address
+                  // exists in the local database so we need to clean it
+                  TeamMember dummy = TeamMemberDB.selectTeamMemberByEmail(
+                          email.getText(), ConnectionManager.SQLITE);
+                     
+                  if (dummy != null) {
+                     // clean up
+                     TeamMemberDB.deleteTeamMember(dummy, ConnectionManager.SQLITE);
+                  }
+                  JOptionPane.showMessageDialog(null, "Invalid email or password",
+                             null, JOptionPane.ERROR_MESSAGE);
                }
 
             } catch (SQLException | IOException e) {

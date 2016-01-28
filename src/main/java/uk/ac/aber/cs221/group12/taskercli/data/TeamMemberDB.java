@@ -153,7 +153,7 @@ public class TeamMemberDB {
     * @throws IOException throws if the properties file loaded by
     * {@link ConnectionManager#getConnection getConnection()} is not found.
     */
-   private static void deleteTeamMember(TeamMember teamMember, int database)
+   public static void deleteTeamMember(TeamMember teamMember, int database)
    throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
