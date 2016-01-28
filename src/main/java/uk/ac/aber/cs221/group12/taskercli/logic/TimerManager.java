@@ -16,15 +16,31 @@ import uk.ac.aber.cs221.group12.taskercli.frontend.MainFrame;
  * The TimerManager class is responsible for syncing every 5 min as required in the
  * assignment specification of the system.
  *
- * @author Michal Goly
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
+ * @see MainFrame
+ * @see Syncer
+ * @see Timer
  */
 public class TimerManager {
 
+    public static final int MINUTES_TO_WAIT = 5;
    /**
-    * 5 min delay expressed in milliseconds
+    * {@value #MINUTES_TO_WAIT} min delay expressed in milliseconds.
     */
-   public static final long DELAY = TimeUnit.MINUTES.toMillis(1);
+   public static final long DELAY = TimeUnit.MINUTES.toMillis(MINUTES_TO_WAIT);
    
+   /**
+    * Constructor
+    * 
+    * Creates the {@link Timer} and schedules the {@link SyncTask} to occur
+    * every few minutes, dependant on the value of the constant 
+    * {@link #DELAY DELAY}.
+    */
    public TimerManager() {
       Timer timer = new Timer();
       TimerTask syncTask = new SyncTask();
@@ -32,6 +48,10 @@ public class TimerManager {
       timer.schedule(syncTask, DELAY, DELAY);
    }
 
+   /**
+    * Private inner class activates the {@link Syncer#doUpdate(TeamMember)}
+    * method whenever the timer counts the amount of time required to pass.
+    */
    private class SyncTask extends TimerTask {
 
       @Override

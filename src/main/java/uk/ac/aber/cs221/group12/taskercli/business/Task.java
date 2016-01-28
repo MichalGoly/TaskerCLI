@@ -20,7 +20,11 @@ import java.util.Objects;
  * transformed to an appropriate TaskStatus Enum inside the program.
  *
  * @author Michal Goly
- * @version 1.0
+ * @author Joshua Mir
+ * @author Tom Mills
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see TeamMember
  * @see TaskStatus
  * @see TaskElement

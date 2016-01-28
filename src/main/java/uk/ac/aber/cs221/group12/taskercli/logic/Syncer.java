@@ -30,13 +30,24 @@ import uk.ac.aber.cs221.group12.taskercli.frontend.OnlineIndicatorPanel;
 import uk.ac.aber.cs221.group12.taskercli.frontend.ProgressBar;
 
 /**
- * Syncer class contains the logic for conflict resolution between the contents of
- * the two databases within its sync method. The sync method takes two TeamMember
- * objects, generates a canonical TeamMember object, which is supplied to the
- * databases and UI. The Syncer class also contains the login method, displaying a
- * dialog for user login and returning an appropriate TeamMember object.
+ * Syncer class contains the logic for conflict resolution between the contents
+ * of the two databases within its {@link #sync(TeamMember, TeamMember)} method. 
+ * The sync method takes two {@link TeamMember} objects, generates a canonical 
+ * TeamMember object, which is supplied to the databases and UI. The Syncer class 
+ * also contains the {@link logIn()} method,displaying a dialog for user login 
+ * and returning an appropriate TeamMember object.
  *
- * @author Michal Goly
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
+ * @see ConnectionManager
+ * @see TaskDB
+ * @see TaskElementDB
+ * @see TeamMemberDB
+ * @see TeamMember
  */
 public class Syncer {
 
@@ -213,13 +224,13 @@ public class Syncer {
 
    /**
     * Actual merging of the remote and the local copy of Bob by considering the
-    * precedence imposed in the QA Requirements Specification of the assignment. Data
-    * to merge from the local copy is acquired from the local database, rather than
-    * from the passed object.
+    * precedence imposed in the QA Requirements Specification of the assignment. 
+    * Data to merge from the local copy is acquired from the local database, 
+    * rather than from the passed object.
     *
-    * @param remote The TeamMember object from the remote database
-    * @param local The TeamMember object from the local database
-    * @return The merged TeamMember object
+    * @param remote The TeamMember object from the remote database.
+    * @param local The TeamMember object from the local database.
+    * @return The merged TeamMember object.
     */
    private static TeamMember merge(TeamMember remote, TeamMember local) {
       TeamMember merged = new TeamMember();
@@ -270,12 +281,17 @@ public class Syncer {
    }
 
    /**
-    * This method can be used to invoke the synchronisation of the current TeamMember
-    * object between both the local (SQLite) and the remote (TaskerSRV) databases.
+    * This method can be used to invoke the synchronisation of the current 
+    * {@link TeamMember} object between both the local (SQLite) and the remote 
+    * (TaskerSRV) databases. It does this using the 
+    * {@link #sync(TeamMember, TeamMember)} method after getting the TeamMember
+    * from each database using {@link TeamMemberDB}.
+    * <p>
+    * If the remote database cannot be connected to, the update will occur only
+    * to the local database.
     *
-    * // TODO Perhaps a bit more detailed description
-    *
-    * @param editedTeamMember
+    * @param editedTeamMember The TeamMember that needs to be updated within
+    * both databases.
     */
    public static void doUpdate(TeamMember editedTeamMember) {
       
@@ -300,7 +316,6 @@ public class Syncer {
                   OnlineIndicatorPanel.setOnline();
                } else {
                   // unable to connect to the database
-                  //TODO Inform the user
                   OnlineIndicatorPanel.setOffline();
                }
             } catch (SQLException | IOException e) {

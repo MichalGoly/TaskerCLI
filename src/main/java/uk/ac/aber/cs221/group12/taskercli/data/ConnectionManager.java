@@ -26,8 +26,12 @@ import java.util.Properties;
  * Properties object of the required database, before asking for the Connection
  * object.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see TaskDB
  * @see TaskElementDB
  * @see TeammemberDB

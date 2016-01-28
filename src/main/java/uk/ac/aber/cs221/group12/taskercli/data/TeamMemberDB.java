@@ -1,5 +1,5 @@
 /*
- * @(#) TeamMemberDB.java 1.0 26/01/16
+ * @(#) TeamMemberDB.java 1.2 28/01/16
  *
  * Copyright (c) 2016 Aberystwyth University.
  * All rights reserved.
@@ -32,8 +32,13 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
  * {@link #updateTeamMember(TeamMember teamMember, int database) updateTeamMember} to
  * put it back to the database.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.2 bugs fixed
+ * @since 1.0 added delete member method, to fix sync bugs
+ * 
  * @see Task
  * @see TeamMember
  * @see ConnectionManager

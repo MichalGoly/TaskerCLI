@@ -12,8 +12,12 @@ package uk.ac.aber.cs221.group12.taskercli.business;
  * Each task can be either allocated, abandoned or completed. Each Enum has its
  * integer representation accessible with the {@link toInt()} method.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see Task
  */
 public enum TaskStatus {

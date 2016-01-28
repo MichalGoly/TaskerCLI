@@ -17,8 +17,12 @@ import java.util.Objects;
  * edited by the team member to communicate progress to the manager. Each task
  * element is assigned to one task, in a 1 {@link Task} to many TaskElement relationship.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see Task
  * @see uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB
  */

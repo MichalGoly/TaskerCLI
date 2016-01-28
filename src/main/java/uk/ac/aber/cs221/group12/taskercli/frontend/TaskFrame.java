@@ -30,8 +30,12 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  * has been selected in the MainFrame. User can edit comments associated with each of
  * the task elements and mark the whole task as complete.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JPanel
  * @see Task
  */

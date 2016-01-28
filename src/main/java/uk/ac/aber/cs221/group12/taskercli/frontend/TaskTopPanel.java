@@ -17,8 +17,12 @@ import javax.swing.SwingUtilities;
  * status) of a task within the TaskFrame. TaskTopPanel is situated on the top of the
  * TaskFrame.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JPanel
  * @see Task
  */

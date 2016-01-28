@@ -17,9 +17,12 @@ import uk.ac.aber.cs221.group12.taskercli.logic.Syncer;
 /**
  * The main class of the software, contains the main method. 
  * 
- * @author Michal Goly
- * @since 1.1 initial development
- * @version 1.2 Fully functional
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @since 1.0 Initial Release
+ * @version 1.2 Fully functional, bugs fixed
  */
 public class TaskerCLI {
 

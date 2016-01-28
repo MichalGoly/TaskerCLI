@@ -28,8 +28,12 @@ import uk.ac.aber.cs221.group12.taskercli.util.GBC;
  * displays a TeamMember object’s Tasks in a sortable JTable, clicking on this
  * invokes TaskFrame. Also displays SidebarPanel.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JFrame
  * @see Task
  * @see TeamMember

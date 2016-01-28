@@ -17,9 +17,14 @@ import java.util.Objects;
  * using the getters and setters provided. Instance of this class will be used to
  * populate the user interface with data in the program.
  *
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see uk.ac.aber.cs221.group12.taskercli.data.TeamMemberDB
+ * @see Task
  */
 public class TeamMember implements Serializable {
 

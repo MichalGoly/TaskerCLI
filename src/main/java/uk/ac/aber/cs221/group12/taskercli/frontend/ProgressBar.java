@@ -16,8 +16,12 @@ import java.awt.*;
  * system. It provides 2 static methods which can be used to either show the dialog
  * with provided message, or hide it.
  *
- * @author Joshua Mir
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JPanel
  * @see JProgressBar
  */

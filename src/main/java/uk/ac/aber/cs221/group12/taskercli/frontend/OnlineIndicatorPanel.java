@@ -16,9 +16,12 @@ import javax.swing.JPanel;
  * The panel that displays the indicator to inform the user if they are connected
  * to the remote database. It is placed inside the {@link SidebarPanel}
  * 
- * @author Tom Mills
- * @author Josh Mir
- * @version 1.0 Initial Development
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JPanel
  */
 public class OnlineIndicatorPanel extends JPanel {

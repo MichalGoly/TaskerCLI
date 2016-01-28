@@ -26,8 +26,12 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  * All methods are static, so this class does not need to be initialised, nor
  * does it require a constructor to be used.
  * 
- * @author Michal Goly
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see Task
  * @see TaskElement
  * @see TaskStatus

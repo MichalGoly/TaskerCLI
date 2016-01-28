@@ -28,9 +28,12 @@ import java.util.List;
  * connection to the remote database, and an indicator that displays the total
  * number of tasks allocated to the teamMember.
  *
- * @author Michal Goly
- * @author Tom Mills
- * @version 1.0
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see JPanel
  */
 public class SidebarPanel extends JPanel {

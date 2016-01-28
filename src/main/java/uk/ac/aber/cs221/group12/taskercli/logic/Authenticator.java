@@ -17,7 +17,12 @@ import uk.ac.aber.cs221.group12.taskercli.business.TeamMember;
  * check passwords. Using {@link BCrypt} the passwords are hashed to keep
  * them secure, and are encrypted in the databases. 
  * 
- * @author Michal Goly
+ * @author Michal Goly 
+ * @author Joshua Mir 
+ * @author Tom Mills 
+ * @author Adam Neaves
+ * @version 1.0 Initial Release
+ * 
  * @see TeamMember
  * @see BCrypt
  * @see uk.ac.aber.cs221.group12.taskercli.logic.Syncer#logIn()
