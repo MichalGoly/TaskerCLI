@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
  * TaskFrame.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TaskTopPanel extends JPanel {
 
@@ -25,10 +26,17 @@ public class TaskTopPanel extends JPanel {
    private JLabel endDate;
    private JLabel status;
 
+   /**
+    * Calls the {@link #initComponents()} method, creating the panel.
+    */
    public TaskTopPanel() {
       initComponents();
    }
 
+   /**
+    * Creates and formats the components for the TopPanel. Includes 
+    * {@link Jlabel Jlabels} for the start and end date, as well as the status.
+    */
    private void initComponents() {
       setLayout(new FlowLayout(SwingUtilities.HORIZONTAL));
 

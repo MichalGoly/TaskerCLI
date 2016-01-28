@@ -118,8 +118,9 @@ public class SidebarPanel extends JPanel {
       add(onlinePanel);
    }
 /**
- * Inner class used to set listeners for the search button, to allow clicking it
- * to activate methods.
+ * Inner class used to set listeners for the search button, so that clicking it
+ * filters the table displaying {@link Task Tasks} with the search term entered.
+ * 
  */
    private class SearchButtonListener 
    implements ActionListener {
@@ -134,6 +135,10 @@ public class SidebarPanel extends JPanel {
       }
    }
 
+   /**
+    * Inner class used to set listeners for the 'View All Tasks' button on the 
+    * SidebarPanel, so that clicking it displays all allocated tasks.
+    */
    private class ViewAllTasksListener 
    implements ActionListener {
 
@@ -143,6 +148,10 @@ public class SidebarPanel extends JPanel {
       }
    }
 
+   /**
+    * Inner class used to set listeners for the 'Log Out' button on the
+    * SidebarPanel. 
+    */
    private class LogOutButtonListener 
    implements ActionListener {
 

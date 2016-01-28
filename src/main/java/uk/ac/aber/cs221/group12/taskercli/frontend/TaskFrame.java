@@ -31,6 +31,7 @@ import uk.ac.aber.cs221.group12.taskercli.business.TaskStatus;
  * the task elements and mark the whole task as complete.
  *
  * @author Michal Goly
+ * @version 1.0
  */
 public class TaskFrame extends JPanel {
 
@@ -51,9 +52,17 @@ public class TaskFrame extends JPanel {
    public Task getTask() {
       return task;
    }
-
+   /**
+    * Method for displaying the TaskFrame to the user. Creates the frame when
+    * first run, and fills it with the information about the specified 
+    * {@link task}.
+    * 
+    * @param parent The parent of the taskFrame so that it can load in the correct
+    * position.
+    * @param task The {@link task} that needs to be displayed to the user.
+    */
    public void showDialog(Component parent, Task task) {
-      Frame owner = null;
+      Frame owner;
 
       if (parent instanceof Frame) {
          owner = (Frame) parent;
@@ -61,7 +70,8 @@ public class TaskFrame extends JPanel {
          owner = (Frame) SwingUtilities.getAncestorOfClass(Frame.class, parent);
       }
 
-      // if dialog showed for the first time
+      // if dialog showed for the first time, create the dialog, adding the
+      //TaskFrame as part of it.
       if (dialog == null || dialog.getOwner() != owner) {
          dialog = new JDialog(owner, true);
          dialog.add(this);
@@ -88,10 +98,18 @@ public class TaskFrame extends JPanel {
       dialog.setVisible(true);
    }
 
+   /**
+    * Initialises the layout for the frame.
+    */
    private void initFrame() {
       setLayout(new BorderLayout());
    }
 
+   /**
+    * Initialises the components used in the TestFrame, including the 
+    * {@link JTable} used to show {@link TaskElement TaskElements} and the 
+    * {@link JPanel} used to display the {@link JButton JButtons}.
+    */
    private void initComponents() {
       taskTopPanel = new TaskTopPanel();
       add(taskTopPanel, BorderLayout.NORTH);
@@ -104,6 +122,12 @@ public class TaskFrame extends JPanel {
       add(buttonPanel, BorderLayout.SOUTH);
    }
 
+   /**
+    * Creates and assigns the panel for the buttons, setting the relevant actions
+    * for each button
+    * 
+    * @return The initialised button panel, with all buttons assigned actions.
+    */
    private JPanel initButtonPanel() {
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout(SwingUtilities.HORIZONTAL));
@@ -130,10 +154,20 @@ public class TaskFrame extends JPanel {
       return buttonPanel;
    }
 
+   /**
+    * Private inner class used to model the {@link JTable} which will display
+    * the {@link TaskElement TaskElements} and comments.
+    */
    private class TaskElementTableModel extends AbstractTableModel {
 
       private List<TaskElement> taskElements;
 
+      /**
+       * Gets the list of {@link TaskElement TaskElements} from the task 
+       * selected, and stores it in the variable {@link #taskElements}.
+       * 
+       * @param task The task that we need to get the taskElements from.
+       */
       public TaskElementTableModel(Task task) {
          taskElements = task.getTaskElementList();
       }
