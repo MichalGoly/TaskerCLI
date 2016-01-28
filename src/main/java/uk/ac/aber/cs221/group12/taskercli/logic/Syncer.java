@@ -1,5 +1,4 @@
-/**
- * Authenticator provide/*
+/*
  * @(#) Syncer.java 1.0 26/01/16
  *
  * Copyright (c) 2016 Aberystwyth University.
@@ -55,7 +54,7 @@ public class Syncer {
    /**
     * Logs into the system by asking the user for email and password. This method
     * will pop up a JDialogBox to achieve it and will keep popping it up as long as
-    * the user manages to log in.
+    * the user does not manage to log in.
     *
     * @return The TeamMember object of the logged in team member
     */
@@ -87,12 +86,12 @@ public class Syncer {
             /*
              1. Try to select a team member from the remote Database
              2. If succeed:
-             - Retrieve local copy
-             - Check if they are equal
-             + log in 
-             - sync and log in using merged Bob :)
+               - Retrieve local copy
+               - Check if they are equal
+                  + log in 
+                  - sync and log in using merged Bob :)
              3. If unsuccessful:
-             - Log in using the local Bob
+               - Log in using the local Bob
              */
             TeamMember remote;
             TeamMember local;

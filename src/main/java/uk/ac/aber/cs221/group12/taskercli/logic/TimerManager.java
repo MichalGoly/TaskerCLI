@@ -28,7 +28,7 @@ import uk.ac.aber.cs221.group12.taskercli.frontend.MainFrame;
  */
 public class TimerManager {
 
-    public static final int MINUTES_TO_WAIT = 1;
+   public static final int MINUTES_TO_WAIT = 1;
    /**
     * {@value #MINUTES_TO_WAIT} min delay expressed in milliseconds.
     */
