@@ -1,45 +1,45 @@
 #!/bin/bash
 
 
-confirm=N
+export confirm="N"
 
-while [$confirm != "Y"]
+while [ "$confirm" != "Y" ]
 do
 echo "Please input installation directory"
 read outdir
 echo "installing to $outdir, correct? [Y to continue]"
-read -n confirm
+read confirm
 done
+
 mkdir -p "$outdir/src/main/resources/META-INF"
-metadir= "$outdir/src/main/resources/META-INF"
 
+export confirm="N"
 
-while [$confirm != "Y"]
+while [ "$confirm" != "Y" ]
 do
 echo "Input a directory for the local database"
 read dbdir
-echo "local database will be located in $dbdir"
-read -n confirm
+echo "local database will be located in $dbdir, correct? [Y to continue]"
+read confirm
 done
-printf -v "jdbc.filename=jdbc:sqlite:%s/SQLite.db" "$dbdir"
-echo $VAR > "$metadir/sqlite.properties"
 
+printf "jdbc.filename=jdbc:sqlite:$dbdir/SQLite.db" > "$outdir/src/main/resources/META-INF/sqlite.properties"
 
-while [$confirm != "Y"]
+export confirm="N"
+
+while [ "$confirm" != "Y" ]
 do
 echo "Input credentials for remote database"
-echo -n "Host [example.host.com:port/database]:"
+echo "Host [example.host.com:port/database]:"
 read remotehost
-echo -n "Username:"
+echo "Username:"
 read remoteuser
 echo "Password:"
-read -s password
+read password
 echo "connect to $remotehost as user $remoteuser, correct? [Y to continue] "
-read -n confirm
+read confirm
 done
-printf -v "jdbc.url=jdbc::mysql://%s\njdbc.username=%s\njdbc.password=%s" "$remotehost" "$remoteuser" "$password"
-
-echo $VAR > "$metadir/mysql.properties"
+printf "jdbc.url=jdbc::mysql://$remotehost\njdbc.username=$remoteuser\njdbc.password=$password" > $outdir/src/main/resources/META-INF/mysql.properties
 
 cp TaskerCLI.jar $outdir/TaskerCLI.jar
 
