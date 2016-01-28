@@ -20,7 +20,6 @@ import java.util.Objects;
  * @author Michal Goly
  * @version 1.0
  * @see Task
- * @see TaskDB
  * @see uk.ac.aber.cs221.group12.taskercli.data.TaskElementDB
  */
 public class TaskElement {
