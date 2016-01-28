@@ -48,7 +48,8 @@ public class TaskerCLI {
       final TeamMember teamMember = Syncer.logIn();
 
       EventQueue.invokeLater(new Runnable() {
-
+         
+         @Override
          public void run() {
             JFrame frame = new MainFrame(teamMember);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

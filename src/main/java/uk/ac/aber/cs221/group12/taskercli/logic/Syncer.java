@@ -307,6 +307,7 @@ public class Syncer {
       Executor executor = Executors.newSingleThreadExecutor();
       executor.execute(new Runnable() {
          
+         @Override
          public void run() {
             ProgressBar.showGui("Syncing");
             
