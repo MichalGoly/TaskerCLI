@@ -180,11 +180,9 @@ public class TaskDB {
    public static void insertTasks(List<Task> taskList, int database, String email)
    throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
-      System.out.println("BEFO");
       try (Connection conn = ConnectionManager.getConnection(props)) {
          try (PreparedStatement statement = conn.prepareStatement(INSERT_TASK)) {
             for (Task t : taskList) {
-               System.out.println("IN");
 
                statement.setLong(1, t.getTaskId());
                statement.setString(2, t.getTitle());

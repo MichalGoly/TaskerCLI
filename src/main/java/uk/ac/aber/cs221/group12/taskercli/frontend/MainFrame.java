@@ -44,36 +44,39 @@ public class MainFrame extends JFrame {
 
    private JTable table;
    private TaskFrame taskFrame;
-   private TeamMember teamMember;
+   private volatile TeamMember teamMember;
    private TaskTableModel taskTableModel;
    private SidebarPanel sidebarPanel;
-   
+
    private static MainFrame mainFrame;
-   
+
    public MainFrame(TeamMember teamMember) {
+      mainFrame = this;
       this.teamMember = teamMember;
       initComponents();
       initFrame();
       taskFrame = new TaskFrame();
-      TimerManager timerManager = new TimerManager(teamMember, taskTableModel,
-              sidebarPanel);
-      mainFrame = this;
+      TimerManager timerManager = new TimerManager();
    }
-   
+
    public static MainFrame getMainFrame() {
       return mainFrame;
    }
-   
+
+   public TeamMember getTeamMember() {
+      return teamMember;
+   }
+
    public void updateMainFrame(TeamMember teamMember) {
       this.teamMember = teamMember;
-      
+
       // update the front end
       taskTableModel.setTasksList(teamMember.getTaskList());
       taskTableModel.fireTableDataChanged();
 
       sidebarPanel.updateTaskCount();
    }
-      
+
    /**
     * Initialises both the SidebarPanel and the JTable and positions them within the
     * MainFrame using the GridBagLayout.
@@ -101,11 +104,7 @@ public class MainFrame extends JFrame {
             // The following code is invoked after user closes the TaskFrame
             task = taskFrame.getTask();
 
-            // Update the JTable in the MainFrame by accessing its TaskTableModel
-            taskTableModel.tasks.set(rowIndex, task);
-            taskTableModel.fireTableDataChanged();
-
-            sidebarPanel.updateTaskCount();
+            teamMember.getTaskList().set(rowIndex, task);
             Syncer.doUpdate(teamMember);
          }
       });
@@ -114,7 +113,7 @@ public class MainFrame extends JFrame {
       add(scrollPane, new GBC(4, 0, 8, 8).setFill(GBC.BOTH).setWeight(100, 100));
 
       // setup the sidebar within the MainFrame
-      sidebarPanel = new SidebarPanel(table, teamMember);
+      sidebarPanel = new SidebarPanel(table);
       add(sidebarPanel, new GBC(0, 0, 4, 1).setWeight(0, 0)
               .setFill(GBC.BOTH));
    }

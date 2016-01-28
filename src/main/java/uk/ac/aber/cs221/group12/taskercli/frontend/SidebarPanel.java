@@ -33,7 +33,6 @@ import java.util.List;
 public class SidebarPanel extends JPanel {
 
    private JTable mainFrameTable;
-   private TeamMember teamMember;
 
    private JTextField searchField;
    private JLabel taskNumberLabel;
@@ -45,8 +44,7 @@ public class SidebarPanel extends JPanel {
 
    private OnlineIndicatorPanel onlinePanel;
 
-    public SidebarPanel(JTable mainFrameTable, TeamMember teamMember) {
-        this.teamMember = teamMember;
+    public SidebarPanel(JTable mainFrameTable) {
         sorter = new TableRowSorter<TableModel>(mainFrameTable.getModel());
         mainFrameTable.setRowSorter(sorter);
         initComponents();
@@ -54,14 +52,15 @@ public class SidebarPanel extends JPanel {
     }
 
    public void updateTaskCount() {
+      TeamMember teamMember = MainFrame.getMainFrame().getTeamMember();
       int numberAllocatedTasks = teamMember.getTaskList().size();
-
+      
       for (Task task : teamMember.getTaskList()) {
          if (task.getStatus() != TaskStatus.ALLOCATED) {
             numberAllocatedTasks -= 1;
          }
       }
-
+      
       taskNumberLabel.setText("Number of Tasks: " + numberAllocatedTasks);
    }
 
@@ -126,7 +125,7 @@ public class SidebarPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
          //sync on log out
-         Syncer.doUpdate(teamMember);
+         Syncer.doUpdate(MainFrame.getMainFrame().getTeamMember());
          System.exit(0);
       }
    }

@@ -196,10 +196,8 @@ public class Syncer {
             merged = remote;
          } else {
             merged = merge(remote, local);
-
             // update merged Bob in both databases
             try {
-               System.out.println("MERGED: " + merged);
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.SQLITE);
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.MYSQL);
             } catch (SQLException | IOException e) {
@@ -231,6 +229,7 @@ public class Syncer {
       merged.setPassword(remote.getPassword());
 
       merged.setTaskList(remote.getTaskList());
+
       for (Task t : merged.getTaskList()) {
          try {
             Task localTask = TaskDB.selectTaskById(t.getTaskId(),
@@ -281,35 +280,38 @@ public class Syncer {
    public static void doUpdate(TeamMember editedTeamMember) {
       
       Executor executor = Executors.newSingleThreadExecutor();
-      executor.execute(() -> {
-         ProgressBar.showGui("Syncing");
-
-         try {
-            TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
-         } catch (SQLException | IOException e) {
-            e.printStackTrace();
-         }
-
-         try {
-            TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
-                    editedTeamMember.getEmail(), ConnectionManager.MYSQL);
-            if (remote != null) {
-               TeamMember t = sync(remote, editedTeamMember);
-               MainFrame.getMainFrame().updateMainFrame(t);
-               OnlineIndicatorPanel.setOnline();
-            } else {
-               // unable to connect to the database
-               //TODO Inform the user
-               OnlineIndicatorPanel.setOffline();
+      executor.execute(new Runnable() {
+         
+         public void run() {
+            ProgressBar.showGui("Syncing");
+            
+            try {
+               TeamMemberDB.updateTeamMember(editedTeamMember, ConnectionManager.SQLITE);
+            } catch (SQLException | IOException e) {
+               e.printStackTrace();
             }
-         } catch (SQLException | IOException e) {
-            // TeamMember with this email address does not exit or there was a problem
-            // with getting the connection
-            OnlineIndicatorPanel.setOffline();
-            e.printStackTrace();
+            
+            try {
+               TeamMember remote = TeamMemberDB.selectTeamMemberByEmail(
+                       editedTeamMember.getEmail(), ConnectionManager.MYSQL);
+               if (remote != null) {
+                  TeamMember t = sync(remote, editedTeamMember);
+                  MainFrame.getMainFrame().updateMainFrame(t);
+                  OnlineIndicatorPanel.setOnline();
+               } else {
+                  // unable to connect to the database
+                  //TODO Inform the user
+                  OnlineIndicatorPanel.setOffline();
+               }
+            } catch (SQLException | IOException e) {
+               // TeamMember with this email address does not exit or there was a problem
+               // with getting the connection
+               OnlineIndicatorPanel.setOffline();
+               e.printStackTrace();
+            }
+            
+            ProgressBar.hideGui();
          }
-
-         ProgressBar.hideGui();
       });
 
    }
