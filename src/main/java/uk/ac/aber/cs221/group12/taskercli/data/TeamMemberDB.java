@@ -44,9 +44,8 @@ public class TeamMemberDB {
            = "SELECT * FROM TeamMember "
            + "WHERE email = ?";
 
-   private static final String UPDATE_MEMBER
-           = "UPDATE TeamMember "
-           + "SET firstName = ?, lastName = ?, password = ? "
+   private static final String DELETE_MEMBER
+           = "DELETE FROM TeamMember "
            + "WHERE email = ?";
 
    private static final String INSERT_MEMBER
@@ -67,7 +66,7 @@ public class TeamMemberDB {
     * {@link ConnectionManager#getConnection getConnection()} is not found.
     */
    public static TeamMember selectTeamMemberByEmail(String email, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       TeamMember teamMember = null;
       Properties props
               = ConnectionManager.getDatabaseProperties(database);
@@ -92,9 +91,9 @@ public class TeamMemberDB {
 
    //if we are updating the database, with the teammember object, assume it is the merged version after syncing
    /**
-    * Updates the selected TeamMember's name and password in the database, using the
-    * {@link #UPDATE_MEMBER UPDATE_MEMBER} prepared statement.
-    *
+    * Updates the selected TeamMember by deleting and re-inserting the team 
+    * member via the {@link #deleteTeamMember(TeamMember, int) deleteTeamMember()} 
+    * and {@link #insertTeamMember(TeamMember, int) insertTeamMember()} methods.
     *
     * @param teamMember The TeamMember to be updated in the database.
     * @param database The numeric value of the database to update with the
@@ -104,7 +103,7 @@ public class TeamMemberDB {
     * {@link ConnectionManager#getConnection getConnection()} is not found.
     */
    public static void updateTeamMember(TeamMember teamMember, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
 
       deleteTeamMember(teamMember, database);
       insertTeamMember(teamMember, database);
@@ -122,7 +121,7 @@ public class TeamMemberDB {
     * {@link ConnectionManager#getConnection getConnection()} is not found.
     */
    public static void insertTeamMember(TeamMember teamMember, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
@@ -138,18 +137,28 @@ public class TeamMemberDB {
       }
    }
 
+   /**
+    * Deletes a {@link TeamMember} from the selected database using the 
+    * {@link #DELETE_MEMBER DELETE_MEMBER} prepared statement.
+    * 
+    * @param teamMember The Team Member to be deleted
+    * @param database The numeric value of the database that the TeamMember is
+    * deleted from, based on values set in {@link ConnectionManager}.
+    * @throws SQLException Thrown if there is an issue connecting to the database.
+    * @throws IOException throws if the properties file loaded by
+    * {@link ConnectionManager#getConnection getConnection()} is not found.
+    */
    private static void deleteTeamMember(TeamMember teamMember, int database)
-           throws SQLException, IOException {
+   throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);
-
-      String sql = "DELETE FROM TeamMember WHERE email = ?";
 
       try (Connection conn = ConnectionManager.getConnection(props)) {
          if (database == ConnectionManager.SQLITE) {
+             //Enable foreign keys if using local database
             conn.createStatement().execute("PRAGMA foreign_keys = ON");
          }
 
-         try (PreparedStatement statement = conn.prepareStatement(sql)) {
+         try (PreparedStatement statement = conn.prepareStatement(DELETE_MEMBER)) {
             statement.setString(1, teamMember.getEmail());
             statement.executeUpdate();
 
