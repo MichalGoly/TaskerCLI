@@ -14,6 +14,7 @@ package uk.ac.aber.cs221.group12.taskercli.business;
  *
  * @author Michal Goly
  * @version 1.0
+ * @see Task
  */
 public enum TaskStatus {
 
