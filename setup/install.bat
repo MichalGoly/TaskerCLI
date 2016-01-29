@@ -16,7 +16,7 @@ if "%confirm%" == "Y" (goto :build) else (goto :remdir)
 md "%installdir%"
 echo jdbc.filename=jdbc:sqlite:SQLite.db > "%installdir%\sqlite.properties"
 
-echo jdbc.url=jdbc::mysql://%remdir% > "%installdir%\mysql.properties"
+echo jdbc.url=jdbc:mysql://%remdir% > "%installdir%\mysql.properties"
 echo jdbc.username=%user% >> "%installdir%\mysql.properties"
 echo jdbc.password=%password% >> "%installdir%\mysql.properties"
 
