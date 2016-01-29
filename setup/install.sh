@@ -34,6 +34,7 @@ printf "jdbc.url=jdbc::mysql://$remotehost\njdbc.username=$remoteuser\njdbc.pass
 
 cp ./TaskerCLI.jar $outdir/TaskerCLI.jar
 cp ./SQLite.db $outdir/SQLite.db
+chmod +x $outdir/TaskerCLI.jarKK
 
 echo "you may re-run this script if you have made any errors"
 echo "TaskerCLI.jar Installed to $outdir, wait 10 seconds or press enter to exit"
