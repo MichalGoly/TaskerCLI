@@ -30,7 +30,7 @@ done
 
 mkdir -p "$outdir"
 printf "jdbc.filename=jdbc:sqlite:$outdir/SQLite.db" > "$outdir/sqlite.properties"
-printf "jdbc.url=jdbc::mysql://$remotehost\njdbc.username=$remoteuser\njdbc.password=$password" > "$outdir/mysql.properties"
+printf "jdbc.url=jdbc:mysql://$remotehost\njdbc.username=$remoteuser\njdbc.password=$password" > "$outdir/mysql.properties"
 
 cp ./TaskerCLI.jar $outdir/TaskerCLI.jar
 cp ./SQLite.db $outdir/SQLite.db
