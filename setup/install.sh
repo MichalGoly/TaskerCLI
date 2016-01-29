@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# requires SQLite.db, TaskerCLI.jar to be in the same directory as this script
 
 export confirm="N"
 
@@ -11,37 +12,29 @@ echo "installing to $outdir, correct? [Y to continue]"
 read confirm
 done
 
-mkdir -p "$outdir/src/main/resources/META-INF"
-
-export confirm="N"
-
-while [ "$confirm" != "Y" ]
-do
-echo "Input a directory for the local database"
-read dbdir
-echo "local database will be located in $dbdir, correct? [Y to continue]"
-read confirm
-done
-
-printf "jdbc.filename=jdbc:sqlite:$dbdir/SQLite.db" > "$outdir/src/main/resources/META-INF/sqlite.properties"
-
 export confirm="N"
 
 while [ "$confirm" != "Y" ]
 do
 echo "Input credentials for remote database"
-echo "Host [example.host.com:port/database]:"
+echo "Host [example.com:port/database]:"
 read remotehost
 echo "Username:"
 read remoteuser
 echo "Password:"
-read password
+read -s password
 echo "connect to $remotehost as user $remoteuser, correct? [Y to continue] "
 read confirm
 done
-printf "jdbc.url=jdbc::mysql://$remotehost\njdbc.username=$remoteuser\njdbc.password=$password" > $outdir/src/main/resources/META-INF/mysql.properties
 
-cp TaskerCLI.jar $outdir/TaskerCLI.jar
 
+mkdir -p "$outdir"
+printf "jdbc.filename=jdbc:sqlite:$outdir/SQLite.db" > "$outdir/sqlite.properties"
+printf "jdbc.url=jdbc::mysql://$remotehost\njdbc.username=$remoteuser\njdbc.password=$password" > "$outdir/mysql.properties"
+
+cp ./TaskerCLI.jar $outdir/TaskerCLI.jar
+cp ./SQLite.db $outdir/SQLite.db
+
+echo "you may re-run this script if you have made any errors"
 echo "TaskerCLI.jar Installed to $outdir, wait 10 seconds or press enter to exit"
 read -t 10

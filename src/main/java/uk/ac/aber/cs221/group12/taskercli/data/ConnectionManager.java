@@ -52,7 +52,7 @@ public class ConnectionManager {
 
    /**
     * Gets the properties from the database we are connecting to, from the
-    * properties files we have stored in {@code src/main/resorces/META-INF}
+    * properties files we have stored in the working directory
     * These properties include the location of the database, it's login username
     * and password
     * 
@@ -69,9 +69,9 @@ public class ConnectionManager {
 
       String propertiesURI;
       if (database == MYSQL) {
-         propertiesURI = "src/main/resources/META-INF/mysql.properties";
+         propertiesURI = "./mysql.properties";
       } else {
-         propertiesURI = "src/main/resources/META-INF/sqlite.properties";
+         propertiesURI = "./sqlite.properties";
       }
 
       Properties prop = new Properties();
