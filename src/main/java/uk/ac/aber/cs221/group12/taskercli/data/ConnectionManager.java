@@ -7,6 +7,7 @@
  */
 package uk.ac.aber.cs221.group12.taskercli.data;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -26,12 +27,12 @@ import java.util.Properties;
  * Properties object of the required database, before asking for the Connection
  * object.
  *
- * @author Michal Goly 
- * @author Joshua Mir 
- * @author Tom Mills 
+ * @author Michal Goly
+ * @author Joshua Mir
+ * @author Tom Mills
  * @author Adam Neaves
  * @version 1.0 Initial Release
- * 
+ *
  * @see TaskDB
  * @see TaskElementDB
  * @see TeammemberDB
@@ -51,17 +52,16 @@ public class ConnectionManager {
    private static final int MYSQL_PROPERTIES_SIZE = 3;
 
    /**
-    * Gets the properties from the database we are connecting to, from the
-    * properties files we have stored in the working directory
-    * These properties include the location of the database, it's login username
-    * and password
-    * 
-    * @param database The value of the database that the .properties will be, 
+    * Gets the properties from the database we are connecting to, from the properties
+    * files we have stored in the working directory These properties include the
+    * location of the database, it's login username and password
+    *
+    * @param database The value of the database that the .properties will be,
     * selected from the static values above.
     * @return The location and login details of the database selected
     * @throws IOException Throws if the .properties file was not located
     */
-   public static Properties getDatabaseProperties(int database) 
+   public static Properties getDatabaseProperties(int database)
    throws IOException {
       if (database < 1 || database > 2) {
          return null;
@@ -73,6 +73,9 @@ public class ConnectionManager {
       } else {
          propertiesURI = "./sqlite.properties";
       }
+
+      File jarPath = new File(ConnectionManager.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+      String propertiesPath = jarPath.getParentFile().getAbsolutePath();
 
       Properties prop = new Properties();
       try (InputStream in = Files.newInputStream(Paths.get(propertiesURI))) {
@@ -89,16 +92,23 @@ public class ConnectionManager {
     * @return The Connection to the required database
     * @throws SQLException Thrown if there was a problem with connecting to a db
     */
-   public static Connection getConnection(Properties props) throws SQLException {
+   public static Connection getConnection(Properties props) 
+   throws SQLException {
       if (props.size() == MYSQL_PROPERTIES_SIZE) {
          String username = props.getProperty("jdbc.username");
          String password = props.getProperty("jdbc.password");
          String url = props.getProperty("jdbc.url");
-
          return DriverManager.getConnection(url, username, password);
       } else {
          String filename = props.getProperty("jdbc.filename");
+
+         try {
+            Class.forName("org.sqlite.JDBC");
+         } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+         }
          return DriverManager.getConnection(filename);
+
       }
    }
 
