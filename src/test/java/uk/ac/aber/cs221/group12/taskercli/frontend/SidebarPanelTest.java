@@ -28,9 +28,11 @@ public class SidebarPanelTest {
     private TeamMember teamMember;
     private JFrame testFrame;
     private JTable table = new JTable();
+    private MainFrame mainFrame;
 
     @Before
     public void createTeamMember() {
+      
         List<TaskElement> taskElements = new ArrayList<>();
         taskElements.add(new TaskElement(20L, "Go to train station", ""));
         taskElements.add(new TaskElement(21L, "Get inside the train", ""));
@@ -43,6 +45,7 @@ public class SidebarPanelTest {
         tasks.add(task);
         teamMember =
                 new TeamMember("Mark", "Smith", "mark@smith.com", "fish", tasks);
+        mainFrame = new MainFrame(teamMember);
     }
 
     @Test
