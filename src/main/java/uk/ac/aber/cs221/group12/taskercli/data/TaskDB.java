@@ -210,6 +210,17 @@ public class TaskDB {
       }
    }
    
+   /**
+    * deletes the selected task from the selected database.
+    * 
+    * @param id ID of the task to be deleted from the database.
+    * @param database the numeric value of the database to delete the task from,
+    * based on values set in {@link ConnectionManager}.
+    * @throws SQLException throws if an issue occurs when connecting to the 
+    * database
+    * @throws IOException throws if the properties file loaded by 
+    * {@link ConnectionManager#getConnection getConnection()} is not found
+    */
    public static void deleteTaskById(Long id, int database)
    throws SQLException, IOException {
       Properties props = ConnectionManager.getDatabaseProperties(database);

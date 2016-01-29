@@ -190,25 +190,32 @@ public class Syncer {
       TeamMember merged;
 
       if (remote == null && local == null) {
+          //Neither TeamMembers to be merged are set, so the merged TeamMember
+          //will also just be null
          merged = null;
       } else if (remote == null) {
+         //remote teamMember was not set, merged TeamMember is just a copy of 
+         //the local
          merged = local;
 
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.MYSQL);
          } catch (SQLException | IOException e) {
-            // no connection to the remote
-            // TODO notify the user!
-            OnlineIndicatorPanel.setOffline(); //like this?
-            e.printStackTrace();
+           // no connection to the remote
+           //Inform the user
+            OnlineIndicatorPanel.setOffline();
+            System.err.println("NO CONNECTION TO REMOTE DATABASE");
          }
       } else if (local == null) {
-         merged = remote;
-
+        //Local TeamMember not set, merged teamMember will just be a copy of
+        //the remote teamMember
+          merged = remote;
+        
          try {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.SQLITE);
          } catch (SQLException | IOException e) {
             // should never happen
+             System.err.println("NO CONNECTION TO LOCAL DATABASE");
             e.printStackTrace();
          }
       } else {
@@ -223,6 +230,7 @@ public class Syncer {
             } catch (SQLException | IOException e) {
                // TODO user fiendly notification of the error
                OnlineIndicatorPanel.setOffline(); // not exactly suitable notification...
+               System.err.println("ERROR UPDATING TEAM MEMBERS");
                e.printStackTrace();
             }
          }
@@ -242,12 +250,17 @@ public class Syncer {
     * @return The merged TeamMember object.
     */
    private static TeamMember merge(TeamMember remote, TeamMember local) {
+      //First sets the information for the merged member that should be the
+      //same between both
       TeamMember merged = new TeamMember();
       merged.setFirstName(remote.getFirstName());
       merged.setLastName(remote.getLastName());
       merged.setEmail(remote.getEmail());
       merged.setPassword(remote.getPassword());
-
+      
+      //Get the task list from the remote teamMember, and compare each task with
+      //matching tasks from the local database, changing state and comments for
+      //both databases as required in the precedence specifed.
       merged.setTaskList(remote.getTaskList());
 
       for (Task t : merged.getTaskList()) {
@@ -256,6 +269,10 @@ public class Syncer {
                     ConnectionManager.SQLITE);
 
             if (localTask != null) {
+               //if the task also exists in the local database we need to make
+               //sure the status is changed corretly, so if the user has updated
+               //the task to completed, this status is copied to the merged task
+               //list.
                TaskStatus localStatus = localTask.getStatus();
 
                if (localStatus == TaskStatus.COMPLETED
@@ -264,17 +281,20 @@ public class Syncer {
                }
             }
          } catch (SQLException | IOException ex) {
-            // task with the specified id does not exist, so we can rely on
-            // the default ALLOCATED
+            // task with the specified id does not exist, so we don't need to
+            // alter anything about the task, as we can just copy it from the
+            //remote DB directly.
          }
 
          for (TaskElement te : t.getTaskElementList()) {
             try {
-               TaskElement lte = TaskElementDB
+               TaskElement localTaskEle = TaskElementDB
                        .selectTaskElementById(te.getTaskElementId(),
                                ConnectionManager.SQLITE);
-               if (lte != null) {
-                  String comment = lte.getComments();
+               if (localTaskEle != null) {
+                  //add any comments to the task element that have been added
+                  //locally to the merged task.
+                  String comment = localTaskEle.getComments();
                   if (comment != null) {
                      te.setComments(comment);
                   }
