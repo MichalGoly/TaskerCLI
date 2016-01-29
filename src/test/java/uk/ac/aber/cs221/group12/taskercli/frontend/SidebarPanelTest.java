@@ -48,15 +48,15 @@ public class SidebarPanelTest {
         mainFrame = new MainFrame(teamMember);
     }
 
-    @Test
-    public void assertIsSidebarVisible() {
-        testFrame = new JFrame();
-        testFrame.setVisible(true);
-        SidebarPanel sidebar = new SidebarPanel(table);
-        testFrame.add(sidebar);
-        sidebar.setVisible(true);
-        Assert.assertEquals("Sidebar not visible", true, sidebar.isShowing());
-    }
+//    @Test
+//    public void assertIsSidebarVisible() {
+//        testFrame = new JFrame();
+//        testFrame.setVisible(true);
+//        SidebarPanel sidebar = new SidebarPanel(table);
+//        testFrame.add(sidebar);
+//        sidebar.setVisible(true);
+//        Assert.assertEquals("Sidebar not visible", true, sidebar.isShowing());
+//    }
 
 
 }

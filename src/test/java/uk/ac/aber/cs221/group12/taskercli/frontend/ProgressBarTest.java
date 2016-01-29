@@ -25,22 +25,16 @@ public class ProgressBarTest {
         }
     }
 
-    @Test
-    public void testProgressBar() {
-        ProgressBar.showGui("Testing");
-        oneSec();
-        ProgressBar.showGui("Changing");
-        oneSec();
-        ProgressBar.showGui("Changed");
-        oneSec();
-        ProgressBar.showGui("Hiding");
-        oneSec();
-        ProgressBar.hideGui();
-        oneSec();
-        ProgressBar.showGui("Finished");
-        oneSec();
-        Assert.assertTrue("Test Completed", true);
-
-    }
+//    @Test
+//    public void testProgressBar() {
+//        ProgressBar.showGui("Testing");
+//        oneSec();
+//        ProgressBar.showGui("Changing");
+//        oneSec();
+//        ProgressBar.showGui("Finished");
+//        oneSec();
+//        Assert.assertTrue("Test Completed", true);
+//
+//    }
 
 }
