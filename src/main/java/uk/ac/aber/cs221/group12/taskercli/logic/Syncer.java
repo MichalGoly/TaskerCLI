@@ -215,7 +215,7 @@ public class Syncer {
             TeamMemberDB.insertTeamMember(merged, ConnectionManager.SQLITE);
          } catch (SQLException | IOException e) {
             // should never happen
-             System.err.println("NO CONNECTION TO LOCAL DATABASE");
+            System.err.println("NO CONNECTION TO LOCAL DATABASE");
             e.printStackTrace();
          }
       } else {
@@ -228,8 +228,6 @@ public class Syncer {
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.SQLITE);
                TeamMemberDB.updateTeamMember(merged, ConnectionManager.MYSQL);
             } catch (SQLException | IOException e) {
-               // TODO user fiendly notification of the error
-               OnlineIndicatorPanel.setOffline(); // not exactly suitable notification...
                System.err.println("ERROR UPDATING TEAM MEMBERS");
                e.printStackTrace();
             }
@@ -352,7 +350,8 @@ public class Syncer {
                // TeamMember with this email address does not exit or there was a problem
                // with getting the connection
                OnlineIndicatorPanel.setOffline();
-               e.printStackTrace();
+               System.err.println("No access to the remote database!");
+               //e.printStackTrace();
             }
             
             ProgressBar.hideGui();
