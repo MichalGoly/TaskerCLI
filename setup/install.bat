@@ -14,7 +14,7 @@ set /p confirm= Connect to %remdir% as %user%? [Y to continue]
 if "%confirm%" == "Y" (goto :build) else (goto :remdir)
 :build
 md "%installdir%"
-echo jdbc.filename=jdbc:sqlite:%installdir%/SQLite.db > "%installdir%\sqlite.properties"
+echo jdbc.filename=jdbc:sqlite:SQLite.db > "%installdir%\sqlite.properties"
 
 echo jdbc.url=jdbc::mysql://%remdir% > "%installdir%\mysql.properties"
 echo jdbc.username=%user% >> "%installdir%\mysql.properties"
