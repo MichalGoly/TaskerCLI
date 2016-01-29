@@ -46,28 +46,28 @@ public class TaskElementDBTest {
         
     }
     
-    @Test
-    public void assertCanSelectElementsByTaskID(){
-        try{
-        selectedElements = taskElementDB.selectTaskElementsByTaskId(new Long(1),1);
-        }catch(Exception e){
-            System.err.println("Error selecting task");
-        }
-        Assert.assertEquals(elements,selectedElements);
-    }
-    
-    @Test public void assertCanSelectElementByID(){
-        try{
-        selectedElement = taskElementDB.selectTaskElementById(new Long(1),1);
-        }catch(Exception e){
-            System.err.println("Error selecting Element");
-        }
-        Assert.assertEquals(element,selectedElement);
-    }
-    
-    @Test public void assertCanInsert(){
-        
-    }
+//    @Test
+//    public void assertCanSelectElementsByTaskID(){
+//        try{
+//        selectedElements = taskElementDB.selectTaskElementsByTaskId(new Long(1),1);
+//        }catch(Exception e){
+//            System.err.println("Error selecting task");
+//        }
+//        Assert.assertEquals(elements,selectedElements);
+//    }
+//    
+//    @Test public void assertCanSelectElementByID(){
+//        try{
+//        selectedElement = taskElementDB.selectTaskElementById(new Long(1),1);
+//        }catch(Exception e){
+//            System.err.println("Error selecting Element");
+//        }
+//        Assert.assertEquals(element,selectedElement);
+//    }
+//    
+//    @Test public void assertCanInsert(){
+//        
+//    }
     
 
 }
