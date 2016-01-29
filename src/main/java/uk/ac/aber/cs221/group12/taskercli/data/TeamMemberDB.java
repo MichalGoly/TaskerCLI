@@ -109,7 +109,11 @@ public class TeamMemberDB {
     */
    public static void updateTeamMember(TeamMember teamMember, int database)
    throws SQLException, IOException {
-
+      
+      for (Task t : teamMember.getTaskList()) {
+         TaskDB.deleteTaskById(t.getTaskId(), database);
+      }
+      
       deleteTeamMember(teamMember, database);
       insertTeamMember(teamMember, database);
    }

@@ -55,6 +55,9 @@ public class TaskDB {
            = "INSERT INTO Task (taskId, title, startDate, endDate, taskStatus, TeamMember_email) "
            + "VALUES (?, ?, ?, ?, ?, ?)";
 
+   private static final String DELETE_TASK
+           = "DELETE FROM Task WHERE taskId = ?";
+   
    /**
     * Selects tasks from the databases by the ID of that {@link Task}, using the 
     * {@link #SELECT_TASK_BY_ID SELECT_TASK_BY_ID} prepared statement.
@@ -205,6 +208,24 @@ public class TaskDB {
             }
          }
       }
+   }
+   
+   public static void deleteTaskById(Long id, int database)
+   throws SQLException, IOException {
+      Properties props = ConnectionManager.getDatabaseProperties(database);
+
+      try (Connection conn = ConnectionManager.getConnection(props)) {
+         if (database == ConnectionManager.SQLITE) {
+             //Enable foreign keys if using local database
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+         }
+
+         try (PreparedStatement statement = conn.prepareStatement(DELETE_TASK)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+         }
+      }
+
    }
 
 }
