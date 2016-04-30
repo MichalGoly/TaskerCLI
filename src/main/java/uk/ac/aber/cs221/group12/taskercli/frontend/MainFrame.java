@@ -111,6 +111,7 @@ public class MainFrame extends JFrame {
       table = new JTable(taskTableModel);
       table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       table.setAutoCreateRowSorter(true);
+      table.getTableHeader().setReorderingAllowed(false);
       table.addMouseListener(new MouseAdapter() {
 
          @Override
